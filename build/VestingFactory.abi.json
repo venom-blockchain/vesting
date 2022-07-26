@@ -1,0 +1,97 @@
+{
+	"ABI version": 2,
+	"version": "2.2",
+	"header": ["pubkey", "time", "expire"],
+	"functions": [
+		{
+			"name": "constructor",
+			"inputs": [
+			],
+			"outputs": [
+			]
+		},
+		{
+			"name": "deployNativeVesting",
+			"inputs": [
+				{"name":"user","type":"address"},
+				{"name":"vesting_amount","type":"uint128"},
+				{"name":"vesting_start","type":"uint32"},
+				{"name":"vesting_end","type":"uint32"}
+			],
+			"outputs": [
+			]
+		},
+		{
+			"name": "deployVesting",
+			"inputs": [
+				{"name":"user","type":"address"},
+				{"name":"token","type":"address"},
+				{"name":"vesting_amount","type":"uint128"},
+				{"name":"vesting_start","type":"uint32"},
+				{"name":"vesting_end","type":"uint32"}
+			],
+			"outputs": [
+			]
+		},
+		{
+			"name": "onVestingDeployed",
+			"inputs": [
+				{"name":"nonce","type":"uint128"},
+				{"name":"user","type":"address"},
+				{"name":"creator","type":"address"},
+				{"name":"token","type":"address"},
+				{"name":"vesting_amount","type":"uint128"},
+				{"name":"vesting_start","type":"uint32"},
+				{"name":"vesting_end","type":"uint32"}
+			],
+			"outputs": [
+			]
+		},
+		{
+			"name": "deploy_nonce",
+			"inputs": [
+			],
+			"outputs": [
+				{"name":"deploy_nonce","type":"uint128"}
+			]
+		},
+		{
+			"name": "vestings_deployed",
+			"inputs": [
+			],
+			"outputs": [
+				{"name":"vestings_deployed","type":"uint128"}
+			]
+		}
+	],
+	"data": [
+		{"key":1,"name":"deploy_nonce","type":"uint128"},
+		{"key":2,"name":"vestingCode","type":"cell"},
+		{"key":3,"name":"nativeVestingCode","type":"cell"}
+	],
+	"events": [
+		{
+			"name": "NewVesting",
+			"inputs": [
+				{"name":"vesting","type":"address"},
+				{"name":"user","type":"address"},
+				{"name":"creator","type":"address"},
+				{"name":"token","type":"address"},
+				{"name":"amount","type":"uint128"},
+				{"name":"start","type":"uint32"},
+				{"name":"end","type":"uint32"}
+			],
+			"outputs": [
+			]
+		}
+	],
+	"fields": [
+		{"name":"_pubkey","type":"uint256"},
+		{"name":"_timestamp","type":"uint64"},
+		{"name":"_constructorFlag","type":"bool"},
+		{"name":"deploy_nonce","type":"uint128"},
+		{"name":"vestingCode","type":"cell"},
+		{"name":"nativeVestingCode","type":"cell"},
+		{"name":"vestings_deployed","type":"uint128"}
+	]
+}

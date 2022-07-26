@@ -1,0 +1,107 @@
+{
+	"ABI version": 2,
+	"version": "2.2",
+	"header": ["time", "expire"],
+	"functions": [
+		{
+			"name": "constructor",
+			"inputs": [
+				{"name":"_user","type":"address"},
+				{"name":"_creator","type":"address"},
+				{"name":"_vestingAmount","type":"uint128"},
+				{"name":"_vestingStart","type":"uint32"},
+				{"name":"_vestingEnd","type":"uint32"}
+			],
+			"outputs": [
+			]
+		},
+		{
+			"name": "getDetails",
+			"inputs": [
+			],
+			"outputs": [
+				{"name":"_user","type":"address"},
+				{"name":"_creator","type":"address"},
+				{"name":"_vestingAmount","type":"uint128"},
+				{"name":"_vestingStart","type":"uint32"},
+				{"name":"_vestingEnd","type":"uint32"},
+				{"name":"_lastClaimTime","type":"uint32"},
+				{"name":"_balance","type":"uint128"},
+				{"name":"_filled","type":"bool"},
+				{"name":"_vested","type":"bool"},
+				{"name":"_nonce","type":"uint128"},
+				{"name":"_factory","type":"address"}
+			]
+		},
+		{
+			"name": "deposit",
+			"inputs": [
+				{"name":"send_gas_to","type":"address"}
+			],
+			"outputs": [
+			]
+		},
+		{
+			"name": "pendingVested",
+			"inputs": [
+			],
+			"outputs": [
+				{"name":"value_to_claim","type":"uint128"}
+			]
+		},
+		{
+			"name": "claim",
+			"inputs": [
+			],
+			"outputs": [
+			]
+		}
+	],
+	"data": [
+		{"key":1,"name":"nonce","type":"uint128"},
+		{"key":2,"name":"factory","type":"address"}
+	],
+	"events": [
+		{
+			"name": "Deposit",
+			"inputs": [
+				{"name":"sender","type":"address"},
+				{"name":"amount","type":"uint128"}
+			],
+			"outputs": [
+			]
+		},
+		{
+			"name": "Claim",
+			"inputs": [
+				{"name":"amount","type":"uint128"},
+				{"name":"remaining_amount","type":"uint128"}
+			],
+			"outputs": [
+			]
+		},
+		{
+			"name": "Vested",
+			"inputs": [
+			],
+			"outputs": [
+			]
+		}
+	],
+	"fields": [
+		{"name":"_pubkey","type":"uint256"},
+		{"name":"_timestamp","type":"uint64"},
+		{"name":"_constructorFlag","type":"bool"},
+		{"name":"nonce","type":"uint128"},
+		{"name":"factory","type":"address"},
+		{"name":"user","type":"address"},
+		{"name":"creator","type":"address"},
+		{"name":"vestingAmount","type":"uint128"},
+		{"name":"vestingStart","type":"uint32"},
+		{"name":"vestingEnd","type":"uint32"},
+		{"name":"lastClaimTime","type":"uint32"},
+		{"name":"balance","type":"uint128"},
+		{"name":"filled","type":"bool"},
+		{"name":"vested","type":"bool"}
+	]
+}

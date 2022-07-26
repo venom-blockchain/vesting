@@ -1,0 +1,742 @@
+.version sol 0.57.1
+
+.macro constructor
+DROP
+GETGLOB 2
+ISNULL
+IFREF {
+	CALL $c4_to_c7_with_init_storage$
+}
+GETGLOB 6
+THROWIF 51
+OVER
+PUSHCONT {
+	LDREF
+	ENDS
+	CTOS
+}
+IF
+LDMSGADDR
+LDREF
+ENDS
+CTOS
+LDMSGADDR
+LDU 128
+LDU 32
+LDU 32
+ENDS
+.loc ../contracts/NativeVesting.sol, 48
+GETGLOB 9
+GETGLOB 11
+SDEQ
+THROWIFNOT 1002
+.loc ../contracts/NativeVesting.sol, 50
+ROLL 4
+SETGLOB 12
+.loc ../contracts/NativeVesting.sol, 51
+ROLL 3
+SETGLOB 13
+.loc ../contracts/NativeVesting.sol, 52
+ROT
+SETGLOB 14
+.loc ../contracts/NativeVesting.sol, 53
+SWAP
+SETGLOB 15
+.loc ../contracts/NativeVesting.sol, 54
+SETGLOB 16
+.loc ../contracts/NativeVesting.sol, 55
+GETGLOB 15
+SETGLOB 17
+.loc ../contracts/NativeVesting.sol, 57
+GETGLOB 16
+GETGLOB 15
+GETGLOB 14
+PUSHSLICE x2_
+GETGLOB 13
+GETGLOB 12
+GETGLOB 10
+GETGLOB 11
+NEWC
+STSLICECONST x62_
+STSLICE
+PUSHSLICE x405f5e100000000000000000000000000003_
+STSLICER
+ROLLREV 7
+NEWC
+STSLICECONST x4a8078fa
+STU 128
+STSLICE
+ROLLREV 5
+NEWC
+STSLICE
+ROLLREV 4
+NEWC
+STSLICE
+STU 128
+STU 32
+STU 32
+STBREFR
+STBREFR
+STBREFR
+ENDC
+PUSHINT 0
+SENDRAWMSG
+.loc ../contracts/NativeVesting.sol, 0
+CALLREF {
+	CALL $c7_to_c4$
+}
+THROW 0
+
+.macro getDetails
+DROP
+GETGLOB 6
+THROWIFNOT 76
+GETGLOB 2
+ISNULL
+IFREF {
+	CALL $c4_to_c7$
+}
+.loc ../contracts/NativeVesting.sol, 62
+ENDS
+.loc ../contracts/NativeVesting.sol, 0
+CALLREF {
+	CALL $getDetails_internal_macro$
+}
+PUSH S11
+PUSHCONT {
+	PUSH S13
+	CTOS
+	LDU 2
+	LDMSGADDR
+	DROP
+	NIP
+	NEWC
+	STSLICECONST xc
+	STSLICE
+	PUSHINT 1
+	STUR 98
+	REVERSE 12, 0
+	NEWC
+	STSLICECONST xda85b3e0
+	STSLICE
+	ROLLREV 10
+	NEWC
+	STSLICE
+	STU 128
+	STU 32
+	STU 32
+	STU 32
+	STU 128
+	STI 1
+	STI 1
+	ROTREV
+	NEWC
+	STU 128
+	STSLICE
+	STBREFR
+	STBREFR
+	STBREFR
+	ENDC
+	PUSHINT 0
+	SENDRAWMSG
+}
+PUSHCONT {
+	BLKDROP 11
+}
+IFELSE
+IFREF {
+	CALL $upd_only_time_in_c4$
+}
+THROW 0
+
+.macro getDetails_internal_macro
+.loc ../contracts/NativeVesting.sol, 75
+GETGLOB 12
+GETGLOB 13
+GETGLOB 14
+GETGLOB 15
+GETGLOB 16
+GETGLOB 17
+GETGLOB 18
+GETGLOB 19
+GETGLOB 20
+GETGLOB 10
+PUSHREFSLICE {
+	.blob x8000000000000000000000000000000000000000000000000000000000000000001_
+}
+.loc ../contracts/NativeVesting.sol, 0
+
+.macro deposit
+DROP
+GETGLOB 6
+THROWIFNOT 76
+GETGLOB 2
+ISNULL
+IFREF {
+	CALL $c4_to_c7$
+}
+.loc ../contracts/NativeVesting.sol, 81
+OVER
+PUSHCONT {
+	LDREF
+	ENDS
+	CTOS
+}
+IF
+LDMSGADDR
+ENDS
+.loc ../contracts/NativeVesting.sol, 0
+CALLREF {
+	CALL $deposit_internal_macro$
+}
+DROP
+CALLREF {
+	CALL $c7_to_c4$
+}
+THROW 0
+
+.macro deposit_internal_macro
+.loc ../contracts/NativeVesting.sol, 82
+DEPTH
+ADDCONST -2
+PICK
+GETGLOB 14
+PUSHINT 1000000000
+ADD
+UFITS 128
+GEQ
+THROWIFNOT 1007
+.loc ../contracts/NativeVesting.sol, 83
+GETGLOB 19
+FALSE
+EQUAL
+THROWIFNOT 1003
+.loc ../contracts/NativeVesting.sol, 85
+GETGLOB 14
+SETGLOB 18
+.loc ../contracts/NativeVesting.sol, 86
+TRUE
+SETGLOB 19
+.loc ../contracts/NativeVesting.sol, 88
+GETGLOB 14
+GETGLOB 9
+PUSHSLICE xc000000000000000000000000057f202d9
+NEWC
+STSLICE
+STSLICE
+STU 128
+ENDC
+PUSHINT 0
+SENDRAWMSG
+.loc ../contracts/NativeVesting.sol, 89
+GETGLOB 14
+PUSHINT 1000000000
+ADD
+UFITS 128
+PUSHINT 0
+RAWRESERVE
+.loc ../contracts/NativeVesting.sol, 91
+NEWC
+STSLICECONST x42_
+STSLICE
+PUSHINT 111
+STZEROES
+ENDC
+PUSHINT 128
+SENDRAWMSG
+.loc ../contracts/NativeVesting.sol, 0
+
+.macro pendingVested
+DROP
+GETGLOB 6
+THROWIFNOT 76
+GETGLOB 2
+ISNULL
+IFREF {
+	CALL $c4_to_c7$
+}
+.loc ../contracts/NativeVesting.sol, 94
+ENDS
+.loc ../contracts/NativeVesting.sol, 0
+CALLREF {
+	CALL $pendingVested_internal_macro$
+}
+OVER
+PUSHCONT {
+	PUSH S3
+	CTOS
+	LDU 2
+	LDMSGADDR
+	DROP
+	NIP
+	NEWC
+	STSLICECONST xc
+	STSLICE
+	PUSHSLICE x0000000000000000000000003fe76e112_
+	STSLICER
+	STU 128
+	ENDC
+	PUSHINT 0
+	SENDRAWMSG
+}
+PUSHCONT {
+	DROP
+}
+IFELSE
+IFREF {
+	CALL $upd_only_time_in_c4$
+}
+THROW 0
+
+.macro pendingVested_internal_macro
+.loc ../contracts/NativeVesting.sol, 94
+PUSHINT 0
+.loc ../contracts/NativeVesting.sol, 95
+NOW
+GETGLOB 16
+GEQ
+PUSHCONT {
+	.loc ../contracts/NativeVesting.sol, 96
+	DROP
+	GETGLOB 18
+}
+PUSHCONT {
+	NOW
+	GETGLOB 17
+	GEQ
+	PUSHCONT {
+		.loc ../contracts/NativeVesting.sol, 98
+		GETGLOB 16
+		GETGLOB 17
+		SUB
+		UFITS 32
+		.loc ../contracts/NativeVesting.sol, 99
+		NOW
+		GETGLOB 17
+		SUB
+		UFITS 32
+		.loc ../contracts/NativeVesting.sol, 100
+		GETGLOB 18
+		MUL
+		UFITS 128
+		SWAP
+		DIV
+		NIP
+	}
+	PUSHCONT {
+		.loc ../contracts/NativeVesting.sol, 102
+		DROP
+		PUSHINT 0
+	}
+	IFELSE
+}
+IFELSE
+.loc ../contracts/NativeVesting.sol, 0
+
+.macro claim
+DROP
+GETGLOB 6
+THROWIFNOT 76
+GETGLOB 2
+ISNULL
+IFREF {
+	CALL $c4_to_c7$
+}
+.loc ../contracts/NativeVesting.sol, 106
+ENDS
+.loc ../contracts/NativeVesting.sol, 0
+CALLREF {
+	CALL $claim_internal_macro$
+}
+DROP
+CALLREF {
+	CALL $c7_to_c4$
+}
+THROW 0
+
+.macro claim_internal_macro
+.loc ../contracts/NativeVesting.sol, 107
+GETGLOB 9
+GETGLOB 12
+SDEQ
+THROWIFNOT 1001
+.loc ../contracts/NativeVesting.sol, 108
+NOW
+GETGLOB 15
+GEQ
+THROWIFNOT 1004
+.loc ../contracts/NativeVesting.sol, 109
+GETGLOB 19
+TRUE
+EQUAL
+THROWIFNOT 1005
+.loc ../contracts/NativeVesting.sol, 110
+GETGLOB 20
+FALSE
+EQUAL
+THROWIFNOT 1006
+.loc ../contracts/NativeVesting.sol, 111
+DEPTH
+ADDCONST -2
+PICK
+PUSHINT 1000000000
+GEQ
+THROWIFNOT 1007
+.loc ../contracts/NativeVesting.sol, 113
+PUSHINT 0
+.loc ../contracts/NativeVesting.sol, 114
+NOW
+GETGLOB 16
+GEQ
+PUSHCONT {
+	.loc ../contracts/NativeVesting.sol, 115
+	DROP
+	GETGLOB 18
+}
+PUSHCONT {
+	.loc ../contracts/NativeVesting.sol, 117
+	GETGLOB 16
+	GETGLOB 17
+	SUB
+	UFITS 32
+	.loc ../contracts/NativeVesting.sol, 118
+	NOW
+	GETGLOB 17
+	SUB
+	UFITS 32
+	.loc ../contracts/NativeVesting.sol, 119
+	GETGLOB 18
+	MUL
+	UFITS 128
+	SWAP
+	DIV
+	NIP
+}
+IFELSE
+.loc ../contracts/NativeVesting.sol, 122
+GETGLOB 18
+OVER
+SUB
+UFITS 128
+SETGLOB 18
+.loc ../contracts/NativeVesting.sol, 123
+NOW
+SETGLOB 17
+.loc ../contracts/NativeVesting.sol, 125
+GETGLOB 18
+SWAP
+PUSHSLICE xc0000000000000000000000000743e1bbe
+NEWC
+STSLICE
+STU 128
+STU 128
+ENDC
+PUSHINT 0
+SENDRAWMSG
+.loc ../contracts/NativeVesting.sol, 126
+GETGLOB 18
+PUSHCONT {
+	.loc ../contracts/NativeVesting.sol, 127
+	TRUE
+	SETGLOB 20
+	.loc ../contracts/NativeVesting.sol, 128
+	PUSHREF {
+		.blob xc00000000000000000000000006c734c1b
+	}
+	PUSHINT 0
+	SENDRAWMSG
+	.loc ../contracts/NativeVesting.sol, 0
+}
+IFNOT
+.loc ../contracts/NativeVesting.sol, 131
+GETGLOB 18
+PUSHINT 1000000000
+ADD
+UFITS 128
+PUSHINT 0
+RAWRESERVE
+.loc ../contracts/NativeVesting.sol, 132
+GETGLOB 9
+NEWC
+STSLICECONST x42_
+STSLICE
+PUSHINT 111
+STZEROES
+ENDC
+PUSHINT 128
+SENDRAWMSG
+.loc ../contracts/NativeVesting.sol, 0
+
+.macro c4_to_c7
+PUSHROOT
+CTOS
+LDU 256 ; pubkey c4
+LDU 64 ; pubkey timestamp c4
+LDU 1 ; ctor flag
+NIP
+LDU 128
+LDREF
+ENDS
+CTOS
+LDMSGADDR
+LDREF
+ENDS
+CTOS
+LDMSGADDR
+LDREF
+ENDS
+CTOS
+LDMSGADDR
+LDU 128
+LDU 32
+LDU 32
+LDU 32
+LDU 128
+LDI 1
+LDI 1
+ENDS
+SETGLOB 20
+SETGLOB 19
+SETGLOB 18
+SETGLOB 17
+SETGLOB 16
+SETGLOB 15
+SETGLOB 14
+SETGLOB 13
+SETGLOB 12
+SETGLOB 11
+SETGLOB 10
+SETGLOB 3
+SETGLOB 2
+
+.macro c4_to_c7_with_init_storage
+PUSHROOT
+CTOS
+SBITS
+GTINT 1
+PUSHCONT {
+	PUSHINT 0
+	PUSHROOT
+	CTOS
+	PLDDICT ; D
+	PUSHINT 1
+	OVER
+	PUSHINT 64
+	DICTUGET
+	PUSHCONT {
+		PLDU 128
+	}
+	PUSHCONT {
+		PUSHINT 0
+	}
+	IFELSE
+	PUSHINT 2
+	PUSH S2
+	PUSHINT 64
+	DICTUGET
+	PUSHCONT {
+		PUSHREFSLICE {
+			.blob x8000000000000000000000000000000000000000000000000000000000000000001_
+		}
+	}
+	IFNOT
+	PUSHREFSLICE {
+		.blob x8000000000000000000000000000000000000000000000000000000000000000001_
+	}
+	DUP
+	PUSHINT 0
+	BLKPUSH 6, 0
+	SETGLOB 20
+	SETGLOB 19
+	SETGLOB 18
+	SETGLOB 17
+	SETGLOB 16
+	SETGLOB 15
+	SETGLOB 14
+	SETGLOB 13
+	SETGLOB 12
+	SETGLOB 11
+	SETGLOB 10
+	PUSHINT 64
+	DICTUGET
+	THROWIFNOT 61
+	PLDU 256
+	SETGLOB 2
+	PUSHINT 0 ; timestamp
+	SETGLOB 3
+}
+IFREFELSE {
+	CALL $c4_to_c7$
+}
+
+.macro c7_to_c4
+GETGLOB 20
+GETGLOB 19
+GETGLOB 18
+GETGLOB 17
+GETGLOB 16
+GETGLOB 15
+GETGLOB 14
+GETGLOB 13
+GETGLOB 12
+GETGLOB 11
+GETGLOB 10
+GETGLOB 3
+GETGLOB 2
+NEWC
+STU 256
+STU 64
+STONE
+STU 128
+ROLLREV 10
+NEWC
+STSLICE
+ROLLREV 9
+NEWC
+STSLICE
+ROLLREV 8
+NEWC
+STSLICE
+STU 128
+STU 32
+STU 32
+STU 32
+STU 128
+STI 1
+STI 1
+STBREFR
+STBREFR
+STBREFR
+ENDC
+POPROOT
+
+.macro upd_only_time_in_c4
+PUSHROOT
+CTOS
+LDU 256
+LDU 64
+NIP
+GETGLOB 3
+ROT
+NEWC
+STU 256
+STU 64
+STSLICE
+ENDC
+POPROOT
+
+.internal-alias :main_internal, 0
+.internal :main_internal
+PUSHROOT
+CTOS
+SBITS
+NEQINT 1
+SETGLOB 6
+PUSH S2
+CTOS
+LDU 4 ; bounced tail
+LDMSGADDR ; bounced src tail
+DROP
+SETGLOB 9
+MODPOW2 1
+IFRET
+OVER
+SEMPTY ; isEmpty
+IFJMPREF {
+	GETGLOB 6
+	THROWIFNOT 76
+}
+OVER
+LDUQ 32  ; [funcId] body' ok
+THROWIFNOT 60
+OVER
+IFNOTJMPREF {
+	GETGLOB 6
+	THROWIFNOT 76
+}
+SWAP
+CALLREF {
+	CALL $public_function_selector$
+}
+THROW 60
+
+.internal-alias :main_external, -1
+.internal :main_external
+PUSHROOT
+CTOS
+SBITS
+NEQINT 1
+SETGLOB 6
+PUSHREFSLICE {
+	.blob x8000000000000000000000000000000000000000000000000000000000000000001_
+}
+SETGLOB 9
+OVER
+CALLREF {
+	CALL $c4_to_c7_with_init_storage$
+}
+LDU 1 ; haveSign msgSlice
+SWAP
+PUSHCONT {
+	PUSHINT 512
+	LDSLICEX ; signatureSlice msgSlice
+	DUP
+	HASHSU ; signatureSlice msgSlice hashMsgSlice
+	ROT
+	GETGLOB 2
+	CHKSIGNU ; msgSlice isSigned
+	THROWIFNOT 40
+}
+IF
+LDU 64 ; timestamp msgSlice
+SWAP
+CALL $replay_protection_macro$
+LDU 32 ; expireAt msgSlice
+SWAP
+NOW ; msgSlice expireAt now
+GREATER ; msgSlice expireAt>now
+THROWIFNOT 57
+LDU 32 ; funcId body
+SWAP
+CALLREF {
+	CALL $public_function_selector$
+}
+THROW 60
+
+.macro public_function_selector
+DUP
+PUSHINT 1518711776
+LEQ
+IFJMPREF {
+	DUP
+	PUSHINT 259198768
+	EQUAL
+	IFJMPREF {
+		CALL $deposit$
+	}
+	DUP
+	PUSHINT 468774883
+	EQUAL
+	IFJMPREF {
+		CALL $constructor$
+	}
+	DUP
+	PUSHINT 1120219248
+	EQUAL
+	IFJMPREF {
+		CALL $claim$
+	}
+	DUP
+	PUSHINT 1518711776
+	EQUAL
+	IFJMPREF {
+		CALL $getDetails$
+	}
+}
+DUP
+PUSHINT 2141042756
+EQUAL
+IFJMPREF {
+	CALL $pendingVested$
+}
+
