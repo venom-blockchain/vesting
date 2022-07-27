@@ -54,11 +54,11 @@ describe('Test native linear vesting contract', async function() {
     });
 
     describe('Test native vesting', async function() {
-        start = Math.floor(Date.now() / 1000) + 10;
-        end = start + 10;
-        period = end - start;
-
         it('Deploy vesting', async function() {
+            start = Math.floor(Date.now() / 1000) + 10;
+            end = start + 20;
+            period = end - start;
+
             const tx = await user.runTarget({
                 contract: factory,
                 method: 'deployNativeVesting',
@@ -70,8 +70,6 @@ describe('Test native linear vesting contract', async function() {
                 },
                 value: convertCrystal(2.5, 'nano')
             });
-
-            console.log(tx.transaction.out_msgs);
 
             const {
                 value: {
@@ -119,12 +117,13 @@ describe('Test native linear vesting contract', async function() {
 
         it('User claims', async function() {
             await sleep(5000);
-           const tx = await user.runTarget({
-               contract: vesting,
-               method: 'claim',
-               params: {},
-               value: convertCrystal(2 ,'nano')
-           });
+
+            const tx = await user.runTarget({
+                contract: vesting,
+                method: 'claim',
+                params: {},
+                value: convertCrystal(2 ,'nano')
+            });
 
             const details = await vesting.call({method: 'getDetails'});
             const claim_time = details._lastClaimTime.toNumber();

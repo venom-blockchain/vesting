@@ -10,6 +10,7 @@ import "interfaces/IFactory.sol";
 
 
 contract Vesting {
+    event ReceivedTokenWalletAddress(address wallet);
     event Deposit(address sender, uint128 amount);
     event BadDeposit(address sender, uint128 amount);
     event Claim(uint128 amount, uint128 remaining_amount);
@@ -39,6 +40,7 @@ contract Vesting {
     uint16 constant NOT_FILLED = 1005;
     uint16 constant VESTED_ALREADY = 1006;
     uint16 constant LOW_VALUE = 1007;
+    uint16 constant NOT_TOKEN = 1008;
 
     uint128 constant TOKEN_WALLET_DEPLOY_VALUE = 0.5 ton;
     uint128 constant CONTRACT_MIN_BALANCE = 1 ton;
@@ -82,11 +84,12 @@ contract Vesting {
     }
 
     function receiveTokenWalletAddress(address wallet) external {
-        require (msg.sender == token);
+        require (msg.sender == token, NOT_TOKEN);
         tokenWallet = wallet;
+        emit ReceivedTokenWalletAddress(wallet);
     }
 
-    function dummy(address) external view { require (msg.sender == token); }
+    function dummy(address) external view { require (msg.sender == token, NOT_TOKEN); }
 
     function getDetails() external view returns (
         address _user,

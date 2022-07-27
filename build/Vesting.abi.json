@@ -87,6 +87,14 @@
 	],
 	"events": [
 		{
+			"name": "ReceivedTokenWalletAddress",
+			"inputs": [
+				{"name":"wallet","type":"address"}
+			],
+			"outputs": [
+			]
+		},
+		{
 			"name": "Deposit",
 			"inputs": [
 				{"name":"sender","type":"address"},
