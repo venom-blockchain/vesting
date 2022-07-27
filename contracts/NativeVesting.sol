@@ -74,7 +74,7 @@ contract NativeVesting {
     ) {
         return (
             user, creator, vestingAmount, vestingStart, vestingEnd, lastClaimTime,
-            balance, filled, vested, nonce, _factory
+            balance, filled, vested, nonce, factory
         );
     }
 
