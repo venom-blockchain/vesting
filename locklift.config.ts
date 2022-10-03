@@ -29,7 +29,7 @@ const config: LockliftConfig = {
     // path: "/mnt/o/projects/broxus/TVM-linker/target/release/tvm_linker",
 
     // Or specify version of linker
-    version: "0.15.43",
+    version: "0.15.35",
   },
   networks: {
     local: {

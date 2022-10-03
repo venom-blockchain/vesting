@@ -12,12 +12,17 @@ Contract should be deposited with `vesting amount` tokens by one transfer, other
 and tokens will be sent back. Events are emitted on all actions including reverted deposit.
 ## Commands
 #### Deploy
-```
-// local is used by default
-locklift run --network local --script script/1-deploy-factory.ts
+```bash
+# network - local|testnet|mainnet
+npx locklift run --network testnet --script script/1-deploy-factory.ts
 ```
 #### Compile
-```
+```bash
 npx locklift build
+```
+
+#### Verify
+```bash
+npx everscan-verify --api-url https://verify.venomscan.com verify -i ./ --license 'AGPL-3.0' --compiler-version bbbbeca6e6f22f9a2cd3f30021ca83aac1a1428d --linker-version 0.15.35 -I node_modules
 ```
 
