@@ -14,14 +14,10 @@ and tokens will be sent back. Events are emitted on all actions including revert
 #### Deploy
 ```
 // local is used by default
-make deploy-factory network=[local/main/dev]
+locklift run --network local --script script/1-deploy-factory.ts
 ```
 #### Compile
 ```
-make compile
+npx locklift build
 ```
-#### Test
-```
-// local is used by default
-make tests network=[local/main/dev]
-```
+
