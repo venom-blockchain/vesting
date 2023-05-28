@@ -1,10 +1,9 @@
-pragma ton-solidity ^0.57.1;
+pragma ever-solidity ^0.62.0;
 pragma AbiHeader expire;
 
-
-import "broxus-ton-tokens-contracts/contracts/interfaces/ITokenRoot.sol";
-import "broxus-ton-tokens-contracts/contracts/interfaces/ITokenWallet.sol";
-import "broxus-ton-tokens-contracts/contracts/interfaces/IAcceptTokensTransferCallback.sol";
+import "broxus-token-contracts/contracts/interfaces/ITokenRoot.tsol";
+import "broxus-token-contracts/contracts/interfaces/ITokenWallet.tsol";
+import "broxus-token-contracts/contracts/interfaces/IAcceptTokensTransferCallback.tsol";
 import "@broxus/contracts/contracts/libraries/MsgFlag.sol";
 import "interfaces/IFactory.sol";
 

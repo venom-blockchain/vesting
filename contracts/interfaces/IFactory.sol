@@ -1,4 +1,4 @@
-pragma ton-solidity ^0.57.1;
+pragma ever-solidity ^0.62.0;
 
 
 interface IFactory {

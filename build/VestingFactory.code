@@ -1,4 +1,4 @@
-.version sol 0.57.1
+.version sol 0.62.0
 
 .macro constructor
 DROP
@@ -33,11 +33,11 @@ CALLREF {
 }
 THROW 0
 
-.globl	_reserve_internal
-.type	_reserve_internal, @function
-CALL $_reserve_internal_macro$
+.globl	_reserve_413ab4a8_internal
+.type	_reserve_413ab4a8_internal, @function
+CALL $_reserve_413ab4a8_internal_macro$
 
-.macro _reserve_internal_macro
+.macro _reserve_413ab4a8_internal_macro
 .loc ../contracts/VestingFactory.sol, 36
 GETPARAM 7
 FIRST
@@ -74,7 +74,7 @@ LDU 32
 ENDS
 .loc ../contracts/VestingFactory.sol, 0
 CALLREF {
-	CALL $deployNativeVesting_internal_macro$
+	CALL $deployNativeVesting_ae545004_internal_macro$
 }
 DROP
 CALLREF {
@@ -82,7 +82,7 @@ CALLREF {
 }
 THROW 0
 
-.macro deployNativeVesting_internal_macro
+.macro deployNativeVesting_ae545004_internal_macro
 .loc ../contracts/VestingFactory.sol, 45
 OVER
 NOW
@@ -140,7 +140,7 @@ UFITS 128
 SETGLOB 13
 .loc ../contracts/VestingFactory.sol, 61
 CALLREF {
-	CALL $_reserve_internal_macro$
+	CALL $_reserve_413ab4a8_internal_macro$
 }
 PUSHINT 0
 RAWRESERVE
@@ -160,8 +160,8 @@ STU 256
 NEWC
 STSLICECONST x62_
 STB
-PUSHSLICE x0000000000000000000000000007_
-STSLICER
+PUSHINT 3
+STUR 111
 OVER
 CALLREF {
 	CTOS
@@ -200,7 +200,7 @@ STU 32
 STBREFR
 STBREFR
 ENDC
-PUSHINT 128
+PUSHPOW2 7
 SENDRAWMSG
 .loc ../contracts/VestingFactory.sol, 0
 
@@ -232,7 +232,7 @@ LDU 32
 ENDS
 .loc ../contracts/VestingFactory.sol, 0
 CALLREF {
-	CALL $deployVesting_internal_macro$
+	CALL $deployVesting_458380d1_internal_macro$
 }
 DROP
 CALLREF {
@@ -240,7 +240,7 @@ CALLREF {
 }
 THROW 0
 
-.macro deployVesting_internal_macro
+.macro deployVesting_458380d1_internal_macro
 .loc ../contracts/VestingFactory.sol, 78
 OVER
 NOW
@@ -298,7 +298,7 @@ UFITS 128
 SETGLOB 13
 .loc ../contracts/VestingFactory.sol, 94
 CALLREF {
-	CALL $_reserve_internal_macro$
+	CALL $_reserve_413ab4a8_internal_macro$
 }
 PUSHINT 0
 RAWRESERVE
@@ -318,8 +318,8 @@ STU 256
 NEWC
 STSLICECONST x62_
 STB
-PUSHSLICE x0000000000000000000000000007_
-STSLICER
+PUSHINT 3
+STUR 111
 OVER
 CALLREF {
 	CTOS
@@ -362,7 +362,7 @@ STBREFR
 STBREFR
 STBREFR
 ENDC
-PUSHINT 128
+PUSHPOW2 7
 SENDRAWMSG
 .loc ../contracts/VestingFactory.sol, 0
 
@@ -399,14 +399,14 @@ LDU 32
 ENDS
 .loc ../contracts/VestingFactory.sol, 0
 CALLREF {
-	CALL $onVestingDeployed_internal_macro$
+	CALL $onVestingDeployed_7395a44b_internal_macro$
 }
 IFREF {
 	CALL $upd_only_time_in_c4$
 }
 THROW 0
 
-.macro onVestingDeployed_internal_macro
+.macro onVestingDeployed_7395a44b_internal_macro
 .loc ../contracts/VestingFactory.sol, 114
 PUSHREF {
 }
@@ -550,13 +550,11 @@ PUSHCONT {
 	OVER
 	PUSHINT 64
 	DICTUGET
+	ZEROSWAPIFNOT
 	PUSHCONT {
 		PLDU 128
 	}
-	PUSHCONT {
-		PUSHINT 0
-	}
-	IFELSE
+	IF
 	PUSHINT 2
 	PUSH S2
 	PUSHINT 64
@@ -676,12 +674,12 @@ CALLREF {
 LDU 1 ; haveSign msgSlice
 SWAP
 PUSHCONT {
-	PUSHINT 512
+	PUSHPOW2 9
 	LDSLICEX ; signatureSlice msgSlice
 	DUP
 	HASHSU ; signatureSlice msgSlice hashMsgSlice
 	SWAP
-	LDU 1 ; signatureSlice hashMsgSlice havePubkey msgSlice
+	LDU 1 ; signatureSlice hashMsgSlice hasPubkey msgSlice
 	SWAP
 	PUSHCONT {
 		LDU 256 ; signatureSlice hashMsgSlice pubkey msgSlice
@@ -699,7 +697,7 @@ PUSHCONT {
 	THROWIFNOT 40
 }
 PUSHCONT {
-	LDU 1 ; havePubkey msgSlice
+	LDU 1 ; hasPubkey msgSlice
 	SWAP
 	THROWIF 58
 }

@@ -1,4 +1,4 @@
-.version sol 0.57.1
+.version sol 0.62.0
 
 .macro constructor
 DROP
@@ -59,8 +59,8 @@ GETGLOB 11
 NEWC
 STSLICECONST x62_
 STSLICE
-PUSHSLICE x405f5e100000000000000000000000000003_
-STSLICER
+PUSHINT 2803819077499249229031122585109857988247553
+STUR 143
 ROLLREV 7
 NEWC
 STSLICECONST x4a8078fa
@@ -100,7 +100,7 @@ IFREF {
 ENDS
 .loc ../contracts/NativeVesting.sol, 0
 CALLREF {
-	CALL $getDetails_internal_macro$
+	CALL $getDetails_fbbf93a0_internal_macro$
 }
 PUSH S11
 PUSHCONT {
@@ -149,7 +149,7 @@ IFREF {
 }
 THROW 0
 
-.macro getDetails_internal_macro
+.macro getDetails_fbbf93a0_internal_macro
 .loc ../contracts/NativeVesting.sol, 75
 GETGLOB 12
 GETGLOB 13
@@ -185,7 +185,7 @@ LDMSGADDR
 ENDS
 .loc ../contracts/NativeVesting.sol, 0
 CALLREF {
-	CALL $deposit_internal_macro$
+	CALL $deposit_f340fa01_internal_macro$
 }
 DROP
 CALLREF {
@@ -193,7 +193,7 @@ CALLREF {
 }
 THROW 0
 
-.macro deposit_internal_macro
+.macro deposit_f340fa01_internal_macro
 .loc ../contracts/NativeVesting.sol, 82
 DEPTH
 ADDCONST -2
@@ -240,7 +240,7 @@ STSLICE
 PUSHINT 111
 STZEROES
 ENDC
-PUSHINT 128
+PUSHPOW2 7
 SENDRAWMSG
 .loc ../contracts/NativeVesting.sol, 0
 
@@ -257,7 +257,7 @@ IFREF {
 ENDS
 .loc ../contracts/NativeVesting.sol, 0
 CALLREF {
-	CALL $pendingVested_internal_macro$
+	CALL $pendingVested_214493a6_internal_macro$
 }
 OVER
 PUSHCONT {
@@ -270,8 +270,8 @@ PUSHCONT {
 	NEWC
 	STSLICECONST xc
 	STSLICE
-	PUSHSLICE x0000000000000000000000003fe76e112_
-	STSLICER
+	PUSHINT 4288526404
+	STUR 130
 	STU 128
 	ENDC
 	PUSHINT 0
@@ -286,7 +286,7 @@ IFREF {
 }
 THROW 0
 
-.macro pendingVested_internal_macro
+.macro pendingVested_214493a6_internal_macro
 .loc ../contracts/NativeVesting.sol, 94
 PUSHINT 0
 .loc ../contracts/NativeVesting.sol, 95
@@ -344,7 +344,7 @@ IFREF {
 ENDS
 .loc ../contracts/NativeVesting.sol, 0
 CALLREF {
-	CALL $claim_internal_macro$
+	CALL $claim_4e71d92d_internal_macro$
 }
 DROP
 CALLREF {
@@ -352,7 +352,7 @@ CALLREF {
 }
 THROW 0
 
-.macro claim_internal_macro
+.macro claim_4e71d92d_internal_macro
 .loc ../contracts/NativeVesting.sol, 107
 GETGLOB 9
 GETGLOB 12
@@ -461,7 +461,7 @@ STSLICE
 PUSHINT 111
 STZEROES
 ENDC
-PUSHINT 128
+PUSHPOW2 7
 SENDRAWMSG
 .loc ../contracts/NativeVesting.sol, 0
 
@@ -521,13 +521,11 @@ PUSHCONT {
 	OVER
 	PUSHINT 64
 	DICTUGET
+	ZEROSWAPIFNOT
 	PUSHCONT {
 		PLDU 128
 	}
-	PUSHCONT {
-		PUSHINT 0
-	}
-	IFELSE
+	IF
 	PUSHINT 2
 	PUSH S2
 	PUSHINT 64
@@ -676,7 +674,7 @@ CALLREF {
 LDU 1 ; haveSign msgSlice
 SWAP
 PUSHCONT {
-	PUSHINT 512
+	PUSHPOW2 9
 	LDSLICEX ; signatureSlice msgSlice
 	DUP
 	HASHSU ; signatureSlice msgSlice hashMsgSlice
