@@ -28,7 +28,8 @@
 				{"name":"vestingFactory","type":"address"},
 				{"name":"vestingContract","type":"address"},
 				{"name":"acc","type":"address"},
-				{"name":"indexType","type":"uint8"}
+				{"name":"indexType","type":"uint8"},
+				{"name":"vestingContractType","type":"uint8"}
 			]
 		},
 		{

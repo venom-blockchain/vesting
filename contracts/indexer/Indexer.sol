@@ -6,17 +6,7 @@ pragma AbiHeader pubkey;
 import "interfaces/IIndex.sol";
 import "Index.sol";
 import "@broxus/contracts/contracts/libraries/MsgFlag.sol";
-
-library VestingContractType {
-    uint8 constant VESTING = 0;
-    uint8 constant VESTING_NATIVE = 1;
-}
-
-library IndexType {
-    uint8 constant RECIPIENT = 0;
-    uint8 constant CREATOR = 1;
-    uint8 constant TOKEN = 2;
-}
+import "library.sol";
 
 contract Indexer {
     address static _vestingFactory;

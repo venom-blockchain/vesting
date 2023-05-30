@@ -23,10 +23,10 @@ IFELSE
 LDU 128
 LDU 128
 ENDS
-.loc ../contracts/indexer/Indexer.sol, 36
+.loc ../contracts/indexer/Indexer.sol, 26
 GETGLOB 2
 THROWIFNOT 1001
-.loc ../contracts/indexer/Indexer.sol, 37
+.loc ../contracts/indexer/Indexer.sol, 27
 GETGLOB 2
 GETGLOB 5
 DUP
@@ -38,17 +38,17 @@ PUSHCONT {
 IF
 EQUAL
 THROWIFNOT 1001
-.loc ../contracts/indexer/Indexer.sol, 38
+.loc ../contracts/indexer/Indexer.sol, 28
 ACCEPT
-.loc ../contracts/indexer/Indexer.sol, 39
+.loc ../contracts/indexer/Indexer.sol, 29
 ROT
 SETGLOB 11
-.loc ../contracts/indexer/Indexer.sol, 40
+.loc ../contracts/indexer/Indexer.sol, 30
 SWAP
 SETGLOB 12
-.loc ../contracts/indexer/Indexer.sol, 41
+.loc ../contracts/indexer/Indexer.sol, 31
 SETGLOB 13
-.loc ../contracts/indexer/Indexer.sol, 42
+.loc ../contracts/indexer/Indexer.sol, 32
 GETGLOB 9
 SETGLOB 14
 .loc ../contracts/indexer/Indexer.sol, 0
@@ -62,7 +62,7 @@ THROW 0
 CALL $_reserve_413ab4a8_internal_macro$
 
 .macro _reserve_413ab4a8_internal_macro
-.loc ../contracts/indexer/Indexer.sol, 55
+.loc ../contracts/indexer/Indexer.sol, 45
 GETPARAM 7
 FIRST
 DEPTH
@@ -83,7 +83,7 @@ ISNULL
 IFREF {
 	CALL $c4_to_c7$
 }
-.loc ../contracts/indexer/Indexer.sol, 58
+.loc ../contracts/indexer/Indexer.sol, 48
 OVER
 PUSHCONT {
 	LDREF
@@ -109,31 +109,31 @@ IFREF {
 THROW 0
 
 .macro deployIndex_b1921267_internal_macro
-.loc ../contracts/indexer/Indexer.sol, 46
+.loc ../contracts/indexer/Indexer.sol, 36
 GETGLOB 9
 GETGLOB 10
 SDEQ
 THROWIFNOT 1002
-.loc ../contracts/indexer/Indexer.sol, 64
+.loc ../contracts/indexer/Indexer.sol, 54
 CALLREF {
 	CALL $_reserve_413ab4a8_internal_macro$
 }
 PUSHINT 0
 RAWRESERVE
-.loc ../contracts/indexer/Indexer.sol, 65
+.loc ../contracts/indexer/Indexer.sol, 55
 GETGLOB 10
 OVER2
 ROLL 3
 CALLREF {
 	CALL $_buildIndexCode_d10eeded_internal_macro$
 }
-.loc ../contracts/indexer/Indexer.sol, 66
+.loc ../contracts/indexer/Indexer.sol, 56
 MYADDR
 BLKSWAP 3, 2
 CALLREF {
 	CALL $_buildIndexState_d28e8d2f_internal_macro$
 }
-.loc ../contracts/indexer/Indexer.sol, 67
+.loc ../contracts/indexer/Indexer.sol, 57
 DUP
 HASHCU
 NEWC
@@ -188,7 +188,7 @@ ISNULL
 IFREF {
 	CALL $c4_to_c7$
 }
-.loc ../contracts/indexer/Indexer.sol, 70
+.loc ../contracts/indexer/Indexer.sol, 60
 OVER
 PUSHCONT {
 	LDREF
@@ -212,12 +212,12 @@ IFREF {
 THROW 0
 
 .macro destructIndex_1313da52_internal_macro
-.loc ../contracts/indexer/Indexer.sol, 50
+.loc ../contracts/indexer/Indexer.sol, 40
 GETGLOB 9
 GETGLOB 14
 SDEQ
 THROWIFNOT 1003
-.loc ../contracts/indexer/Indexer.sol, 71
+.loc ../contracts/indexer/Indexer.sol, 61
 GETGLOB 13
 ROT
 NEWC
@@ -246,7 +246,7 @@ ISNULL
 IFREF {
 	CALL $c4_to_c7$
 }
-.loc ../contracts/indexer/Indexer.sol, 74
+.loc ../contracts/indexer/Indexer.sol, 64
 LDU 32
 GETGLOB 4
 ROT
@@ -334,22 +334,22 @@ THROW 0
 CALL $resolveIndexAddress_7850c4e6_internal_macro$
 
 .macro resolveIndexAddress_7850c4e6_internal_macro
-.loc ../contracts/indexer/Indexer.sol, 80
+.loc ../contracts/indexer/Indexer.sol, 70
 GETGLOB 10
 OVER2
 ROLL 3
 CALLREF {
 	CALL $_buildIndexCode_d10eeded_internal_macro$
 }
-.loc ../contracts/indexer/Indexer.sol, 81
+.loc ../contracts/indexer/Indexer.sol, 71
 MYADDR
 BLKSWAP 3, 2
 CALLREF {
 	CALL $_buildIndexState_d28e8d2f_internal_macro$
 }
-.loc ../contracts/indexer/Indexer.sol, 82
+.loc ../contracts/indexer/Indexer.sol, 72
 HASHCU
-.loc ../contracts/indexer/Indexer.sol, 84
+.loc ../contracts/indexer/Indexer.sol, 74
 GETGLOB 4
 PUSHINT 0
 SETINDEXQ 2
@@ -378,7 +378,7 @@ ISNULL
 IFREF {
 	CALL $c4_to_c7$
 }
-.loc ../contracts/indexer/Indexer.sol, 87
+.loc ../contracts/indexer/Indexer.sol, 77
 LDU 32
 GETGLOB 4
 ROT
@@ -458,13 +458,13 @@ THROW 0
 CALL $resolveIndexCodeHash_a4c05c9f_internal_macro$
 
 .macro resolveIndexCodeHash_a4c05c9f_internal_macro
-.loc ../contracts/indexer/Indexer.sol, 92
+.loc ../contracts/indexer/Indexer.sol, 82
 GETGLOB 10
 ROLLREV 3
 CALLREF {
 	CALL $_buildIndexCode_d10eeded_internal_macro$
 }
-.loc ../contracts/indexer/Indexer.sol, 93
+.loc ../contracts/indexer/Indexer.sol, 83
 GETGLOB 4
 PUSHINT 0
 SETINDEXQ 2
@@ -481,19 +481,19 @@ HASHCU
 CALL $_buildIndexCode_d10eeded_internal_macro$
 
 .macro _buildIndexCode_d10eeded_internal_macro
-.loc ../contracts/indexer/Indexer.sol, 103
+.loc ../contracts/indexer/Indexer.sol, 93
 ROLL 3
 NEWC
 STSLICE
-.loc ../contracts/indexer/Indexer.sol, 104
+.loc ../contracts/indexer/Indexer.sol, 94
 ROLL 3
 STSLICER
-.loc ../contracts/indexer/Indexer.sol, 105
+.loc ../contracts/indexer/Indexer.sol, 95
 XCHG S1, S2
 STU 8
-.loc ../contracts/indexer/Indexer.sol, 106
+.loc ../contracts/indexer/Indexer.sol, 96
 STU 8
-.loc ../contracts/indexer/Indexer.sol, 107
+.loc ../contracts/indexer/Indexer.sol, 97
 GETGLOB 11
 CTOS
 SWAP
@@ -610,7 +610,7 @@ CALLREF {
 CALL $_buildIndexState_d28e8d2f_internal_macro$
 
 .macro _buildIndexState_d28e8d2f_internal_macro
-.loc ../contracts/indexer/Indexer.sol, 118
+.loc ../contracts/indexer/Indexer.sol, 108
 PUSHINT 0
 NEWC
 STU 256

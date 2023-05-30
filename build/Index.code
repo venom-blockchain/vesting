@@ -230,9 +230,9 @@ ENDS
 CALLREF {
 	CALL $getInfo_5a9b0b89_internal_macro$
 }
-PUSH S4
+PUSH S5
 PUSHCONT {
-	PUSH S6
+	PUSH S7
 	CTOS
 	LDU 2
 	LDMSGADDR
@@ -243,16 +243,17 @@ PUSHCONT {
 	STSLICE
 	PUSHINT 1
 	STUR 98
-	REVERSE 5, 0
+	REVERSE 6, 0
 	NEWC
-	STSLICECONST x8db45dc9
+	STSLICECONST xce89340a
+	STSLICE
+	ROLLREV 4
+	NEWC
 	STSLICE
 	ROLLREV 3
 	NEWC
 	STSLICE
-	ROTREV
-	NEWC
-	STSLICE
+	STU 8
 	STU 8
 	STBREFR
 	STBREFR
@@ -279,18 +280,19 @@ PUSHCONT {
 	STDICT
 	PUSHINT 1
 	STUR 106
-	REVERSE 5, 0
+	REVERSE 6, 0
 	NEWC
 	GETGLOB 4
 	INDEX 5
 	STUR 32
 	STSLICE
+	ROLLREV 4
+	NEWC
+	STSLICE
 	ROLLREV 3
 	NEWC
 	STSLICE
-	ROTREV
-	NEWC
-	STSLICE
+	STU 8
 	STU 8
 	STBREFR
 	STBREFR
@@ -324,6 +326,7 @@ GETGLOB 15
 GETGLOB 11
 GETGLOB 12
 GETGLOB 13
+GETGLOB 14
 .loc ../contracts/indexer/Index.sol, 0
 
 .macro destruct
@@ -335,7 +338,7 @@ ISNULL
 IFREF {
 	CALL $c4_to_c7$
 }
-.loc ../contracts/indexer/Index.sol, 57
+.loc ../contracts/indexer/Index.sol, 58
 OVER
 PUSHCONT {
 	LDREF
@@ -360,12 +363,12 @@ THROW 0
 CALL $destruct_1beb2615_internal_macro$
 
 .macro destruct_1beb2615_internal_macro
-.loc ../contracts/indexer/Index.sol, 58
+.loc ../contracts/indexer/Index.sol, 59
 GETGLOB 9
 GETGLOB 10
 SDEQ
 THROWIFNOT 1002
-.loc ../contracts/indexer/Index.sol, 59
+.loc ../contracts/indexer/Index.sol, 60
 NEWC
 STSLICECONST x42_
 STSLICE
@@ -671,7 +674,7 @@ THROW 0
 
 .macro public_function_selector
 DUP
-PUSHINT 764720658
+PUSHINT 1317614602
 LEQ
 IFJMPREF {
 	DUP
@@ -679,12 +682,6 @@ IFJMPREF {
 	EQUAL
 	IFJMPREF {
 		CALL $destruct$
-	}
-	DUP
-	PUSHINT 229924297
-	EQUAL
-	IFJMPREF {
-		CALL $getInfo$
 	}
 	DUP
 	PUSHINT 645035526
@@ -697,6 +694,12 @@ IFJMPREF {
 	EQUAL
 	IFJMPREF {
 		CALL $_vestingContractType$
+	}
+	DUP
+	PUSHINT 1317614602
+	EQUAL
+	IFJMPREF {
+		CALL $getInfo$
 	}
 }
 DUP

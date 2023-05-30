@@ -20,6 +20,12 @@ Tokens are unlocked linearly every second from `vesting start` to `vesting end` 
 Contract should be deposited with `vesting amount` tokens by one transfer, otherwise deposit will be reverted
 and tokens will be sent back. Events are emitted on all actions including reverted deposit.
 
+#### Indexer
+Indexer is a contract-factory, responsible for deploying Index contracts. It requires vestingContract, acc, indexType, and vestingContractType parameters to create a new Index instance. Emitrs `NewIndex` event on new `Index` successful deploy. More details [here](./indexer.md)
+
+#### Index
+The Index contract is mainly responsible for facilitating the search for other contracts. It stores key information like vestingFactory, vestingContract, acc, and indexType, which can be used to locate all contracts of the same type. This contract helps achieve efficient on-chain contract indexing, with functions to fetch contract information, compute the code hash, and manage the index lifecycle. More details [here](./indexer.md)
+
 ## Getting Started
 ### Commands
 #### Deploy

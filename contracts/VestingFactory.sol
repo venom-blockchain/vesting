@@ -6,7 +6,8 @@ pragma AbiHeader pubkey;
 import "@broxus/contracts/contracts/libraries/MsgFlag.sol";
 import "Vesting.sol";
 import "NativeVesting.sol";
-import "indexer/Indexer.sol";
+import "indexer/interfaces/IIndexer.sol";
+import "indexer/library.sol";
 
 contract VestingFactory {
     event NewVesting(address vesting, address user, address creator, address token, uint128 amount, uint32 start, uint32 end);
@@ -145,20 +146,20 @@ contract VestingFactory {
 
         emit NewVesting(msg.sender, user, creator, token, vesting_amount, vesting_start, vesting_end);
 
-        Indexer(_indexer).deployIndex{ value: INDEX_DEPLOY_VALUE }(
+        IIndexer(_indexer).deployIndex{ value: INDEX_DEPLOY_VALUE }(
             vesting_address,
             user,
             IndexType.RECIPIENT,
             vesting_contract_type
         );
-        Indexer(_indexer).deployIndex{ value: INDEX_DEPLOY_VALUE }(
+        IIndexer(_indexer).deployIndex{ value: INDEX_DEPLOY_VALUE }(
             vesting_address,
             creator,
             IndexType.CREATOR,
             vesting_contract_type
         );
         if (vesting_contract_type == VestingContractType.VESTING) {
-            Indexer(_indexer).deployIndex{ value: INDEX_DEPLOY_VALUE }(
+            IIndexer(_indexer).deployIndex{ value: INDEX_DEPLOY_VALUE }(
                 vesting_address,
                 token,
                 IndexType.TOKEN,

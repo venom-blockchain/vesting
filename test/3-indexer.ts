@@ -192,7 +192,7 @@ describe("Test index creation for vesting contracts", async function () {
       token.address,
     );
   });
-  it("should deploy multiple vesting contracts and find indexes amount", async function () {
+  it("the same user deploys 3 vesting contracts with the same params", async function () {
     const start = Math.floor(locklift.testing.getCurrentTime() / 1000) + 15;
     const end = start + 20;
     adminTokenWallet.transfer;
@@ -257,6 +257,73 @@ describe("Test index creation for vesting contracts", async function () {
 
     await validateIndexesAmount(creatorIndexCodeHash, 3);
     await validateIndexesAmount(userIndexCodeHash, 3);
+    await validateIndexesAmount(tokenIndexCodeHash, 3);
+  });
+  it("user1 creates 2 vestings, user0 creates 1, the same token", async function () {
+    const start = Math.floor(locklift.testing.getCurrentTime() / 1000) + 15;
+    const end = start + 20;
+    adminTokenWallet.transfer;
+
+    await token.mint(bn(100).multipliedBy(1e18).toFixed(), user1);
+
+    await locklift.tracing.trace(
+      factory.methods
+        .deployVesting({
+          user: user0.address,
+          token: token.address,
+          vesting_amount: bn(100).multipliedBy(1e18).toFixed(),
+          vesting_start: start,
+          vesting_end: end,
+        })
+        .send({ from: user1.address, amount: locklift.utils.toNano(2.5) }),
+    );
+    await locklift.tracing.trace(
+      factory.methods
+        .deployVesting({
+          user: user0.address,
+          token: token.address,
+          vesting_amount: bn(100).multipliedBy(1e18).toFixed(),
+          vesting_start: start,
+          vesting_end: end,
+        })
+        .send({ from: user1.address, amount: locklift.utils.toNano(2.5) }),
+    );
+    await locklift.tracing.trace(
+      factory.methods
+        .deployVesting({
+          user: user1.address,
+          token: token.address,
+          vesting_amount: bn(100).multipliedBy(1e18).toFixed(),
+          vesting_start: start,
+          vesting_end: end,
+        })
+        .send({ from: user0.address, amount: locklift.utils.toNano(2.5) }),
+    );
+
+    const userIndexCodeHash = await getSaltedCodeHash(
+      indexArtifacts.code,
+      factory.address,
+      user0.address,
+      0,
+      0,
+    );
+    const creatorIndexCodeHash = await getSaltedCodeHash(
+      indexArtifacts.code,
+      factory.address,
+      user1.address,
+      1,
+      0,
+    );
+    const tokenIndexCodeHash = await getSaltedCodeHash(
+      indexArtifacts.code,
+      factory.address,
+      token.address,
+      2,
+      0,
+    );
+
+    await validateIndexesAmount(creatorIndexCodeHash, 2);
+    await validateIndexesAmount(userIndexCodeHash, 2);
     await validateIndexesAmount(tokenIndexCodeHash, 3);
   });
 });

@@ -43,14 +43,21 @@ contract Index {
         public
         view
         responsible
-        returns (address vestingFactory, address vestingContract, address acc, uint8 indexType)
+        returns (
+            address vestingFactory,
+            address vestingContract,
+            address acc,
+            uint8 indexType,
+            uint8 vestingContractType
+        )
     {
         return
             { value: 0, bounce: false, flag: MsgFlag.SENDER_PAYS_FEES } (
                 _vestingFactory,
                 _vestingContract,
                 _acc,
-                _indexType
+                _indexType,
+                _vestingContractType
             );
     }
 
