@@ -43,8 +43,8 @@ contract Vesting {
 
     uint128 constant TOKEN_WALLET_DEPLOY_VALUE = 0.5 ton;
     uint128 constant CONTRACT_MIN_BALANCE = 1 ton;
-    uint128 constant MIN_MSG_VALUE = 1 ton;
-    uint128 constant FACTORY_DEPLOY_CALLBACK_VALUE = 0.1 ton;
+    uint128 constant MIN_MSG_VALUE = 2 ton;
+    uint128 constant FACTORY_DEPLOY_CALLBACK_VALUE = 1 ton;
 
     constructor(
         address _user,

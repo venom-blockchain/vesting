@@ -1,21 +1,25 @@
 {
-    "name": "qube-dao-contracts",
-    "version": "1.0.0",
-    "description": "",
-    "author": "30mb1 <steam.30mb1@gmail.com>",
-    "license": "ISC",
-    "dependencies": {
-        "@broxus/contracts": "^1.0.4",
-        "broxus-token-contracts": "github:broxus/tip3#480c1b4481d1dddb028b408b20ba8c19abd1a4a4"
-    },
-    "devDependencies": {
-        "@types/chai": "^4.3.3",
-        "@types/mocha": "^9.1.1",
-        "@types/node": "^18.7.6",
-        "chai": "^4.3.6",
-        "locklift": "^2.5.5",
-        "prettier": "^2.7.1",
-        "ts-mocha": "^10.0.0",
-        "typescript": "^4.7.4"
-    }
+  "name": "qube-dao-contracts",
+  "version": "1.0.0",
+  "description": "",
+  "author": "30mb1 <steam.30mb1@gmail.com>",
+  "license": "ISC",
+  "scripts": {
+    "run:local-node": "docker run --rm -d --name local-node -e USER_AGREEMENT=yes -p 80:80 tonlabs/local-node",
+    "stop:local-node": "docker stop local-node"
+  },
+  "dependencies": {
+    "@broxus/contracts": "^1.0.4",
+    "broxus-token-contracts": "github:broxus/tip3#480c1b4481d1dddb028b408b20ba8c19abd1a4a4"
+  },
+  "devDependencies": {
+    "@types/chai": "^4.3.3",
+    "@types/mocha": "^9.1.1",
+    "@types/node": "^18.7.6",
+    "chai": "^4.3.6",
+    "locklift": "^2.5.5",
+    "prettier": "^2.7.1",
+    "ts-mocha": "^10.0.0",
+    "typescript": "^4.7.4"
+  }
 }

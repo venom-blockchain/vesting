@@ -1,14 +1,16 @@
-import { Contract, getRandomNonce, lockliftChai, toNano } from "locklift";
+import {
+  Contract,
+  getRandomNonce,
+  lockliftChai,
+  toNano
+} from "locklift";
 import { Account } from "locklift/everscale-client";
 import {
-    NativeVestingAbi,
-    VestingFactoryAbi
+  IndexerAbi,
+  NativeVestingAbi,
+  VestingFactoryAbi,
 } from "../build/factorySource";
-import {
-    bn,
-    deployUser,
-    tryIncreaseTime
-} from "./utils/common";
+import { bn, deployUser, tryIncreaseTime } from "./utils/common";
 
 import chai, { expect } from "chai";
 
@@ -19,6 +21,7 @@ describe("Test native linear vesting contract", async function () {
   this.timeout(100000000);
 
   let factory: Contract<VestingFactoryAbi>;
+  let indexer: Contract<IndexerAbi>;
   let user: Account;
   let admin: Account;
   let vesting_amount = toNano(10);
@@ -27,11 +30,52 @@ describe("Test native linear vesting contract", async function () {
   let start: number;
   let end: number;
   let user_bal_cumulative = bn(0);
+  let factoryDeployNonce = getRandomNonce();
 
   describe("Setup basic contracts", async function () {
     it("Deploy users", async function () {
       user = await deployUser();
       admin = await deployUser();
+    });
+    it("Deploy indexer", async function () {
+      const signer = await locklift.keystore.getSigner("0");
+
+      const Factory = locklift.factory.getContractArtifacts("VestingFactory");
+      const Vesting = locklift.factory.getContractArtifacts("Vesting");
+      const NativeVesting =
+        locklift.factory.getContractArtifacts("NativeVesting");
+
+      const factoryExpectedAddress = await locklift.provider.getExpectedAddress(
+        Factory.abi,
+        {
+          tvc: Factory.tvc,
+          publicKey: signer?.publicKey as string,
+          initParams: {
+            deploy_nonce: factoryDeployNonce,
+            nativeVestingCode: NativeVesting.code,
+            vestingCode: Vesting.code,
+          },
+        },
+      );
+      logger.log(`Factory expected address: ${factoryExpectedAddress}`);
+
+      const Index = locklift.factory.getContractArtifacts("Index");
+      const { contract: _indexer } = await locklift.factory.deployContract({
+        contract: "Indexer",
+        publicKey: signer?.publicKey as string,
+        initParams: {
+          _vestingFactory: factoryExpectedAddress,
+        },
+        constructorParams: {
+          codeIndex: Index.code,
+          indexDeployValue: locklift.utils.toNano(0.2),
+          indexDestroyValue: locklift.utils.toNano(0.2),
+        },
+        value: locklift.utils.toNano(5),
+      });
+      indexer = _indexer;
+
+      logger.log(`Indexer address: ${indexer.address}`);
     });
 
     it("Deploy factory", async function () {
@@ -44,11 +88,13 @@ describe("Test native linear vesting contract", async function () {
       const { contract: _contract } = await locklift.tracing.trace(
         locklift.factory.deployContract({
           contract: "VestingFactory",
-          constructorParams: {},
+          constructorParams: {
+            indexer: indexer.address,
+          },
           initParams: {
             nativeVestingCode: NativeVesting.code,
             vestingCode: Vesting.code,
-            deploy_nonce: getRandomNonce(),
+            deploy_nonce: factoryDeployNonce,
           },
           value: toNano(5),
           publicKey: signer?.publicKey as string,

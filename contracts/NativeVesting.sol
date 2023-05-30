@@ -35,8 +35,8 @@ contract NativeVesting {
     uint16 constant LOW_VALUE = 1007;
 
     uint128 constant CONTRACT_MIN_BALANCE = 1 ton;
-    uint128 constant MIN_MSG_VALUE = 1 ton;
-    uint128 constant FACTORY_DEPLOY_CALLBACK_VALUE = 0.1 ton;
+    uint128 constant MIN_MSG_VALUE = 2 ton;
+    uint128 constant FACTORY_DEPLOY_CALLBACK_VALUE = 1 ton;
 
     constructor(
         address _user,

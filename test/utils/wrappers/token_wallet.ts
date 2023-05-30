@@ -1,8 +1,7 @@
-import {Address, Contract} from "locklift";
-import {FactorySource} from "../../../build/factorySource";
-import {Account} from 'locklift/everscale-client'
-const {toNano} = locklift.utils;
-
+import { Address, Contract } from "locklift";
+import { FactorySource } from "../../../build/factorySource";
+import { Account } from "locklift/everscale-client";
+const { toNano } = locklift.utils;
 
 export class TokenWallet {
     public contract: Contract<FactorySource["TokenWalletUpgradeable"]>;
@@ -17,34 +16,36 @@ export class TokenWallet {
     }
 
     static async from_addr(addr: Address, owner: Account | null) {
-        const wallet = await locklift.factory.getDeployedContract('TokenWalletUpgradeable', addr);
+        const wallet = await locklift.factory.getDeployedContract("TokenWalletUpgradeable", addr);
         return new TokenWallet(wallet, owner);
     }
 
     async owner() {
-        return await this.contract.methods.owner({answerId: 0}).call();
+        return await this.contract.methods.owner({ answerId: 0 }).call();
     }
 
     async root() {
-        return await this.contract.methods.root({answerId: 0}).call();
+        return await this.contract.methods.root({ answerId: 0 }).call();
     }
 
     async balance() {
-        return (await this.contract.methods.balance({answerId: 0}).call()).value0;
+        return (await this.contract.methods.balance({ answerId: 0 }).call()).value0;
     }
 
-    async transfer(amount: number, receiver: Address, payload = '', value: any) {
+    async transfer(amount: number | string, receiver: Address, payload = "", value: any) {
         const owner = this._owner as Account;
-        return await this.contract.methods.transfer({
-            amount: amount,
-            recipient: receiver,
-            deployWalletValue: 0,
-            remainingGasTo: owner.address,
-            notify: true,
-            payload: payload
-        }).send({
-            amount: value || toNano(5),
-            from: owner.address
-        });
+        return await this.contract.methods
+            .transfer({
+                amount: amount,
+                recipient: receiver,
+                deployWalletValue: 0,
+                remainingGasTo: owner.address,
+                notify: true,
+                payload: payload,
+            })
+            .send({
+                amount: value || toNano(5),
+                from: owner.address,
+            });
     }
 }

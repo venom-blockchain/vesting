@@ -6,6 +6,7 @@
 		{
 			"name": "constructor",
 			"inputs": [
+				{"name":"indexer","type":"address"}
 			],
 			"outputs": [
 			]
@@ -62,6 +63,14 @@
 			"outputs": [
 				{"name":"vestings_deployed","type":"uint128"}
 			]
+		},
+		{
+			"name": "_indexer",
+			"inputs": [
+			],
+			"outputs": [
+				{"name":"_indexer","type":"address"}
+			]
 		}
 	],
 	"data": [
@@ -92,6 +101,7 @@
 		{"name":"deploy_nonce","type":"uint128"},
 		{"name":"vestingCode","type":"cell"},
 		{"name":"nativeVestingCode","type":"cell"},
-		{"name":"vestings_deployed","type":"uint128"}
+		{"name":"vestings_deployed","type":"uint128"},
+		{"name":"_indexer","type":"address"}
 	]
 }

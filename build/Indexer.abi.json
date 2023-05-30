@@ -1,0 +1,77 @@
+{
+	"ABI version": 2,
+	"version": "2.2",
+	"header": ["pubkey", "time", "expire"],
+	"functions": [
+		{
+			"name": "constructor",
+			"inputs": [
+				{"name":"codeIndex","type":"cell"},
+				{"name":"indexDeployValue","type":"uint128"},
+				{"name":"indexDestroyValue","type":"uint128"}
+			],
+			"outputs": [
+			]
+		},
+		{
+			"name": "deployIndex",
+			"inputs": [
+				{"name":"vestingContract","type":"address"},
+				{"name":"acc","type":"address"},
+				{"name":"indexType","type":"uint8"},
+				{"name":"vestingContractType","type":"uint8"}
+			],
+			"outputs": [
+			]
+		},
+		{
+			"name": "destructIndex",
+			"inputs": [
+				{"name":"index","type":"address"},
+				{"name":"sendGasTo","type":"address"}
+			],
+			"outputs": [
+			]
+		},
+		{
+			"name": "resolveIndexAddress",
+			"inputs": [
+				{"name":"answerId","type":"uint32"},
+				{"name":"vestingContract","type":"address"},
+				{"name":"acc","type":"address"},
+				{"name":"indexType","type":"uint8"},
+				{"name":"vestingContractType","type":"uint8"}
+			],
+			"outputs": [
+				{"name":"index","type":"address"}
+			]
+		},
+		{
+			"name": "resolveIndexCodeHash",
+			"inputs": [
+				{"name":"answerId","type":"uint32"},
+				{"name":"acc","type":"address"},
+				{"name":"indexType","type":"uint8"},
+				{"name":"vestingContractType","type":"uint8"}
+			],
+			"outputs": [
+				{"name":"codeHash","type":"uint256"}
+			]
+		}
+	],
+	"data": [
+		{"key":1,"name":"_vestingFactory","type":"address"}
+	],
+	"events": [
+	],
+	"fields": [
+		{"name":"_pubkey","type":"uint256"},
+		{"name":"_timestamp","type":"uint64"},
+		{"name":"_constructorFlag","type":"bool"},
+		{"name":"_vestingFactory","type":"address"},
+		{"name":"_codeIndex","type":"cell"},
+		{"name":"_indexDeployValue","type":"uint128"},
+		{"name":"_indexDestroyValue","type":"uint128"},
+		{"name":"_owner","type":"address"}
+	]
+}

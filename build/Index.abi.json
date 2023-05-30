@@ -1,0 +1,78 @@
+{
+	"ABI version": 2,
+	"version": "2.2",
+	"header": ["pubkey", "time", "expire"],
+	"functions": [
+		{
+			"name": "constructor",
+			"inputs": [
+			],
+			"outputs": [
+			]
+		},
+		{
+			"name": "getCodeHash",
+			"inputs": [
+				{"name":"answerId","type":"uint32"}
+			],
+			"outputs": [
+				{"name":"value0","type":"uint256"}
+			]
+		},
+		{
+			"name": "getInfo",
+			"inputs": [
+				{"name":"answerId","type":"uint32"}
+			],
+			"outputs": [
+				{"name":"vestingFactory","type":"address"},
+				{"name":"vestingContract","type":"address"},
+				{"name":"acc","type":"address"},
+				{"name":"indexType","type":"uint8"}
+			]
+		},
+		{
+			"name": "destruct",
+			"inputs": [
+				{"name":"gasReceiver","type":"address"}
+			],
+			"outputs": [
+			]
+		},
+		{
+			"name": "_vestingContractType",
+			"inputs": [
+			],
+			"outputs": [
+				{"name":"_vestingContractType","type":"uint8"}
+			]
+		},
+		{
+			"name": "_vestingFactory",
+			"inputs": [
+			],
+			"outputs": [
+				{"name":"_vestingFactory","type":"address"}
+			]
+		}
+	],
+	"data": [
+		{"key":1,"name":"_indexer","type":"address"},
+		{"key":2,"name":"_vestingContract","type":"address"},
+		{"key":3,"name":"_acc","type":"address"},
+		{"key":4,"name":"_indexType","type":"uint8"}
+	],
+	"events": [
+	],
+	"fields": [
+		{"name":"_pubkey","type":"uint256"},
+		{"name":"_timestamp","type":"uint64"},
+		{"name":"_constructorFlag","type":"bool"},
+		{"name":"_indexer","type":"address"},
+		{"name":"_vestingContract","type":"address"},
+		{"name":"_acc","type":"address"},
+		{"name":"_indexType","type":"uint8"},
+		{"name":"_vestingContractType","type":"uint8"},
+		{"name":"_vestingFactory","type":"address"}
+	]
+}

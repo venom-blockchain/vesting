@@ -6,7 +6,7 @@ pragma AbiHeader pubkey;
 import "@broxus/contracts/contracts/libraries/MsgFlag.sol";
 import "Vesting.sol";
 import "NativeVesting.sol";
-
+import "indexer/Indexer.sol";
 
 contract VestingFactory {
     event NewVesting(address vesting, address user, address creator, address token, uint128 amount, uint32 start, uint32 end);
@@ -15,6 +15,7 @@ contract VestingFactory {
     TvmCell static vestingCode;
     TvmCell static nativeVestingCode;
     uint128 public vestings_deployed;
+    address public _indexer;
 
     uint16 constant WRONG_PUBKEY = 1001;
     uint16 constant BAD_PARAMS = 1002;
@@ -23,13 +24,15 @@ contract VestingFactory {
 
     uint128 constant CONTRACT_MIN_BALANCE = 1 ton;
     uint128 constant VESTING_DEPLOY_VALUE = 2 ton;
+    uint128 constant INDEX_DEPLOY_VALUE = 0.25 ton;
 
 
-    constructor() public {
+    constructor(address indexer) public {
         require (tvm.pubkey() != 0, WRONG_PUBKEY);
         require (tvm.pubkey() == msg.pubkey(), WRONG_PUBKEY);
 
         tvm.accept();
+        _indexer = indexer;
     }
 
     function _reserve() internal pure returns (uint128) {
@@ -112,7 +115,9 @@ contract VestingFactory {
     ) external view {
 
         TvmCell stateInit;
+        uint8 vesting_contract_type;
         if (token == address.makeAddrNone()) {
+            vesting_contract_type = VestingContractType.VESTING_NATIVE;
             stateInit = tvm.buildStateInit({
                 contr: NativeVesting,
                 varInit: {
@@ -123,6 +128,7 @@ contract VestingFactory {
                 code: nativeVestingCode
             });
         } else {
+            vesting_contract_type = VestingContractType.VESTING;
             stateInit = tvm.buildStateInit({
                 contr: Vesting,
                 varInit: {
@@ -138,6 +144,26 @@ contract VestingFactory {
         require (msg.sender == vesting_address, NOT_VESTING);
 
         emit NewVesting(msg.sender, user, creator, token, vesting_amount, vesting_start, vesting_end);
-    }
 
+        Indexer(_indexer).deployIndex{ value: INDEX_DEPLOY_VALUE }(
+            vesting_address,
+            user,
+            IndexType.RECIPIENT,
+            vesting_contract_type
+        );
+        Indexer(_indexer).deployIndex{ value: INDEX_DEPLOY_VALUE }(
+            vesting_address,
+            creator,
+            IndexType.CREATOR,
+            vesting_contract_type
+        );
+        if (vesting_contract_type == VestingContractType.VESTING) {
+            Indexer(_indexer).deployIndex{ value: INDEX_DEPLOY_VALUE }(
+                vesting_address,
+                token,
+                IndexType.TOKEN,
+                vesting_contract_type
+            );
+        }
+    }
 }
