@@ -61,6 +61,10 @@ contract Indexer {
         IIndex(index).destruct{ value: _indexDestroyValue }(sendGasTo);
     }
 
+    function getCodeIndex() public view responsible returns (TvmCell codeIndex) {
+        return { value: 0, flag: MsgFlag.REMAINING_GAS, bounce: false } _codeIndex;
+    }
+
     function resolveIndexAddress(
         address vestingContract,
         address acc,

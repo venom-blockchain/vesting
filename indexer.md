@@ -1,13 +1,18 @@
 # On-chain contract indexing
 
-A prevalent pattern in the Venom blockchain involves searching for contracts with identical code using their hash. This method is particularly beneficial when there is a need to locate all contracts of the same type. This approach is inspired by [TIP4-3](https://docs.venom.foundation/standards/TIP/TIP-4/3/).
+In the Venom blockchain ecosystem, a widely used approach involves searching for contracts with identical code based on their hash. This method proves particularly valuable when there is a need to locate all contracts of the same type.
 
-Expanding on this concept, we can deploy index contracts that are salted in a specific way. By knowing the original code of the index contract and the parameters used for salting, we can compute the code hash of the target contracts off-chain. This code hash can then be utilized to fetch all such contracts using a single request.
-A common pattern in the Venom blockchain is to search for contracts with the same code by its hash. This can be useful if we want to find all contracts of the same type.
+Furthermore, we can enhance this technique by adding a salt to the contract code, thus creating a unique code hash. This allows us to identify subsets of contracts that share the same code hash.
+
+This approach is detailed in TIP4-3, the ONCHAIN Indexing standard.
+
+Expanding on this concept, we can deploy index contracts that are salted in a specific manner. By knowing the original code of the index contract and the salting parameters, we can calculate the code hash of the target contracts off-chain. Subsequently, this code hash can be employed to retrieve all contracts that match the criteria with a single request.
+
+In this context, we create an Indexer contract for the Vesting factory and generate indexes for each vesting contract.
 
 ## Contract
 
-### IndexFactory
+### Indexer
 
 ```sol
 pragma ever-solidity >=0.62.0;
@@ -18,6 +23,9 @@ interface IIndexer {
 
   // The destructIndex method allows for the destruction of an existing index contract. This method takes two parameters: the index address which signifies the contract to be destructed, and the sendGasTo address which is the recipient of remaining funds that get freed up as a result of the destruction process.
   function destructIndex(address index, address sendGasTo) external view;
+
+  // The getCodeIndex method is used to retrieve the code of the index contract. This method takes no parameters and returns the code of the index contract.
+  function getCodeIndex() external view responsible returns (TvmCell codeIndex);
 
   // The resolveIndexAddress method is used to locate the address of an index contract. The method requires four parameters that include the vestingContract address, the acc address, the indexType, and the vestingContractType. Upon successful resolution, the method returns the address of the corresponding index contract
   function resolveIndexAddress(
@@ -50,6 +58,26 @@ interface IIndex {
 
     // The destruct method facilitates the termination of the Index contract. It takes as input the gasReceiver address, which is the recipient of any remaining funds that get released during the destruction process.
     function destruct(address gasReceiver) external;
+}
+
+```
+
+## Library
+
+```sol
+pragma ever-solidity >=0.62.0;
+
+// This library defines the IndexType structure, which is used to uniquely identify the index of a vesting contract based on different factors. By utilizing these different factors, we can ensure that each vesting contract has a unique index, even if the recipient and creator are the same in some cases. For native vesting we will use only RECIPIENT and TOKEN indexes.
+library IndexType {
+    uint8 constant RECIPIENT = 0;
+    uint8 constant CREATOR = 1;
+    uint8 constant TOKEN = 2;
+}
+
+// This library defines the VestingContractType, which is used to differentiate between vesting contracts and native vesting contracts.
+library VestingContractType {
+    uint8 constant VESTING = 0;
+    uint8 constant VESTING_NATIVE = 1;
 }
 
 ```
@@ -91,7 +119,8 @@ export async function getSaltedCodeHash(
 }
 ```
 
-Here, the tvcCode is the TVC code of the Index contract. 
+Here, the tvcCode is the TVC code of the Index contract. You can obtain this code by calling the `getCodeIndex()` method on the Indexer contract.
+
 
 indexType has three possible values:
 
@@ -110,21 +139,4 @@ By using the obtained codeHash, we can find all index contracts:
 const indexes = (await locklift.provider.getAccountsByCodeHash({ codeHash: indexCodeHash })).accounts;
 ```
 
-Once we have the list of index contract addresses, we can get the information stored in an index with the getInfo() method:
-
-```sol
-function getInfo() external returns (address vestingFactory, address vestingContract, address acc, uint8 indexType);
-```
-
-
-## Index Contract Artifacts
-
-The Index contract artifacts were compiled using TVMCompiler v0.62.0 and TVM-linker v0.15.48.
-
-### Code hash without salt
-
-`ca30e102ba1c0f366a118d9585dfcca9db2bbb21ede36e0b1c2ec3953f6ca154`
-
-### TVC
-
-`te6ccgECHgEABG4ABCSK7VMg4wMgwP/jAiDA/uMC8gsbAgEdA7ztRNDXScMB+GaJ+Gkh2zzTAAGOGYMI1xgg+QEB0wABlNP/AwGTAvhC4vkQ8qiV0wAB8nri0z8B+EMhufK0IPgjgQPoqIIIG3dAoLnytPhj0x8B+CO88rnTHwHbPPI8DgsDA3rtRNDXScMB+GYi0NMD+kAw+GmpOAD4RH9vcYIImJaAb3Jtb3Nwb3T4ZNwhxwDjAiHXDR/yvCHjAwHbPPI8GhoDAiggghAtlLYSu+MCIIIQbewkcrvjAg8EAiggghBotV8/uuMCIIIQbewkcrrjAgcFAtQw+Eby4EzTH/hEWG91+GTR2zwhjhoj0NMB+kAwMcjPhyDOghDt7CRyzwuBy//JcI4y+EQgbxMhbxL4SVUCbxHIz4SAygDPhEDOAfoC9ABxzwtpAcj4RG8Vzwsfy//NyfhEbxTi+wDjAPIABhQAIvhEcG9ycG9xcW90+GT4KvkAA4Aw+EJu4wD4RvJz0fgq2zwgbvLT6SBu8n/Q+kD6QNMH1wsH+En4SscF8uBkAfhNuvLj6/gAWPhvAfhs+G7bPPIACwgXAhjQIIs4rbNYxwWKiuIJCgEK103Q2zwKAELXTNCLL0pA1yb0BDHTCTGLL0oY1yYg10rCAZLXTZIwbeICFu1E0NdJwgGOgOMNDBkElHDtRND0BXEhgED0Do6A33IigED0Do6A33MjgED0Do6A33QkgED0Dm+Rk9cLB95wifhv+G74bfhs+Gv4aoBA9A7yvdcL//hicPhjDQ0NDgECiQ4AQ4AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAETiCCC6Ot17rjAiCCEA20Xcm64wIgghAmcnYGuuMCIIIQLZS2ErrjAhYSERABUDDR2zz4TiGOHI0EcAAAAAAAAAAAAAAAACtlLYSgyM7LB8lw+wDe8gAZAU4w0ds8+E8hjhuNBHAAAAAAAAAAAAAAAAApnJ2BoMjOzslw+wDe8gAZA4Yw+Eby4Ez4Qm7jANMf+ERYb3X4ZNHbPCSOKSbQ0wH6QDAxyM+HIM5xzwthXjDIz5I20XcmzlUgyM5ZyM7LB83NzclwGRUTAYyOPfhEIG8TIW8S+ElVAm8RyM+EgMoAz4RAzgH6AvQAcc8LaV4wyPhEbxXPCx/OVSDIzlnIzssHzc3NyfhEbxTi+wDjAPIAFAAo7UTQ0//TPzH4Q1jIy//LP87J7VQAKvhEcG9ycG9xcW90+GT4T/hL+Ez4TQM2MPhG8uBM+EJu4wAhk9TR0N76QNHbPDDbPPIAGRgXAFr4T/hO+E34TPhL+Er4Q/hCyMv/yz/Pg85VQMjOVTDIzssHywcByM7Nzc3J7VQAMPhJ+ErHBfLj6sjPhQjOgG/PQMmBAKD7AABg7UTQ0//TP9MAMfpA1NHQ+kDU0dD6QNMH0wfU0dD6QNH4b/hu+G34bPhr+Gr4Y/hiAAr4RvLgTAIK9KQg9KEdHAAUc29sIDAuNjIuMAAA`
+Once we have the list of index contract addresses, we can get the information stored in an `Index` with the `getInfo()` method

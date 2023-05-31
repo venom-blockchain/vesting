@@ -28,6 +28,12 @@ The Index contract is mainly responsible for facilitating the search for other c
 
 ## Getting Started
 ### Commands
+#### Test
+```bash
+npx locklift test --network local -t test --tests test/1-main.ts
+npx locklift test --network local -t test --tests test/2-native-main.ts
+npx locklift test --network local -t test --tests test/3-indexer.ts
+```
 #### Deploy
 ```bash
 # network - local|testnet|mainnet

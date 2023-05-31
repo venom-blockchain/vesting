@@ -74,7 +74,7 @@ export async function validateIndexCodeHash(
         })
         .call();
 
-    expect("0x" + bn(codeHashResolved).toString(16)).to.be.eq(codeHash);
+    expect(codeHash).to.be.eq("0x" + bn(codeHashResolved).toString(16).padStart(64, "0"));
     return codeHash;
 }
 export async function validateIndexAddress(

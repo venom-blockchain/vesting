@@ -237,7 +237,7 @@ PUSHINT 0
 SENDRAWMSG
 .loc ../contracts/indexer/Indexer.sol, 0
 
-.macro resolveIndexAddress
+.macro getCodeIndex
 DROP
 GETGLOB 6
 THROWIFNOT 76
@@ -247,6 +247,94 @@ IFREF {
 	CALL $c4_to_c7$
 }
 .loc ../contracts/indexer/Indexer.sol, 64
+LDU 32
+GETGLOB 4
+ROT
+SETINDEXQ 5
+SETGLOB 4
+ENDS
+.loc ../contracts/indexer/Indexer.sol, 0
+CALLREF {
+	CALL $getCodeIndex_cbb0ce00_internal_macro$
+}
+OVER
+PUSHCONT {
+	PUSH S3
+	CTOS
+	LDU 2
+	LDMSGADDR
+	DROP
+	NIP
+	NEWC
+	STSLICECONST xc
+	STSLICE
+	PUSHINT 2330881263
+	STUR 130
+	STREF
+	ENDC
+	PUSHINT 0
+}
+PUSHCONT {
+	GETGLOB 4
+	DUP
+	INDEX 3
+	OVER
+	THIRD
+	GETGLOB 9
+	ROLL 3
+	SECOND
+	NEWC
+	STSLICECONST x2_
+	STI 1
+	STSLICECONST x1_
+	STSLICE
+	SWAP
+	STGRAMS
+	STDICT
+	PUSHINT 106
+	STZEROES
+	GETGLOB 4
+	INDEX 5
+	STUR 32
+	STREF
+	ENDC
+	GETGLOB 4
+	INDEX 4
+}
+IFELSE
+SENDRAWMSG
+IFREF {
+	CALL $upd_only_time_in_c4$
+}
+THROW 0
+
+.globl	getCodeIndex_cbb0ce00_internal
+.type	getCodeIndex_cbb0ce00_internal, @function
+CALL $getCodeIndex_cbb0ce00_internal_macro$
+
+.macro getCodeIndex_cbb0ce00_internal_macro
+.loc ../contracts/indexer/Indexer.sol, 65
+GETGLOB 4
+PUSHINT 0
+SETINDEXQ 2
+PUSHINT 64
+SETINDEXQ 4
+FALSE
+SETINDEXQ 1
+SETGLOB 4
+GETGLOB 11
+.loc ../contracts/indexer/Indexer.sol, 0
+
+.macro resolveIndexAddress
+DROP
+GETGLOB 6
+THROWIFNOT 76
+GETGLOB 2
+ISNULL
+IFREF {
+	CALL $c4_to_c7$
+}
+.loc ../contracts/indexer/Indexer.sol, 68
 LDU 32
 GETGLOB 4
 ROT
@@ -334,22 +422,22 @@ THROW 0
 CALL $resolveIndexAddress_7850c4e6_internal_macro$
 
 .macro resolveIndexAddress_7850c4e6_internal_macro
-.loc ../contracts/indexer/Indexer.sol, 70
+.loc ../contracts/indexer/Indexer.sol, 74
 GETGLOB 10
 OVER2
 ROLL 3
 CALLREF {
 	CALL $_buildIndexCode_d10eeded_internal_macro$
 }
-.loc ../contracts/indexer/Indexer.sol, 71
+.loc ../contracts/indexer/Indexer.sol, 75
 MYADDR
 BLKSWAP 3, 2
 CALLREF {
 	CALL $_buildIndexState_d28e8d2f_internal_macro$
 }
-.loc ../contracts/indexer/Indexer.sol, 72
+.loc ../contracts/indexer/Indexer.sol, 76
 HASHCU
-.loc ../contracts/indexer/Indexer.sol, 74
+.loc ../contracts/indexer/Indexer.sol, 78
 GETGLOB 4
 PUSHINT 0
 SETINDEXQ 2
@@ -378,7 +466,7 @@ ISNULL
 IFREF {
 	CALL $c4_to_c7$
 }
-.loc ../contracts/indexer/Indexer.sol, 77
+.loc ../contracts/indexer/Indexer.sol, 81
 LDU 32
 GETGLOB 4
 ROT
@@ -458,13 +546,13 @@ THROW 0
 CALL $resolveIndexCodeHash_a4c05c9f_internal_macro$
 
 .macro resolveIndexCodeHash_a4c05c9f_internal_macro
-.loc ../contracts/indexer/Indexer.sol, 82
+.loc ../contracts/indexer/Indexer.sol, 86
 GETGLOB 10
 ROLLREV 3
 CALLREF {
 	CALL $_buildIndexCode_d10eeded_internal_macro$
 }
-.loc ../contracts/indexer/Indexer.sol, 83
+.loc ../contracts/indexer/Indexer.sol, 87
 GETGLOB 4
 PUSHINT 0
 SETINDEXQ 2
@@ -481,19 +569,19 @@ HASHCU
 CALL $_buildIndexCode_d10eeded_internal_macro$
 
 .macro _buildIndexCode_d10eeded_internal_macro
-.loc ../contracts/indexer/Indexer.sol, 93
+.loc ../contracts/indexer/Indexer.sol, 97
 ROLL 3
 NEWC
 STSLICE
-.loc ../contracts/indexer/Indexer.sol, 94
+.loc ../contracts/indexer/Indexer.sol, 98
 ROLL 3
 STSLICER
-.loc ../contracts/indexer/Indexer.sol, 95
+.loc ../contracts/indexer/Indexer.sol, 99
 XCHG S1, S2
 STU 8
-.loc ../contracts/indexer/Indexer.sol, 96
+.loc ../contracts/indexer/Indexer.sol, 100
 STU 8
-.loc ../contracts/indexer/Indexer.sol, 97
+.loc ../contracts/indexer/Indexer.sol, 101
 GETGLOB 11
 CTOS
 SWAP
@@ -610,7 +698,7 @@ CALLREF {
 CALL $_buildIndexState_d28e8d2f_internal_macro$
 
 .macro _buildIndexState_d28e8d2f_internal_macro
-.loc ../contracts/indexer/Indexer.sol, 108
+.loc ../contracts/indexer/Indexer.sol, 112
 PUSHINT 0
 NEWC
 STU 256
@@ -866,7 +954,7 @@ THROW 60
 
 .macro public_function_selector
 DUP
-PUSHINT 363783826
+PUSHINT 284905045
 LEQ
 IFJMPREF {
 	DUP
@@ -874,6 +962,12 @@ IFJMPREF {
 	EQUAL
 	IFJMPREF {
 		CALL $resolveIndexAddress$
+	}
+	DUP
+	PUSHINT 183397615
+	EQUAL
+	IFJMPREF {
+		CALL $getCodeIndex$
 	}
 	DUP
 	PUSHINT 280668814
@@ -887,17 +981,22 @@ IFJMPREF {
 	IFJMPREF {
 		CALL $resolveIndexCodeHash$
 	}
+}
+DUP
+PUSHINT 735063237
+LEQ
+IFJMPREF {
 	DUP
 	PUSHINT 363783826
 	EQUAL
 	IFJMPREF {
 		CALL $constructor$
 	}
-}
-DUP
-PUSHINT 735063237
-EQUAL
-IFJMPREF {
-	CALL $deployIndex$
+	DUP
+	PUSHINT 735063237
+	EQUAL
+	IFJMPREF {
+		CALL $deployIndex$
+	}
 }
 

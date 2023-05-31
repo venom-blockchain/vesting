@@ -313,7 +313,7 @@ THROW 0
 CALL $getInfo_5a9b0b89_internal_macro$
 
 .macro getInfo_5a9b0b89_internal_macro
-.loc ../contracts/indexer/Index.sol, 49
+.loc ../contracts/indexer/Index.sol, 55
 GETGLOB 4
 PUSHINT 0
 SETINDEXQ 2
@@ -338,7 +338,7 @@ ISNULL
 IFREF {
 	CALL $c4_to_c7$
 }
-.loc ../contracts/indexer/Index.sol, 58
+.loc ../contracts/indexer/Index.sol, 64
 OVER
 PUSHCONT {
 	LDREF
@@ -363,12 +363,12 @@ THROW 0
 CALL $destruct_1beb2615_internal_macro$
 
 .macro destruct_1beb2615_internal_macro
-.loc ../contracts/indexer/Index.sol, 59
+.loc ../contracts/indexer/Index.sol, 65
 GETGLOB 9
 GETGLOB 10
 SDEQ
 THROWIFNOT 1002
-.loc ../contracts/indexer/Index.sol, 60
+.loc ../contracts/indexer/Index.sol, 66
 NEWC
 STSLICECONST x42_
 STSLICE
