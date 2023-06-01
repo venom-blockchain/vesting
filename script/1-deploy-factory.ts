@@ -1,9 +1,9 @@
 async function main() {
-  console.log(`Deploying Vesting Factory`);
+  console.log(`Deploying Indexer and Vesting Factory`);
   const signer = (await locklift.keystore.getSigner("0"))!;
 
   const vestingFactoryContract = locklift.factory.getContractArtifacts("VestingFactory");
-  const indexerContract = locklift.factory.getContractArtifacts("Indexer");
+  const indexContract = locklift.factory.getContractArtifacts("Index");
   const vestingContract = locklift.factory.getContractArtifacts("Vesting");
   const nativeVestingContract = locklift.factory.getContractArtifacts("NativeVesting");
 
@@ -18,15 +18,16 @@ async function main() {
       vestingCode: vestingContract.code,
     },
   });
-
-  const { contract: indexer } = await locklift.factory.deployContract({
+  console.log("Expected vesting factory address", factoryExpectedAddress.toString());
+  console.log("Deploying Indexer");
+  const { contract: indexer } = await locklift.privateRPC.deployContract({
     contract: "Indexer",
     publicKey: signer?.publicKey as string,
     initParams: {
       _vestingFactory: factoryExpectedAddress,
     },
     constructorParams: {
-      codeIndex: indexerContract.code,
+      codeIndex: indexContract.code,
       indexDeployValue: locklift.utils.toNano(0.2),
       indexDestroyValue: locklift.utils.toNano(0.2),
     },
@@ -34,8 +35,8 @@ async function main() {
   });
 
   console.log(`Indexer address: ${indexer.address.toString()}`);
-
-  const { contract: vestingFactory } = await locklift.factory.deployContract({
+  console.log("Deploying VestingFactory");
+  const { contract: vestingFactory } = await locklift.privateRPC.deployContract({
     contract: "VestingFactory",
     publicKey: signer?.publicKey as string,
     initParams: {
@@ -47,7 +48,7 @@ async function main() {
     value: locklift.utils.toNano(5),
   });
 
-  console.log(`VestingFactory contract deployed at: ${vestingFactory.address.toString()}`);
+  console.log(`VestingFactory address: ${vestingFactory.address.toString()}`);
 }
 
 main()

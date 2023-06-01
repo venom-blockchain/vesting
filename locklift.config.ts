@@ -2,6 +2,13 @@ import { LockliftConfig } from "locklift";
 
 import { FactorySource } from "./build/factorySource";
 
+import { PrivateDeployerExtension, LockliftConfigExtension } from "locklift-private-deploy";
+import "locklift-private-deploy";
+
+declare module "locklift" {
+  export interface Locklift<FactorySource> extends PrivateDeployerExtension<FactorySource> {}
+  export interface LockliftConfig extends LockliftConfigExtension {}
+}
 declare global {
   const locklift: import("locklift").Locklift<FactorySource>;
 }
@@ -13,6 +20,7 @@ const VENOM_TESTNET_TRACE_ENDPOINT =
   process.env.VENOM_TESTNET_TRACE_ENDPOINT || "https://gql-testnet.venom.foundation/graphql";
 
 const config: LockliftConfig = {
+  pivateRPC: "",
   compiler: {
     // Specify path to your TON-Solidity-Compiler
     // path: "/mnt/o/projects/broxus/TON-Solidity-Compiler/build/solc/solc",

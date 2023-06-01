@@ -93,7 +93,6 @@ describe("Test index creation for vesting contracts", async function () {
   it("should deploy single vesting contract and find it by the index codeHash", async function () {
     const start = Math.floor(locklift.testing.getCurrentTime() / 1000) + 15;
     const end = start + 20;
-    adminTokenWallet.transfer;
 
     await token.mint(bn(100).multipliedBy(1e18).toFixed(), user1);
 
@@ -179,7 +178,6 @@ describe("Test index creation for vesting contracts", async function () {
   it("the same user deploys 3 vesting contracts with the same params", async function () {
     const start = Math.floor(locklift.testing.getCurrentTime() / 1000) + 15;
     const end = start + 20;
-    adminTokenWallet.transfer;
 
     await token.mint(bn(100).multipliedBy(1e18).toFixed(), user1);
 
@@ -228,7 +226,6 @@ describe("Test index creation for vesting contracts", async function () {
   it("user1 creates 2 vestings, user0 creates 1, the same token", async function () {
     const start = Math.floor(locklift.testing.getCurrentTime() / 1000) + 15;
     const end = start + 20;
-    adminTokenWallet.transfer;
 
     await token.mint(bn(100).multipliedBy(1e18).toFixed(), user1);
 

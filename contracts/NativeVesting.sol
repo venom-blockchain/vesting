@@ -2,7 +2,7 @@ pragma ever-solidity ^0.62.0;
 pragma AbiHeader expire;
 
 
-import "@broxus/contracts/contracts/libraries/MsgFlag.sol";
+import "@broxus/contracts/contracts/libraries/MsgFlag.tsol";
 import "interfaces/IFactory.sol";
 
 

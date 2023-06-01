@@ -5,7 +5,7 @@ pragma AbiHeader pubkey;
 
 import "interfaces/IIndex.sol";
 import "Index.sol";
-import "@broxus/contracts/contracts/libraries/MsgFlag.sol";
+import "@broxus/contracts/contracts/libraries/MsgFlag.tsol";
 import "library.sol";
 
 contract Indexer {

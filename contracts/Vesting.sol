@@ -4,7 +4,7 @@ pragma AbiHeader expire;
 import "broxus-token-contracts/contracts/interfaces/ITokenRoot.tsol";
 import "broxus-token-contracts/contracts/interfaces/ITokenWallet.tsol";
 import "broxus-token-contracts/contracts/interfaces/IAcceptTokensTransferCallback.tsol";
-import "@broxus/contracts/contracts/libraries/MsgFlag.sol";
+import "@broxus/contracts/contracts/libraries/MsgFlag.tsol";
 import "interfaces/IFactory.sol";
 
 

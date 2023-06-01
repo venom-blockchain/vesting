@@ -3,7 +3,7 @@ pragma ever-solidity >=0.62.0;
 pragma AbiHeader expire;
 pragma AbiHeader pubkey;
 
-import "@broxus/contracts/contracts/libraries/MsgFlag.sol";
+import "@broxus/contracts/contracts/libraries/MsgFlag.tsol";
 
 contract Index {
     address static _indexer;
