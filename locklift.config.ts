@@ -2,11 +2,15 @@ import { LockliftConfig } from "locklift";
 
 import { FactorySource } from "./build/factorySource";
 
-import { PrivateDeployerExtension, LockliftConfigExtension } from "locklift-private-deploy";
+import { DeployArtifactsExtension } from "locklift-deploy-artifacts";
+import { LockliftConfigExtension, PrivateDeployerExtension } from "locklift-private-deploy";
+import "locklift-deploy-artifacts";
 import "locklift-private-deploy";
 
 declare module "locklift" {
-  export interface Locklift<FactorySource> extends PrivateDeployerExtension<FactorySource> {}
+  export interface Locklift<FactorySource>
+    extends DeployArtifactsExtension<FactorySource>,
+      PrivateDeployerExtension<FactorySource> {}
   export interface LockliftConfig extends LockliftConfigExtension {}
 }
 declare global {

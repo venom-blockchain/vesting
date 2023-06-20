@@ -36,8 +36,14 @@ contract Indexer {
         require(msg.sender == _vestingFactory, NOT_VESTING_FACTORY);
         _;
     }
+    
     modifier onlyOwner() {
         require(msg.sender == _owner, NOT_OWNER);
+        _;
+    }
+
+    modifier onlyVestingFactoryOrOwner() {
+        require(msg.sender == _vestingFactory || msg.sender == _owner, NOT_VESTING_FACTORY);
         _;
     }
 
@@ -50,7 +56,7 @@ contract Indexer {
         address acc,
         uint8 indexType,
         uint8 vestingContractType
-    ) external view onlyVestingFactory {
+    ) external view onlyVestingFactoryOrOwner {
         tvm.rawReserve(_reserve(), 0);
         TvmCell codeIndex = _buildIndexCode(_vestingFactory, acc, indexType, vestingContractType);
         TvmCell stateIndex = _buildIndexState(codeIndex, address(this), vestingContract, acc, indexType);

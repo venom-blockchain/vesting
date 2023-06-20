@@ -20,33 +20,43 @@ async function main() {
   });
   console.log("Expected vesting factory address", factoryExpectedAddress.toString());
   console.log("Deploying Indexer");
-  const { contract: indexer } = await locklift.privateRPC.deployContract({
-    contract: "Indexer",
-    publicKey: signer?.publicKey as string,
-    initParams: {
-      _vestingFactory: factoryExpectedAddress,
+  const { contract: indexer } = await locklift.deployArtifacts.deployContract(
+    "Indexer",
+    "latest",
+    {
+      contract: "Indexer",
+      publicKey: signer?.publicKey as string,
+      initParams: {
+        _vestingFactory: factoryExpectedAddress,
+      },
+      constructorParams: {
+        codeIndex: indexContract.code,
+        indexDeployValue: locklift.utils.toNano(0.2),
+        indexDestroyValue: locklift.utils.toNano(0.2),
+      },
+      value: locklift.utils.toNano(5),
     },
-    constructorParams: {
-      codeIndex: indexContract.code,
-      indexDeployValue: locklift.utils.toNano(0.2),
-      indexDestroyValue: locklift.utils.toNano(0.2),
-    },
-    value: locklift.utils.toNano(5),
-  });
+    locklift.privateRPC.deployContract,
+  );
 
   console.log(`Indexer address: ${indexer.address.toString()}`);
   console.log("Deploying VestingFactory");
-  const { contract: vestingFactory } = await locklift.privateRPC.deployContract({
-    contract: "VestingFactory",
-    publicKey: signer?.publicKey as string,
-    initParams: {
-      deploy_nonce: deployNonce,
-      nativeVestingCode: nativeVestingContract.code,
-      vestingCode: vestingContract.code,
+  const { contract: vestingFactory } = await locklift.deployArtifacts.deployContract(
+    "VestingFactory",
+    "latest",
+    {
+      contract: "VestingFactory",
+      publicKey: signer?.publicKey as string,
+      initParams: {
+        deploy_nonce: deployNonce,
+        nativeVestingCode: nativeVestingContract.code,
+        vestingCode: vestingContract.code,
+      },
+      constructorParams: { indexer: indexer.address },
+      value: locklift.utils.toNano(5),
     },
-    constructorParams: { indexer: indexer.address },
-    value: locklift.utils.toNano(5),
-  });
+    locklift.privateRPC.deployContract,
+  );
 
   console.log(`VestingFactory address: ${vestingFactory.address.toString()}`);
 }
