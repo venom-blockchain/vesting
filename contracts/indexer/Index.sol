@@ -5,64 +5,51 @@ pragma AbiHeader pubkey;
 
 import "@broxus/contracts/contracts/libraries/MsgFlag.tsol";
 
+library Errors {
+  uint16 constant SALT_HAS_NO_VALUE = 1001;
+  uint16 constant NOT_INDEXER = 1002;
+}
+
 contract Index {
-    address static _indexer;
-    address static _vestingContract;
-    address static _acc;
-    uint8 static _indexType;
+  struct Info {
+    address factory;
+    address instance;
+  }
+  struct Salt {
+    string key;
+    string valueType;
+    TvmCell value;
+  }
 
-    uint8 public _vestingContractType;
-    address public _vestingFactory;
+  address static _indexer;
 
-    uint16 constant SALT_HAS_NO_VALUE = 1001;
-    uint16 constant NOT_INDEXER = 1002;
-    uint16 constant INCORRECT_INDEX_TYPE = 1003;
+  Salt[] static _salt;
+  Info static _info;
 
-    constructor() public {
-        optional(TvmCell) salt = tvm.codeSalt(tvm.code());
-        require(salt.hasValue(), SALT_HAS_NO_VALUE);
-        (address vestingFactory, address acc, uint8 indexType, uint8 vestingContractType) = salt.get().toSlice().decode(
-            address,
-            address,
-            uint8,
-            uint8
-        );
-        require(msg.sender == _indexer);
-        require(indexType == _indexType, INCORRECT_INDEX_TYPE);
-        tvm.accept();
-        _vestingFactory = vestingFactory;
-        _acc = acc;
-        _vestingContractType = vestingContractType;
-    }
+  constructor() public {
+    optional(TvmCell) salt = tvm.codeSalt(tvm.code());
+    require(salt.hasValue(), Errors.SALT_HAS_NO_VALUE);
 
-    function getCodeHash() public pure responsible returns (uint256) {
-        return { value: 0, bounce: false, flag: MsgFlag.SENDER_PAYS_FEES } tvm.hash(tvm.code());
-    }
+    Salt[] decodedSalt = salt.get().toSlice().decode(Salt[]);
+    require(msg.sender == _indexer);
+    tvm.accept();
+    _salt = decodedSalt;
+  }
 
-    function getInfo()
-        public
-        view
-        responsible
-        returns (
-            address vestingFactory,
-            address vestingContract,
-            address acc,
-            uint8 indexType,
-            uint8 vestingContractType
-        )
-    {
-        return
-            { value: 0, bounce: false, flag: MsgFlag.SENDER_PAYS_FEES } (
-                _vestingFactory,
-                _vestingContract,
-                _acc,
-                _indexType,
-                _vestingContractType
-            );
-    }
+  function getCodeHash() public pure responsible returns (uint256) {
+    return { value: 0, bounce: false, flag: MsgFlag.SENDER_PAYS_FEES } tvm.hash(tvm.code());
+  }
 
-    function destruct(address gasReceiver) public {
-        require(msg.sender == _indexer, NOT_INDEXER);
-        selfdestruct(gasReceiver);
-    }
+  function getInfo() public view responsible returns (Info info) {
+    return { value: 0, bounce: false, flag: MsgFlag.SENDER_PAYS_FEES } (_info);
+  }
+
+  function getSalt() public view responsible returns (Salt[] salt) {
+    return { value: 0, bounce: false, flag: MsgFlag.SENDER_PAYS_FEES } (_salt);
+  }
+
+  function destruct(address gasReceiver) public {
+    require(msg.sender == _indexer, Errors.NOT_INDEXER);
+    selfdestruct(gasReceiver);
+  }
 }

@@ -3,15 +3,9 @@ import { Address, Contract } from "locklift";
 import { Account } from "locklift/everscale-client";
 import { FactorySource } from "../build/factorySource";
 import { bn, deployUser, setupTokenRoot } from "./utils/common";
-import {
-  getSaltedCodeHash,
-  validateIndexInfo,
-  validateIndexesAmount,
-  validateIndexCodeHash,
-  validateIndexAddress,
-} from "./utils/indexer";
 import { Token } from "./utils/wrappers/token";
 import { TokenWallet } from "./utils/wrappers/token_wallet";
+
 const logger = require("mocha-logger");
 
 describe("Test index creation for vesting contracts", async function () {
@@ -24,7 +18,7 @@ describe("Test index creation for vesting contracts", async function () {
 
   let token: Token;
 
-  let indexer: Contract<FactorySource["Indexer"]>;
+  let indexer: Contract<FactorySource["VestingIndexer"]>;
   let factory: Contract<FactorySource["VestingFactory"]>;
 
   let indexCode: string;
@@ -53,13 +47,15 @@ describe("Test index creation for vesting contracts", async function () {
     logger.log(`Expected factory address: ${factoryExpectedAddress}`);
 
     const { contract: _indexer } = await locklift.factory.deployContract({
-      contract: "Indexer",
+      contract: "VestingIndexer",
       publicKey: signer?.publicKey as string,
       initParams: {
-        _vestingFactory: factoryExpectedAddress,
+        _rootContract: factoryExpectedAddress,
+        _nonce: locklift.utils.getRandomNonce(),
       },
       constructorParams: {
-        codeIndex: indexArtifacts.code,
+        owner: admin.address,
+        indexCode: indexArtifacts.code,
         indexDeployValue: locklift.utils.toNano(0.2),
         indexDestroyValue: locklift.utils.toNano(0.2),
       },
@@ -68,7 +64,7 @@ describe("Test index creation for vesting contracts", async function () {
     indexer = _indexer;
     logger.log(`Indexer address: ${indexer.address}`);
 
-    const { codeIndex: _indexCode } = await indexer.methods.getCodeIndex({ answerId: 0 }).call();
+    const { indexCode: _indexCode } = await indexer.methods.getIndexCode({ answerId: 0 }).call();
     indexCode = _indexCode;
 
     const { contract: _factory } = await locklift.factory.deployContract({
@@ -90,108 +86,12 @@ describe("Test index creation for vesting contracts", async function () {
     user0TokenWallet = await token.wallet(user0);
     user1TokenWallet = await token.wallet(user1);
   });
-  it("should deploy single vesting contract and find it by the index codeHash", async function () {
+  it("should deploy 2 vesting contract with indexes", async function () {
     const start = Math.floor(locklift.testing.getCurrentTime() / 1000) + 15;
     const end = start + 20;
 
     await token.mint(bn(100).multipliedBy(1e18).toFixed(), user1);
-
-    await locklift.tracing.trace(
-      factory.methods
-        .deployVesting({
-          user: user0.address,
-          token: token.address,
-          vesting_amount: bn(100).multipliedBy(1e18).toFixed(),
-          vesting_start: start,
-          vesting_end: end,
-        })
-        .send({ from: user1.address, amount: locklift.utils.toNano(2.5) }),
-    );
-
-    // @ts-ignore
-    const event = (
-      await factory.getPastEvents({
-        filter: event => event.event === "NewVesting",
-      })
-    ).events.shift() as any;
-    expect(event.data.user.toString()).to.be.eq(user0.address.toString());
-    expect(event.data.creator.toString()).to.be.eq(user1.address.toString());
-
-    const userIndexCodeHash = await validateIndexCodeHash(
-      indexer,
-      indexCode,
-      factory.address,
-      user0.address,
-      0,
-      0,
-    );
-    const userIndexes = await validateIndexesAmount(userIndexCodeHash, 1);
-    const userIndexAddress = await validateIndexAddress(
-      indexer,
-      userIndexes[0],
-      event.data.vesting,
-      user0.address,
-      0,
-      0,
-    );
-    await validateIndexInfo(userIndexAddress, factory.address, event.data.vesting, user0.address);
-
-    const creatorIndexCodeHash = await validateIndexCodeHash(
-      indexer,
-      indexCode,
-      factory.address,
-      user1.address,
-      1,
-      0,
-    );
-    const creatorIndexes = await validateIndexesAmount(creatorIndexCodeHash, 1);
-    const creatorIndexAddress = await validateIndexAddress(
-      indexer,
-      creatorIndexes[0],
-      event.data.vesting,
-      user1.address,
-      1,
-      0,
-    );
-    await validateIndexInfo(creatorIndexAddress, factory.address, event.data.vesting, user1.address);
-
-    const tokenIndexCodeHash = await validateIndexCodeHash(
-      indexer,
-      indexCode,
-      factory.address,
-      token.address,
-      2,
-      0,
-    );
-
-    const tokenIndexes = await validateIndexesAmount(tokenIndexCodeHash, 1);
-    const tokenIndexAddress = await validateIndexAddress(
-      indexer,
-      tokenIndexes[0],
-      event.data.vesting,
-      token.address,
-      2,
-      0,
-    );
-    await validateIndexInfo(tokenIndexAddress, factory.address, event.data.vesting, token.address);
-  });
-  it("the same user deploys 3 vesting contracts with the same params", async function () {
-    const start = Math.floor(locklift.testing.getCurrentTime() / 1000) + 15;
-    const end = start + 20;
-
-    await token.mint(bn(100).multipliedBy(1e18).toFixed(), user1);
-
-    await locklift.tracing.trace(
-      factory.methods
-        .deployVesting({
-          user: user0.address,
-          token: token.address,
-          vesting_amount: bn(100).multipliedBy(1e18).toFixed(),
-          vesting_start: start,
-          vesting_end: end,
-        })
-        .send({ from: user1.address, amount: locklift.utils.toNano(2.5) }),
-    );
+    locklift.tracing.setAllowedCodes({ compute: [1008] });
     await locklift.tracing.trace(
       factory.methods
         .deployVesting({
@@ -215,60 +115,139 @@ describe("Test index creation for vesting contracts", async function () {
         .send({ from: user1.address, amount: locklift.utils.toNano(2.5) }),
     );
 
-    const userIndexCodeHash = await getSaltedCodeHash(indexCode, factory.address, user0.address, 0, 0);
-    const creatorIndexCodeHash = await getSaltedCodeHash(indexCode, factory.address, user1.address, 1, 0);
-    const tokenIndexCodeHash = await getSaltedCodeHash(indexCode, factory.address, token.address, 2, 0);
+    const userIndexCodeHash = await calculateAccIndexCodeHash(indexCode, "recipient", user0.address, "Vesting");
+    const creatorIndexCodeHash = await calculateAccIndexCodeHash(indexCode, "creator", user1.address, "Vesting");
+    const tokenIndexCodeHash = await calculateTokenIndexCodeHash(indexCode, token.address);
 
-    await validateIndexesAmount(creatorIndexCodeHash, 3);
-    await validateIndexesAmount(userIndexCodeHash, 3);
-    await validateIndexesAmount(tokenIndexCodeHash, 3);
-  });
-  it("user1 creates 2 vestings, user0 creates 1, the same token", async function () {
-    const start = Math.floor(locklift.testing.getCurrentTime() / 1000) + 15;
-    const end = start + 20;
+    const { accounts: userAccs } = await locklift.provider.getAccountsByCodeHash({ codeHash: userIndexCodeHash });
+    const { accounts: creatorAccs } = await locklift.provider.getAccountsByCodeHash({ codeHash: creatorIndexCodeHash });
+    const { accounts: tokenAccs } = await locklift.provider.getAccountsByCodeHash({ codeHash: tokenIndexCodeHash });
 
-    await token.mint(bn(100).multipliedBy(1e18).toFixed(), user1);
+    expect(userAccs.length).to.be.equal(2);
+    expect(creatorAccs.length).to.be.equal(2);
+    expect(tokenAccs.length).to.be.equal(2);
+  }),
+    it("should deploy 2 native vesting contract with indexes", async function () {
+      const start = Math.floor(locklift.testing.getCurrentTime() / 1000) + 15;
+      const end = start + 20;
 
-    await locklift.tracing.trace(
-      factory.methods
-        .deployVesting({
-          user: user0.address,
-          token: token.address,
-          vesting_amount: bn(100).multipliedBy(1e18).toFixed(),
-          vesting_start: start,
-          vesting_end: end,
-        })
-        .send({ from: user1.address, amount: locklift.utils.toNano(2.5) }),
-    );
-    await locklift.tracing.trace(
-      factory.methods
-        .deployVesting({
-          user: user0.address,
-          token: token.address,
-          vesting_amount: bn(100).multipliedBy(1e18).toFixed(),
-          vesting_start: start,
-          vesting_end: end,
-        })
-        .send({ from: user1.address, amount: locklift.utils.toNano(2.5) }),
-    );
-    await locklift.tracing.trace(
-      factory.methods
-        .deployVesting({
-          user: user1.address,
-          token: token.address,
-          vesting_amount: bn(100).multipliedBy(1e18).toFixed(),
-          vesting_start: start,
-          vesting_end: end,
-        })
-        .send({ from: user0.address, amount: locklift.utils.toNano(2.5) }),
-    );
+      await token.mint(bn(100).multipliedBy(1e18).toFixed(), user1);
 
-    const userIndexCodeHash = await getSaltedCodeHash(indexCode, factory.address, user0.address, 0, 0);
-    const creatorIndexCodeHash = await getSaltedCodeHash(indexCode, factory.address, user1.address, 1, 0);
-    const tokenIndexCodeHash = await getSaltedCodeHash(indexCode, factory.address, token.address, 2, 0);
+      await locklift.tracing.trace(
+        factory.methods
+          .deployNativeVesting({
+            user: user0.address,
+            vesting_amount: bn(1).multipliedBy(1e9).toFixed(),
+            vesting_start: start,
+            vesting_end: end,
+          })
+          .send({ from: user1.address, amount: locklift.utils.toNano(2.5) }),
+      );
+      await locklift.tracing.trace(
+        factory.methods
+          .deployNativeVesting({
+            user: user0.address,
+            vesting_amount: bn(1).multipliedBy(1e9).toFixed(),
+            vesting_start: start,
+            vesting_end: end,
+          })
+          .send({ from: user1.address, amount: locklift.utils.toNano(2.5) }),
+      );
 
-    await validateIndexesAmount(creatorIndexCodeHash, 2);
-    await validateIndexesAmount(userIndexCodeHash, 2);
-    await validateIndexesAmount(tokenIndexCodeHash, 3);
-  });
+      const userIndexCodeHash = await calculateAccIndexCodeHash(indexCode, "recipient", user0.address, "NativeVesting");
+
+      const creatorIndexCodeHash = await calculateAccIndexCodeHash(
+        indexCode,
+        "creator",
+        user1.address,
+        "NativeVesting",
+      );
+
+      const { accounts: userAccs } = await locklift.provider.getAccountsByCodeHash({ codeHash: userIndexCodeHash });
+      const { accounts: creatorAccs } = await locklift.provider.getAccountsByCodeHash({
+        codeHash: creatorIndexCodeHash,
+      });
+
+      expect(userAccs.length).to.be.equal(2);
+      expect(creatorAccs.length).to.be.equal(2);
+    });
 });
+
+export async function calculateAccIndexCodeHash(
+  tvcCode: string,
+  accType: "recipient" | "creator",
+  acc: Address,
+  contractType: "Vesting" | "NativeVesting",
+): Promise<string> {
+  const accPacked = await locklift.provider.packIntoCell({
+    abiVersion: "2.1",
+    structure: [{ name: "value", type: "address" }] as const,
+    data: {
+      value: acc,
+    },
+  });
+  const contractTypePacked = await locklift.provider.packIntoCell({
+    abiVersion: "2.1",
+    structure: [{ name: "value", type: "string" }] as const,
+    data: {
+      value: contractType,
+    },
+  });
+  const { hash: saltedCodeHash } = await locklift.provider.setCodeSalt({
+    code: tvcCode,
+    salt: {
+      structure: [
+        {
+          components: [
+            { name: "key", type: "string" },
+            { name: "valueType", type: "string" },
+            { name: "value", type: "cell" },
+          ],
+          name: "saltParams",
+          type: "tuple[]",
+        },
+      ] as const,
+      abiVersion: "2.1",
+      data: {
+        saltParams: [
+          { key: accType, valueType: "address", value: accPacked.boc },
+          { key: "contractType", valueType: "string", value: contractTypePacked.boc },
+        ],
+      },
+    },
+  });
+
+  return "0x" + saltedCodeHash;
+}
+export async function calculateTokenIndexCodeHash(tvcCode: string, token: Address): Promise<string> {
+  const tokenPacked = await locklift.provider.packIntoCell({
+    abiVersion: "2.1",
+    structure: [{ name: "value", type: "address" }] as const,
+    data: {
+      value: token,
+    },
+  });
+
+  const { hash: saltedCodeHash } = await locklift.provider.setCodeSalt({
+    code: tvcCode,
+    salt: {
+      structure: [
+        {
+          components: [
+            { name: "key", type: "string" },
+            { name: "valueType", type: "string" },
+            { name: "value", type: "cell" },
+          ],
+          name: "saltParams",
+          type: "tuple[]",
+        },
+      ] as const,
+      abiVersion: "2.1",
+      data: {
+        saltParams: [{ key: "token", valueType: "address", value: tokenPacked.boc }],
+      },
+    },
+  });
+
+  return "0x" + saltedCodeHash;
+}

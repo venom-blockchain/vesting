@@ -15,6 +15,35 @@
 			]
 		},
 		{
+			"name": "deployRecipientIndex",
+			"inputs": [
+				{"name":"vesting","type":"address"},
+				{"name":"recipient","type":"address"},
+				{"name":"contractType","type":"string"}
+			],
+			"outputs": [
+			]
+		},
+		{
+			"name": "deployCreatorIndex",
+			"inputs": [
+				{"name":"vesting","type":"address"},
+				{"name":"creator","type":"address"},
+				{"name":"contractType","type":"string"}
+			],
+			"outputs": [
+			]
+		},
+		{
+			"name": "deployTokenIndex",
+			"inputs": [
+				{"name":"vesting","type":"address"},
+				{"name":"token","type":"address"}
+			],
+			"outputs": [
+			]
+		},
+		{
 			"name": "getIndexCode",
 			"inputs": [
 				{"name":"answerId","type":"uint32"}

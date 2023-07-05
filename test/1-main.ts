@@ -1,16 +1,7 @@
 import { Contract, getRandomNonce, lockliftChai, toNano } from "locklift";
 import { Account } from "locklift/everscale-client";
-import {
-  IndexerAbi,
-  VestingAbi,
-  VestingFactoryAbi,
-} from "../build/factorySource";
-import {
-  bn,
-  deployUser,
-  setupTokenRoot,
-  tryIncreaseTime,
-} from "./utils/common";
+import { VestingIndexerAbi, VestingAbi, VestingFactoryAbi } from "../build/factorySource";
+import { bn, deployUser, setupTokenRoot, tryIncreaseTime } from "./utils/common";
 import { Token } from "./utils/wrappers/token";
 import { TokenWallet } from "./utils/wrappers/token_wallet";
 
@@ -23,7 +14,7 @@ describe("Test linear vesting contract", async function () {
   this.timeout(100000000);
 
   let factory: Contract<VestingFactoryAbi>;
-  let indexer: Contract<IndexerAbi>;
+  let indexer: Contract<VestingIndexerAbi>;
   let user: Account;
   let userTokenWallet: TokenWallet;
   let admin: Account;
@@ -49,31 +40,29 @@ describe("Test linear vesting contract", async function () {
 
       const Factory = locklift.factory.getContractArtifacts("VestingFactory");
       const Vesting = locklift.factory.getContractArtifacts("Vesting");
-      const NativeVesting =
-        locklift.factory.getContractArtifacts("NativeVesting");
+      const NativeVesting = locklift.factory.getContractArtifacts("NativeVesting");
 
-      const factoryExpectedAddress = await locklift.provider.getExpectedAddress(
-        Factory.abi,
-        {
-          tvc: Factory.tvc,
-          publicKey: signer?.publicKey as string,
-          initParams: {
-            deploy_nonce: factoryDeployNonce,
-            nativeVestingCode: NativeVesting.code,
-            vestingCode: Vesting.code,
-          },
+      const factoryExpectedAddress = await locklift.provider.getExpectedAddress(Factory.abi, {
+        tvc: Factory.tvc,
+        publicKey: signer?.publicKey as string,
+        initParams: {
+          deploy_nonce: factoryDeployNonce,
+          nativeVestingCode: NativeVesting.code,
+          vestingCode: Vesting.code,
         },
-      );
+      });
       logger.log(`Factory expected address: ${factoryExpectedAddress}`);
       const Index = locklift.factory.getContractArtifacts("Index");
       const { contract: _indexer } = await locklift.factory.deployContract({
-        contract: "Indexer",
+        contract: "VestingIndexer",
         publicKey: signer?.publicKey as string,
         initParams: {
-          _vestingFactory: factoryExpectedAddress,
+          _rootContract: factoryExpectedAddress,
+          _nonce: locklift.utils.getRandomNonce(),
         },
         constructorParams: {
-          codeIndex: Index.code,
+          owner: admin.address,
+          indexCode: Index.code,
           indexDeployValue: toNano(0.2),
           indexDestroyValue: toNano(0.2),
         },
@@ -88,8 +77,7 @@ describe("Test linear vesting contract", async function () {
       const signer = await locklift.keystore.getSigner("0");
 
       const Vesting = locklift.factory.getContractArtifacts("Vesting");
-      const NativeVesting =
-        locklift.factory.getContractArtifacts("NativeVesting");
+      const NativeVesting = locklift.factory.getContractArtifacts("NativeVesting");
 
       const { contract: _contract } = await locklift.tracing.trace(
         locklift.factory.deployContract({
@@ -132,21 +120,18 @@ describe("Test linear vesting contract", async function () {
             vesting_start: start,
             vesting_end: end,
           })
-          .send({ from: user.address, amount: toNano(3) })
+          .send({ from: user.address, amount: toNano(3) }),
       );
 
       // @ts-ignore
       const event = (
         await factory.getPastEvents({
-          filter: (event) => event.event === "NewVesting",
+          filter: event => event.event === "NewVesting",
         })
       ).events.shift() as any;
       expect(event.data.user.toString()).to.be.eq(user.address.toString());
 
-      vesting = await locklift.factory.getDeployedContract(
-        "Vesting",
-        event.data.vesting
-      );
+      vesting = await locklift.factory.getDeployedContract("Vesting", event.data.vesting);
       vestingTokenWallet = await token.wallet({
         address: vesting.address,
       } as Account);
@@ -156,7 +141,7 @@ describe("Test linear vesting contract", async function () {
     it("Send bad token amount to vesting", async function () {
       const bad_amount = 123;
       const { traceTree } = await locklift.tracing.trace(
-        adminTokenWallet.transfer(bad_amount, vesting.address, "", toNano(1))
+        adminTokenWallet.transfer(bad_amount, vesting.address, "", toNano(1)),
       );
       // await traceTree?.beautyPrint();
       expect(traceTree).to.emit("BadDeposit").withNamedArgs({
@@ -166,20 +151,12 @@ describe("Test linear vesting contract", async function () {
 
       // check funds not sent
       const admin_bal = await adminTokenWallet.balance();
-      expect(admin_bal.toString()).to.be.eq(
-        admin_initial_bal.toString(),
-        "Bad tokens lost"
-      );
+      expect(admin_bal.toString()).to.be.eq(admin_initial_bal.toString(), "Bad tokens lost");
     });
 
     it("Send correct token amount", async function () {
       const { traceTree } = await locklift.tracing.trace(
-        adminTokenWallet.transfer(
-          vesting_amount,
-          vesting.address,
-          "",
-          toNano(1)
-        )
+        adminTokenWallet.transfer(vesting_amount, vesting.address, "", toNano(1)),
       );
       expect(traceTree).to.emit("Deposit").withNamedArgs({
         sender: admin.address,
@@ -187,22 +164,14 @@ describe("Test linear vesting contract", async function () {
       });
       const details = await vesting.methods.getDetails({}).call();
       expect(details._filled).to.be.eq(true, "Not filled");
-      expect(details._tokenBalance.toString()).to.be.eq(
-        vesting_amount.toString(),
-        "Bad token balance"
-      );
+      expect(details._tokenBalance.toString()).to.be.eq(vesting_amount.toString(), "Bad token balance");
     });
 
     it("Send redundant tokens", async function () {
       const admin_bal_before = await adminTokenWallet.balance();
 
       const { traceTree } = await locklift.tracing.trace(
-        adminTokenWallet.transfer(
-          vesting_amount,
-          vesting.address,
-          "",
-          toNano(1)
-        )
+        adminTokenWallet.transfer(vesting_amount, vesting.address, "", toNano(1)),
       );
       expect(traceTree).to.emit("BadDeposit").withNamedArgs({
         sender: admin.address,
@@ -210,19 +179,14 @@ describe("Test linear vesting contract", async function () {
       });
       // check funds not sent
       const admin_bal = await adminTokenWallet.balance();
-      expect(admin_bal.toString()).to.be.eq(
-        admin_bal_before.toString(),
-        "Bad tokens lost"
-      );
+      expect(admin_bal.toString()).to.be.eq(admin_bal_before.toString(), "Bad tokens lost");
     });
 
     it("User claims", async function () {
       await tryIncreaseTime(20);
 
       const { traceTree } = await locklift.tracing.trace(
-        vesting.methods
-          .claim({})
-          .send({ from: user.address, amount: toNano(2) })
+        vesting.methods.claim({}).send({ from: user.address, amount: toNano(2) }),
       );
 
       const details = await vesting.methods.getDetails({}).call();
@@ -232,9 +196,7 @@ describe("Test linear vesting contract", async function () {
 
       const amount = Math.floor((vesting_amount * passed) / period);
       logger.log(
-        `Time passed - ${passed} (${((passed / period) * 100).toPrecision(
-          2
-        )}%), tokens should be paid - ${amount}`
+        `Time passed - ${passed} (${((passed / period) * 100).toPrecision(2)}%), tokens should be paid - ${amount}`,
       );
 
       const vesting_bal = await vestingTokenWallet.balance();
@@ -257,9 +219,7 @@ describe("Test linear vesting contract", async function () {
       await tryIncreaseTime(5);
 
       const { traceTree } = await locklift.tracing.trace(
-        vesting.methods
-          .claim({})
-          .send({ from: user.address, amount: toNano(2) })
+        vesting.methods.claim({}).send({ from: user.address, amount: toNano(2) }),
       );
 
       const details = await vesting.methods.getDetails().call();
@@ -269,9 +229,7 @@ describe("Test linear vesting contract", async function () {
 
       const amount = Math.floor((vesting_balance * passed) / period);
       logger.log(
-        `Time passed - ${passed} (${((passed / period) * 100).toPrecision(
-          2
-        )}%), tokens should be paid - ${amount}`
+        `Time passed - ${passed} (${((passed / period) * 100).toPrecision(2)}%), tokens should be paid - ${amount}`,
       );
 
       const vesting_bal = await vestingTokenWallet.balance();
@@ -282,10 +240,7 @@ describe("Test linear vesting contract", async function () {
 
       const user_bal = await userTokenWallet.balance();
       user_bal_cumulative = user_bal_cumulative.plus(bn(amount.toFixed()));
-      expect(user_bal.toString()).to.be.eq(
-        user_bal_cumulative.toString(),
-        "User not paid"
-      );
+      expect(user_bal.toString()).to.be.eq(user_bal_cumulative.toString(), "User not paid");
     });
 
     it("User claims after vesting ends", async function () {
@@ -296,9 +251,7 @@ describe("Test linear vesting contract", async function () {
       const vesting_balance = Number(prev_details._tokenBalance);
 
       const { traceTree } = await locklift.tracing.trace(
-        vesting.methods
-          .claim({})
-          .send({ from: user.address, amount: toNano(2) })
+        vesting.methods.claim({}).send({ from: user.address, amount: toNano(2) }),
       );
 
       const details = await vesting.methods.getDetails().call();
@@ -308,9 +261,7 @@ describe("Test linear vesting contract", async function () {
 
       const amount = vesting_balance;
       logger.log(
-        `Time passed - ${passed} (${((passed / period) * 100).toPrecision(
-          2
-        )}%), tokens should be paid - ${amount}`
+        `Time passed - ${passed} (${((passed / period) * 100).toPrecision(2)}%), tokens should be paid - ${amount}`,
       );
 
       const vesting_bal = await vestingTokenWallet.balance();
@@ -321,10 +272,7 @@ describe("Test linear vesting contract", async function () {
 
       const user_bal = await userTokenWallet.balance();
       user_bal_cumulative = user_bal_cumulative.plus(bn(amount.toFixed()));
-      expect(user_bal.toString()).to.be.eq(
-        user_bal_cumulative.toString(),
-        "User not paid"
-      );
+      expect(user_bal.toString()).to.be.eq(user_bal_cumulative.toString(), "User not paid");
 
       expect(traceTree).to.emit("Vested");
 

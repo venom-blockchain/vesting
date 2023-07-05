@@ -6,7 +6,7 @@ import {
 } from "locklift";
 import { Account } from "locklift/everscale-client";
 import {
-  IndexerAbi,
+  VestingIndexerAbi,
   NativeVestingAbi,
   VestingFactoryAbi,
 } from "../build/factorySource";
@@ -21,7 +21,7 @@ describe("Test native linear vesting contract", async function () {
   this.timeout(100000000);
 
   let factory: Contract<VestingFactoryAbi>;
-  let indexer: Contract<IndexerAbi>;
+  let indexer: Contract<VestingIndexerAbi>;
   let user: Account;
   let admin: Account;
   let vesting_amount = toNano(10);
@@ -61,17 +61,19 @@ describe("Test native linear vesting contract", async function () {
 
       const Index = locklift.factory.getContractArtifacts("Index");
       const { contract: _indexer } = await locklift.factory.deployContract({
-        contract: "Indexer",
+        contract: "VestingIndexer",
         publicKey: signer?.publicKey as string,
         initParams: {
-          _vestingFactory: factoryExpectedAddress,
+          _rootContract: factoryExpectedAddress,
+          _nonce: locklift.utils.getRandomNonce(),
         },
         constructorParams: {
-          codeIndex: Index.code,
-          indexDeployValue: locklift.utils.toNano(0.2),
-          indexDestroyValue: locklift.utils.toNano(0.2),
+          owner: admin.address,
+          indexCode: Index.code,
+          indexDeployValue: toNano(0.2),
+          indexDestroyValue: toNano(0.2),
         },
-        value: locklift.utils.toNano(5),
+        value: toNano(5),
       });
       indexer = _indexer;
 

@@ -25,11 +25,16 @@
 				{"name":"answerId","type":"uint32"}
 			],
 			"outputs": [
-				{"name":"vestingFactory","type":"address"},
-				{"name":"vestingContract","type":"address"},
-				{"name":"acc","type":"address"},
-				{"name":"indexType","type":"uint8"},
-				{"name":"vestingContractType","type":"uint8"}
+				{"components":[{"name":"factory","type":"address"},{"name":"instance","type":"address"}],"name":"info","type":"tuple"}
+			]
+		},
+		{
+			"name": "getSalt",
+			"inputs": [
+				{"name":"answerId","type":"uint32"}
+			],
+			"outputs": [
+				{"components":[{"name":"key","type":"string"},{"name":"valueType","type":"string"},{"name":"value","type":"cell"}],"name":"salt","type":"tuple[]"}
 			]
 		},
 		{
@@ -39,29 +44,12 @@
 			],
 			"outputs": [
 			]
-		},
-		{
-			"name": "_vestingContractType",
-			"inputs": [
-			],
-			"outputs": [
-				{"name":"_vestingContractType","type":"uint8"}
-			]
-		},
-		{
-			"name": "_vestingFactory",
-			"inputs": [
-			],
-			"outputs": [
-				{"name":"_vestingFactory","type":"address"}
-			]
 		}
 	],
 	"data": [
 		{"key":1,"name":"_indexer","type":"address"},
-		{"key":2,"name":"_vestingContract","type":"address"},
-		{"key":3,"name":"_acc","type":"address"},
-		{"key":4,"name":"_indexType","type":"uint8"}
+		{"components":[{"name":"key","type":"string"},{"name":"valueType","type":"string"},{"name":"value","type":"cell"}],"key":2,"name":"_salt","type":"tuple[]"},
+		{"components":[{"name":"factory","type":"address"},{"name":"instance","type":"address"}],"key":3,"name":"_info","type":"tuple"}
 	],
 	"events": [
 	],
@@ -70,10 +58,7 @@
 		{"name":"_timestamp","type":"uint64"},
 		{"name":"_constructorFlag","type":"bool"},
 		{"name":"_indexer","type":"address"},
-		{"name":"_vestingContract","type":"address"},
-		{"name":"_acc","type":"address"},
-		{"name":"_indexType","type":"uint8"},
-		{"name":"_vestingContractType","type":"uint8"},
-		{"name":"_vestingFactory","type":"address"}
+		{"components":[{"name":"key","type":"string"},{"name":"valueType","type":"string"},{"name":"value","type":"cell"}],"name":"_salt","type":"tuple[]"},
+		{"components":[{"name":"factory","type":"address"},{"name":"instance","type":"address"}],"name":"_info","type":"tuple"}
 	]
 }

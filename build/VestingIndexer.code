@@ -48,11 +48,351 @@ SETGLOB 12
 SETGLOB 13
 .loc ../contracts/indexer/Indexer.sol, 42
 SETGLOB 15
-.loc ../contracts/indexer/Indexer.sol, 0
+.loc ../contracts/VestingIndexer.sol, 0
 CALLREF {
 	CALL $c7_to_c4$
 }
 THROW 0
+
+.macro deployRecipientIndex
+DROP
+GETGLOB 6
+THROWIFNOT 76
+GETGLOB 2
+ISNULL
+IFREF {
+	CALL $c4_to_c7$
+}
+.loc ../contracts/VestingIndexer.sol, 17
+OVER
+PUSHCONT {
+	LDREF
+	ENDS
+	CTOS
+}
+IF
+LDMSGADDR
+LDREF
+ENDS
+CTOS
+LDMSGADDR
+LDREF
+ENDS
+.loc ../contracts/VestingIndexer.sol, 0
+CALLREF {
+	CALL $deployRecipientIndex_971d911d_internal_macro$
+}
+DROP
+CALLREF {
+	CALL $c7_to_c4$
+}
+THROW 0
+
+.globl	deployRecipientIndex_971d911d_internal
+.type	deployRecipientIndex_971d911d_internal, @function
+CALL $deployRecipientIndex_971d911d_internal_macro$
+
+.macro deployRecipientIndex_971d911d_internal_macro
+.loc ../contracts/indexer/Indexer.sol, 62
+GETGLOB 9
+GETGLOB 10
+SDEQ
+GETGLOB 9
+GETGLOB 15
+SDEQ
+OR
+THROWIFNOT 1008
+.loc ../contracts/VestingIndexer.sol, 22
+PUSHINT 0
+NEWDICT
+PAIR
+.loc ../contracts/VestingIndexer.sol, 23
+PUSHREF {
+	.blob x726563697069656e74
+}
+ROLL 3
+CALLREF {
+	CALL $buildAddressSaltParam_495575bc_internal_macro$
+}
+.loc ../contracts/VestingIndexer.sol, 24
+PUSHREF {
+	.blob x636f6e747261637454797065
+}
+ROLL 3
+CALLREF {
+	CALL $buildStringSaltParam_98a44760_internal_macro$
+}
+.loc ../contracts/VestingIndexer.sol, 26
+PUSH S2
+ROT
+CALLREF {
+	UNTRIPLE
+	XCHG S2
+	NEWC
+	STREF
+	STREF
+	STREF
+}
+SWAP
+UNPAIR
+OVER
+INC
+ROLLREV 3
+PUSHINT 32
+DICTUSETB
+PAIR
+POP S2
+.loc ../contracts/VestingIndexer.sol, 27
+CALLREF {
+	UNTRIPLE
+	XCHG S2
+	NEWC
+	STREF
+	STREF
+	STREF
+}
+SWAP
+UNPAIR
+OVER
+INC
+ROLLREV 3
+PUSHINT 32
+DICTUSETB
+PAIR
+.loc ../contracts/VestingIndexer.sol, 29
+CALLREF {
+	CALL $deployIndex_ce607963_internal_macro$
+}
+.loc ../contracts/VestingIndexer.sol, 0
+
+.macro deployCreatorIndex
+DROP
+GETGLOB 6
+THROWIFNOT 76
+GETGLOB 2
+ISNULL
+IFREF {
+	CALL $c4_to_c7$
+}
+.loc ../contracts/VestingIndexer.sol, 32
+OVER
+PUSHCONT {
+	LDREF
+	ENDS
+	CTOS
+}
+IF
+LDMSGADDR
+LDREF
+ENDS
+CTOS
+LDMSGADDR
+LDREF
+ENDS
+.loc ../contracts/VestingIndexer.sol, 0
+CALLREF {
+	CALL $deployCreatorIndex_bfeac8ab_internal_macro$
+}
+DROP
+CALLREF {
+	CALL $c7_to_c4$
+}
+THROW 0
+
+.globl	deployCreatorIndex_bfeac8ab_internal
+.type	deployCreatorIndex_bfeac8ab_internal, @function
+CALL $deployCreatorIndex_bfeac8ab_internal_macro$
+
+.macro deployCreatorIndex_bfeac8ab_internal_macro
+.loc ../contracts/indexer/Indexer.sol, 62
+GETGLOB 9
+GETGLOB 10
+SDEQ
+GETGLOB 9
+GETGLOB 15
+SDEQ
+OR
+THROWIFNOT 1008
+.loc ../contracts/VestingIndexer.sol, 33
+PUSHINT 0
+NEWDICT
+PAIR
+.loc ../contracts/VestingIndexer.sol, 34
+PUSHREF {
+	.blob x63726561746f72
+}
+ROLL 3
+CALLREF {
+	CALL $buildAddressSaltParam_495575bc_internal_macro$
+}
+.loc ../contracts/VestingIndexer.sol, 35
+PUSHREF {
+	.blob x636f6e747261637454797065
+}
+ROLL 3
+CALLREF {
+	CALL $buildStringSaltParam_98a44760_internal_macro$
+}
+.loc ../contracts/VestingIndexer.sol, 37
+PUSH S2
+ROT
+CALLREF {
+	UNTRIPLE
+	XCHG S2
+	NEWC
+	STREF
+	STREF
+	STREF
+}
+SWAP
+UNPAIR
+OVER
+INC
+ROLLREV 3
+PUSHINT 32
+DICTUSETB
+PAIR
+POP S2
+.loc ../contracts/VestingIndexer.sol, 38
+CALLREF {
+	UNTRIPLE
+	XCHG S2
+	NEWC
+	STREF
+	STREF
+	STREF
+}
+SWAP
+UNPAIR
+OVER
+INC
+ROLLREV 3
+PUSHINT 32
+DICTUSETB
+PAIR
+.loc ../contracts/VestingIndexer.sol, 40
+CALLREF {
+	CALL $deployIndex_ce607963_internal_macro$
+}
+.loc ../contracts/VestingIndexer.sol, 0
+
+.macro deployTokenIndex
+DROP
+GETGLOB 6
+THROWIFNOT 76
+GETGLOB 2
+ISNULL
+IFREF {
+	CALL $c4_to_c7$
+}
+.loc ../contracts/VestingIndexer.sol, 43
+OVER
+PUSHCONT {
+	LDREF
+	ENDS
+	CTOS
+}
+IF
+LDMSGADDR
+LDREF
+ENDS
+CTOS
+LDMSGADDR
+ENDS
+.loc ../contracts/VestingIndexer.sol, 0
+CALLREF {
+	CALL $deployTokenIndex_95ad0c60_internal_macro$
+}
+DROP
+CALLREF {
+	CALL $c7_to_c4$
+}
+THROW 0
+
+.globl	deployTokenIndex_95ad0c60_internal
+.type	deployTokenIndex_95ad0c60_internal, @function
+CALL $deployTokenIndex_95ad0c60_internal_macro$
+
+.macro deployTokenIndex_95ad0c60_internal_macro
+.loc ../contracts/indexer/Indexer.sol, 62
+GETGLOB 9
+GETGLOB 10
+SDEQ
+GETGLOB 9
+GETGLOB 15
+SDEQ
+OR
+THROWIFNOT 1008
+.loc ../contracts/VestingIndexer.sol, 45
+PUSHREF {
+	.blob x746f6b656e
+}
+SWAP
+CALLREF {
+	CALL $buildAddressSaltParam_495575bc_internal_macro$
+}
+.loc ../contracts/VestingIndexer.sol, 47
+PUSHINT 0
+NEWDICT
+PAIR
+SWAP
+CALLREF {
+	UNTRIPLE
+	XCHG S2
+	NEWC
+	STREF
+	STREF
+	STREF
+}
+SWAP
+UNPAIR
+OVER
+INC
+ROLLREV 3
+PUSHINT 32
+DICTUSETB
+PAIR
+.loc ../contracts/VestingIndexer.sol, 49
+CALLREF {
+	CALL $deployIndex_ce607963_internal_macro$
+}
+.loc ../contracts/VestingIndexer.sol, 0
+
+.globl	buildAddressSaltParam_495575bc_internal
+.type	buildAddressSaltParam_495575bc_internal, @function
+CALL $buildAddressSaltParam_495575bc_internal_macro$
+
+.macro buildAddressSaltParam_495575bc_internal_macro
+.loc ../contracts/VestingIndexer.sol, 54
+NEWC
+STSLICE
+.loc ../contracts/VestingIndexer.sol, 56
+SWAP
+PUSHREF {
+	.blob x61646472657373
+}
+ROT
+ENDC
+TRIPLE
+.loc ../contracts/VestingIndexer.sol, 0
+
+.globl	buildStringSaltParam_98a44760_internal
+.type	buildStringSaltParam_98a44760_internal, @function
+CALL $buildStringSaltParam_98a44760_internal_macro$
+
+.macro buildStringSaltParam_98a44760_internal_macro
+.loc ../contracts/VestingIndexer.sol, 62
+NEWC
+STREF
+.loc ../contracts/VestingIndexer.sol, 64
+SWAP
+PUSHREF {
+	.blob x737472696e67
+}
+ROT
+ENDC
+TRIPLE
+.loc ../contracts/VestingIndexer.sol, 0
 
 .macro getIndexCode
 DROP
@@ -874,27 +1214,55 @@ THROW 60
 
 .macro public_function_selector
 DUP
-PUSHINT 1065402090
-EQUAL
-IFJMPREF {
-	CALL $resolveIndexCodeHash$
-}
-DUP
 PUSHINT 1327139026
-EQUAL
+LEQ
 IFJMPREF {
-	CALL $getIndexCode$
+	DUP
+	PUSHINT 94256266
+	EQUAL
+	IFJMPREF {
+		CALL $deployCreatorIndex$
+	}
+	DUP
+	PUSHINT 736494076
+	EQUAL
+	IFJMPREF {
+		CALL $deployRecipientIndex$
+	}
+	DUP
+	PUSHINT 1065402090
+	EQUAL
+	IFJMPREF {
+		CALL $resolveIndexCodeHash$
+	}
+	DUP
+	PUSHINT 1327139026
+	EQUAL
+	IFJMPREF {
+		CALL $getIndexCode$
+	}
 }
 DUP
-PUSHINT 1656985116
-EQUAL
+PUSHINT 1795524538
+LEQ
 IFJMPREF {
-	CALL $getOwner$
-}
-DUP
-PUSHINT 1685158423
-EQUAL
-IFJMPREF {
-	CALL $constructor$
+	DUP
+	PUSHINT 1656985116
+	EQUAL
+	IFJMPREF {
+		CALL $getOwner$
+	}
+	DUP
+	PUSHINT 1685158423
+	EQUAL
+	IFJMPREF {
+		CALL $constructor$
+	}
+	DUP
+	PUSHINT 1795524538
+	EQUAL
+	IFJMPREF {
+		CALL $deployTokenIndex$
+	}
 }
 

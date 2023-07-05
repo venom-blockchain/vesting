@@ -1,3 +1,5 @@
+import { Address } from 'locklift';
+
 async function main() {
   console.log(`Deploying Indexer and Vesting Factory`);
   const signer = (await locklift.keystore.getSigner("0"))!;
@@ -21,16 +23,18 @@ async function main() {
   console.log("Expected vesting factory address", factoryExpectedAddress.toString());
   console.log("Deploying Indexer");
   const { contract: indexer } = await locklift.deployArtifacts.deployContract(
-    "Indexer",
+    "VestingIndexer",
     "latest",
     {
-      contract: "Indexer",
+      contract: "VestingIndexer",
       publicKey: signer?.publicKey as string,
       initParams: {
-        _vestingFactory: factoryExpectedAddress,
+        _rootContract: factoryExpectedAddress,
+        _nonce: locklift.utils.getRandomNonce(),
       },
       constructorParams: {
-        codeIndex: indexContract.code,
+        owner: new Address("0:5a533a7769a0bae38213eb986ac288b578dc902eabbea3df23110cdcde24a79a"),
+        indexCode: indexContract.code,
         indexDeployValue: locklift.utils.toNano(0.2),
         indexDestroyValue: locklift.utils.toNano(0.2),
       },

@@ -3,122 +3,142 @@ pragma ever-solidity >=0.62.0;
 pragma AbiHeader expire;
 pragma AbiHeader pubkey;
 
-import "interfaces/IIndex.sol";
 import "Index.sol";
 import "@broxus/contracts/contracts/libraries/MsgFlag.tsol";
-import "library.sol";
 
 contract Indexer {
-    address static _vestingFactory;
+  // static variables
+  address static _rootContract; // factory contract
+  uint128 static _nonce;
 
-    TvmCell _codeIndex;
-    uint128 _indexDeployValue;
-    uint128 _indexDestroyValue;
-    address _owner;
+  // constants
+  uint128 constant CONTRACT_MIN_BALANCE = 1 Ever;
 
-    uint128 constant CONTRACT_MIN_BALANCE = 1 ton;
+  // deploy parameters
+  uint128 _indexDeployValue;
+  uint128 _indexDestroyValue;
 
-    uint16 constant WRONG_PUBKEY = 1001;
-    uint16 constant NOT_VESTING_FACTORY = 1002;
-    uint16 constant NOT_OWNER = 1003;
+  // variables
+  TvmCell _indexCode;
+  address _owner;
 
-    constructor(TvmCell codeIndex, uint128 indexDeployValue, uint128 indexDestroyValue) public {
-        require(tvm.pubkey() != 0, WRONG_PUBKEY);
-        require(tvm.pubkey() == msg.pubkey(), WRONG_PUBKEY);
-        tvm.accept();
-        _codeIndex = codeIndex;
-        _indexDeployValue = indexDeployValue;
-        _indexDestroyValue = indexDestroyValue;
-        _owner = msg.sender;
-    }
+  // errors
+  uint16 constant WRONG_PUBKEY = 1001;
+  uint16 constant NOT_ROOT_CONTRACT = 1002;
+  uint16 constant NOT_OWNER = 1003;
+  uint16 constant NOT_ROOT_CONTRACT_OR_OWNER = 1008;
+  uint16 constant SALT_HAS_NO_VALUE = 1005;
 
-    modifier onlyVestingFactory() {
-        require(msg.sender == _vestingFactory, NOT_VESTING_FACTORY);
-        _;
-    }
-    
-    modifier onlyOwner() {
-        require(msg.sender == _owner, NOT_OWNER);
-        _;
-    }
+  // events
+  event IndexDeployed(Index.Salt saltParams, address index);
 
-    modifier onlyVestingFactoryOrOwner() {
-        require(msg.sender == _vestingFactory || msg.sender == _owner, NOT_VESTING_FACTORY);
-        _;
-    }
+  constructor(address owner, TvmCell indexCode, uint128 indexDeployValue, uint128 indexDestroyValue) public {
+    require(tvm.pubkey() != 0, WRONG_PUBKEY);
+    require(tvm.pubkey() == msg.pubkey(), WRONG_PUBKEY);
+    tvm.accept();
+    _indexCode = indexCode;
+    _indexDeployValue = indexDeployValue;
+    _indexDestroyValue = indexDestroyValue;
+    _owner = owner;
+  }
 
-    function _reserve() internal pure returns (uint128) {
-        return math.max(address(this).balance - msg.value, CONTRACT_MIN_BALANCE);
-    }
+  /// @dev Modifier to make a function callable only by the root contract.
+  /// @notice This function will revert if called by any account other than the root contract.
+  modifier onlyRootContract() {
+    require(msg.sender == _rootContract, NOT_ROOT_CONTRACT);
+    _;
+  }
 
-    function deployIndex(
-        address vestingContract,
-        address acc,
-        uint8 indexType,
-        uint8 vestingContractType
-    ) external view onlyVestingFactoryOrOwner {
-        tvm.rawReserve(_reserve(), 0);
-        TvmCell codeIndex = _buildIndexCode(_vestingFactory, acc, indexType, vestingContractType);
-        TvmCell stateIndex = _buildIndexState(codeIndex, address(this), vestingContract, acc, indexType);
-        new Index{ stateInit: stateIndex, value: _indexDeployValue, flag: MsgFlag.SENDER_PAYS_FEES }();
-    }
+  /// @dev Modifier to make a function callable only by the contract's owner.
+  /// @notice This function will revert if called by any account other than the owner.
+  modifier onlyOwner() {
+    require(msg.sender == _owner, NOT_OWNER);
+    _;
+  }
 
-    function destructIndex(address index, address sendGasTo) external view onlyOwner {
-        IIndex(index).destruct{ value: _indexDestroyValue }(sendGasTo);
-    }
+  /// @dev Modifier to make a function callable only by the root contract or the contract's owner.
+  /// @notice This function will revert if called by any account other than the root contract or the owner.
+  modifier onlyRootContractOrOwner() {
+    require(msg.sender == _rootContract || msg.sender == _owner, NOT_ROOT_CONTRACT_OR_OWNER);
+    _;
+  }
 
-    function getCodeIndex() public view responsible returns (TvmCell codeIndex) {
-        return { value: 0, flag: MsgFlag.REMAINING_GAS, bounce: false } _codeIndex;
-    }
+  /// @dev Gets the index contract code.
+  /// @notice This function will return the TvmCell index code of the contract.
+  /// @return indexCode TvmCell representing the index code of the contract.
+  function getIndexCode() public view responsible returns (TvmCell indexCode) {
+    return { value: 0, flag: MsgFlag.REMAINING_GAS, bounce: false } _indexCode;
+  }
 
-    function resolveIndexAddress(
-        address vestingContract,
-        address acc,
-        uint8 indexType,
-        uint8 vestingContractType
-    ) public view responsible returns (address index) {
-        TvmCell code = _buildIndexCode(_vestingFactory, acc, indexType, vestingContractType);
-        TvmCell state = _buildIndexState(code, address(this), vestingContract, acc, indexType);
-        uint256 hashState = tvm.hash(state);
-        return
-            { value: 0, flag: MsgFlag.REMAINING_GAS, bounce: false } address.makeAddrStd(address(this).wid, hashState);
-    }
+  /// @dev Gets the owner of the contract.
+  /// @notice This function will return the address of the owner of the contract.
+  /// @return owner Address of the contract owner.
+  function getOwner() public view responsible returns (address owner) {
+    return { value: 0, flag: MsgFlag.REMAINING_GAS, bounce: false } _owner;
+  }
 
-    function resolveIndexCodeHash(
-        address acc,
-        uint8 indexType,
-        uint8 vestingContractType
-    ) public view responsible returns (uint256 codeHash) {
-        TvmCell code = _buildIndexCode(_vestingFactory, acc, indexType, vestingContractType);
-        return { value: 0, flag: MsgFlag.REMAINING_GAS, bounce: false } tvm.hash(code);
-    }
+  /// @dev Resolves the code hash for a Index contract instance based on provided salt parameters.
+  /// @notice This function will calculate and return the code hash of the Index contract based on the provided salt parameters.
+  /// @param saltParams The parameters used for the calculation of the Index contract's code hash.
+  /// @return codeHash The calculated code hash for the Index contract.
+  function resolveIndexCodeHash(Index.Salt[] saltParams) public view responsible returns (uint256 codeHash) {
+    TvmCell salt = _buildSalt(saltParams);
+    TvmCell code = _buildIndexCode(salt);
+    return { value: 0, flag: MsgFlag.REMAINING_GAS, bounce: false } tvm.hash(code);
+  }
 
-    function _buildIndexCode(
-        address vestingFactory,
-        address acc,
-        uint8 indexType,
-        uint8 vestingContractType
-    ) internal view returns (TvmCell) {
-        TvmBuilder salt;
-        salt.store(vestingFactory);
-        salt.store(acc);
-        salt.store(indexType);
-        salt.store(vestingContractType);
-        return tvm.setCodeSalt(_codeIndex, salt.toCell());
-    }
+  /// @dev Destroys a specified Index contract and sends its remaining gas to a specified address.
+  /// @notice This function can only be called by the contract's owner and will destroy the specified Index contract.
+  /// @param index The address of the Index contract to be destroyed.
+  /// @param sendGasTo The address to which the remaining gas of the Index contract will be sent.
+  function destructIndex(address index, address sendGasTo) internal {
+    Index(index).destruct{ value: _indexDestroyValue }(sendGasTo);
+  }
 
-    function _buildIndexState(
-        TvmCell code,
-        address indexer,
-        address vestingContract,
-        address acc,
-        uint8 indexType
-    ) internal pure returns (TvmCell) {
-        return
-            tvm.buildStateInit({
-                contr: Index,
-                varInit: { _indexer: indexer, _acc: acc, _vestingContract: vestingContract, _indexType: indexType },
-                code: code
-            });
-    }
+  /// @dev Deploys a new Index contract with given instance address and salt parameters.
+  /// @notice This function can only be called by the contract's owner or the root contract.
+  /// @param instance Indexed contract address
+  /// @param saltParams The salt parameters for the new Index contract.
+  function deployIndex(address instance, Index.Salt[] saltParams) internal {
+    tvm.rawReserve(_reserve(), 0);
+
+    TvmCell salt = _buildSalt(saltParams);
+
+    TvmCell indexCode = _buildIndexCode(salt);
+
+    TvmCell indexState = _buildIndexState(indexCode, saltParams, instance);
+    new Index{ stateInit: indexState, value: _indexDeployValue, flag: MsgFlag.SENDER_PAYS_FEES }();
+  }
+
+  /// @dev Builds a TvmCell using the provided salt parameters.
+  /// @param saltParams The salt parameters used to build the TvmCell.
+  /// @return The TvmCell built using the provided salt parameters.
+  function _buildSalt(Index.Salt[] saltParams) internal pure returns (TvmCell) {
+    TvmBuilder salt;
+    salt.store(saltParams);
+    return salt.toCell();
+  }
+
+  /// @dev Builds the Index contract code using the provided salt.
+  /// @param salt The TvmCell salt used to build the Index contract code.
+  /// @return The TvmCell representing the Index contract code.
+  function _buildIndexCode(TvmCell salt) internal view returns (TvmCell) {
+    return tvm.setCodeSalt(_indexCode, salt);
+  }
+
+  /// @dev Builds the state for the Index contract using the provided code and salt parameters.
+  /// @param code The TvmCell representing the Index contract code.
+  /// @return The TvmCell representing the Index contract state.
+  function _buildIndexState(TvmCell code, Index.Salt[] salt, address instance) internal returns (TvmCell) {
+    Index.Info info = Index.Info(_rootContract, instance);
+    return
+      tvm.buildStateInit({ contr: Index, varInit: { _indexer: address(this), _salt: salt, _info: info }, code: code });
+  }
+
+  /// @dev Computes and returns the reserve balance of the contract.
+  /// @notice This method ensures that the contract always retains a minimum balance (CONTRACT_MIN_BALANCE).
+  /// @return The reserve balance of the contract.
+  function _reserve() internal pure returns (uint128) {
+    return math.max(address(this).balance - msg.value, CONTRACT_MIN_BALANCE);
+  }
 }
