@@ -1,0 +1,62 @@
+pragma ever-solidity >=0.62.0;
+
+pragma AbiHeader expire;
+pragma AbiHeader pubkey;
+
+/**
+ * Errors
+ *   1001 - Salt doesn't contain any value
+ *   1002 - Method for IndexFactory only
+ **/
+
+contract Index {
+  // Address of the indexed contract
+  address static _indexedContract;
+  // Hash of the parameters used to salt the contract
+  uint256 static _saltHash;
+
+  // Address of the IndexFactory contract
+  address _indexFactory;
+
+  constructor() public {
+    optional(TvmCell) salt = tvm.codeSalt(tvm.code());
+    require(salt.hasValue(), 1001, "Salt doesn't contain any value");
+    address indexFactory = salt.get().toSlice().decode(address);
+    require(msg.sender == indexFactory, 1002, "Method for IndexFactory only");
+    tvm.accept();
+    _indexFactory = indexFactory;
+  }
+
+  /**
+   * @notice Get indexed contract
+   * @return address of the indexed contract
+   */
+  function getIndexedContract() public view responsible returns (address) {
+    return { value: 0, bounce: false, flag: 64 } (_indexedContract);
+  }
+
+  /**
+   * @notice Get IndexFactory address
+   * @return address of the IndexFactory contract
+   */
+  function getIndexFactory() public view responsible returns (address) {
+    return { value: 0, bounce: false, flag: 64 } (_indexFactory);
+  }
+
+  /**
+   * @notice Get code hash
+   * @return hash of the code
+   */
+  function getCodeHash() public pure responsible returns (uint256) {
+    return { value: 0, bounce: false, flag: 64 } tvm.hash(tvm.code());
+  }
+
+  /**
+   * @notice Destruct the contract
+   * @param gasReceiver Address to receive leftover gas from the destructed contract
+   */
+  function destruct(address gasReceiver) public {
+    require(msg.sender == _indexFactory, 1002, "Method for IndexFactory only");
+    selfdestruct(gasReceiver);
+  }
+}

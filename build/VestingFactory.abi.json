@@ -6,7 +6,9 @@
 		{
 			"name": "constructor",
 			"inputs": [
-				{"name":"indexer","type":"address"}
+				{"name":"indexCode","type":"cell"},
+				{"name":"indexDeployValue","type":"uint128"},
+				{"name":"indexDestroyValue","type":"uint128"}
 			],
 			"outputs": [
 			]
@@ -49,6 +51,26 @@
 			]
 		},
 		{
+			"name": "getIndexCode",
+			"inputs": [
+				{"name":"answerId","type":"uint32"}
+			],
+			"outputs": [
+				{"name":"value0","type":"cell"}
+			]
+		},
+		{
+			"name": "resolveIndexCodeHash",
+			"inputs": [
+				{"name":"answerId","type":"uint32"},
+				{"name":"saltKey","type":"string"},
+				{"name":"saltValue","type":"cell"}
+			],
+			"outputs": [
+				{"name":"value0","type":"uint256"}
+			]
+		},
+		{
 			"name": "deploy_nonce",
 			"inputs": [
 			],
@@ -62,14 +84,6 @@
 			],
 			"outputs": [
 				{"name":"vestings_deployed","type":"uint128"}
-			]
-		},
-		{
-			"name": "_indexer",
-			"inputs": [
-			],
-			"outputs": [
-				{"name":"_indexer","type":"address"}
 			]
 		}
 	],
@@ -92,16 +106,30 @@
 			],
 			"outputs": [
 			]
+		},
+		{
+			"name": "IndexDeployed",
+			"inputs": [
+				{"name":"index","type":"address"},
+				{"name":"indexedContract","type":"address"},
+				{"name":"indexCodeHash","type":"uint256"},
+				{"name":"saltKey","type":"string"},
+				{"name":"saltValue","type":"cell"}
+			],
+			"outputs": [
+			]
 		}
 	],
 	"fields": [
 		{"name":"_pubkey","type":"uint256"},
 		{"name":"_timestamp","type":"uint64"},
 		{"name":"_constructorFlag","type":"bool"},
+		{"name":"_indexDeployValue","type":"uint128"},
+		{"name":"_indexDestroyValue","type":"uint128"},
+		{"name":"_indexCode","type":"cell"},
 		{"name":"deploy_nonce","type":"uint128"},
 		{"name":"vestingCode","type":"cell"},
 		{"name":"nativeVestingCode","type":"cell"},
-		{"name":"vestings_deployed","type":"uint128"},
-		{"name":"_indexer","type":"address"}
+		{"name":"vestings_deployed","type":"uint128"}
 	]
 }

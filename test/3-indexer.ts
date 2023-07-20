@@ -15,10 +15,11 @@ describe("Test index creation for vesting contracts", async function () {
   let user0TokenWallet: TokenWallet;
   let user1: Account;
   let user1TokenWallet: TokenWallet;
+  let user2: Account;
+  let user2TokenWallet: TokenWallet;
 
   let token: Token;
 
-  let indexer: Contract<FactorySource["VestingIndexer"]>;
   let factory: Contract<FactorySource["VestingFactory"]>;
 
   let indexCode: string;
@@ -31,41 +32,10 @@ describe("Test index creation for vesting contracts", async function () {
     admin = await deployUser(20, "admin");
     user0 = await deployUser(20, "user0");
     user1 = await deployUser(20, "user1");
+    user2 = await deployUser(20, "user2");
 
     const signer = await locklift.keystore.getSigner("0");
     const deployNonce = locklift.utils.getRandomNonce();
-
-    const factoryExpectedAddress = await locklift.provider.getExpectedAddress(factoryArtifacts.abi, {
-      tvc: factoryArtifacts.tvc,
-      publicKey: signer?.publicKey as string,
-      initParams: {
-        deploy_nonce: deployNonce,
-        nativeVestingCode: nativeVestingArtifacts.code,
-        vestingCode: vestingArtifacts.code,
-      },
-    });
-    logger.log(`Expected factory address: ${factoryExpectedAddress}`);
-
-    const { contract: _indexer } = await locklift.factory.deployContract({
-      contract: "VestingIndexer",
-      publicKey: signer?.publicKey as string,
-      initParams: {
-        _rootContract: factoryExpectedAddress,
-        _nonce: locklift.utils.getRandomNonce(),
-      },
-      constructorParams: {
-        owner: admin.address,
-        indexCode: indexArtifacts.code,
-        indexDeployValue: locklift.utils.toNano(0.2),
-        indexDestroyValue: locklift.utils.toNano(0.2),
-      },
-      value: locklift.utils.toNano(5),
-    });
-    indexer = _indexer;
-    logger.log(`Indexer address: ${indexer.address}`);
-
-    const { indexCode: _indexCode } = await indexer.methods.getIndexCode({ answerId: 0 }).call();
-    indexCode = _indexCode;
 
     const { contract: _factory } = await locklift.factory.deployContract({
       contract: "VestingFactory",
@@ -75,7 +45,11 @@ describe("Test index creation for vesting contracts", async function () {
         vestingCode: vestingArtifacts.code,
         deploy_nonce: deployNonce,
       },
-      constructorParams: { indexer: indexer.address },
+      constructorParams: {
+        indexCode: indexArtifacts.code,
+        indexDeployValue: locklift.utils.toNano(0.2),
+        indexDestroyValue: locklift.utils.toNano(0.2),
+      },
       value: locklift.utils.toNano(5),
     });
     factory = _factory;
@@ -85,8 +59,9 @@ describe("Test index creation for vesting contracts", async function () {
     adminTokenWallet = await token.wallet(admin);
     user0TokenWallet = await token.wallet(user0);
     user1TokenWallet = await token.wallet(user1);
+    user2TokenWallet = await token.wallet(user2);
   });
-  it("should deploy 2 vesting contract with indexes", async function () {
+  it("should deploy 2 indexes for user0 as recipient and 3 indexes for user1 as creator", async function () {
     const start = Math.floor(locklift.testing.getCurrentTime() / 1000) + 15;
     const end = start + 20;
 
@@ -114,18 +89,41 @@ describe("Test index creation for vesting contracts", async function () {
         })
         .send({ from: user1.address, amount: locklift.utils.toNano(2.5) }),
     );
+    await locklift.tracing.trace(
+      factory.methods
+        .deployVesting({
+          user: user2.address,
+          token: token.address,
+          vesting_amount: bn(100).multipliedBy(1e18).toFixed(),
+          vesting_start: start,
+          vesting_end: end,
+        })
+        .send({ from: user1.address, amount: locklift.utils.toNano(2.5) }),
+    );
 
-    const userIndexCodeHash = await calculateAccIndexCodeHash(indexCode, "recipient", user0.address, "Vesting");
-    const creatorIndexCodeHash = await calculateAccIndexCodeHash(indexCode, "creator", user1.address, "Vesting");
-    const tokenIndexCodeHash = await calculateTokenIndexCodeHash(indexCode, token.address);
+    const userIndexCodeHash = await getUserIndexSaltedCodeHash(
+      factory.address,
+      indexArtifacts.code,
+      "recipient",
+      "Vesting",
+      user0.address,
+    );
+    const creatorIndexCodeHash = await getUserIndexSaltedCodeHash(
+      factory.address,
+      indexArtifacts.code,
+      "creator",
+      "Vesting",
+      user1.address,
+    );
+    const tokenIndexCodeHash = await getTokenIndexSaltedCodeHash(factory.address, indexArtifacts.code, token.address);
 
     const { accounts: userAccs } = await locklift.provider.getAccountsByCodeHash({ codeHash: userIndexCodeHash });
     const { accounts: creatorAccs } = await locklift.provider.getAccountsByCodeHash({ codeHash: creatorIndexCodeHash });
     const { accounts: tokenAccs } = await locklift.provider.getAccountsByCodeHash({ codeHash: tokenIndexCodeHash });
 
     expect(userAccs.length).to.be.equal(2);
-    expect(creatorAccs.length).to.be.equal(2);
-    expect(tokenAccs.length).to.be.equal(2);
+    expect(creatorAccs.length).to.be.equal(3);
+    expect(tokenAccs.length).to.be.equal(3);
   }),
     it("should deploy 2 native vesting contract with indexes", async function () {
       const start = Math.floor(locklift.testing.getCurrentTime() / 1000) + 15;
@@ -154,13 +152,20 @@ describe("Test index creation for vesting contracts", async function () {
           .send({ from: user1.address, amount: locklift.utils.toNano(2.5) }),
       );
 
-      const userIndexCodeHash = await calculateAccIndexCodeHash(indexCode, "recipient", user0.address, "NativeVesting");
-
-      const creatorIndexCodeHash = await calculateAccIndexCodeHash(
-        indexCode,
-        "creator",
-        user1.address,
+      const userIndexCodeHash = await getUserIndexSaltedCodeHash(
+        factory.address,
+        indexArtifacts.code,
+        "recipient",
         "NativeVesting",
+        user0.address,
+      );
+
+      const creatorIndexCodeHash = await getUserIndexSaltedCodeHash(
+        factory.address,
+        indexArtifacts.code,
+        "creator",
+        "NativeVesting",
+        user1.address,
       );
 
       const { accounts: userAccs } = await locklift.provider.getAccountsByCodeHash({ codeHash: userIndexCodeHash });
@@ -173,78 +178,69 @@ describe("Test index creation for vesting contracts", async function () {
     });
 });
 
-export async function calculateAccIndexCodeHash(
-  tvcCode: string,
-  accType: "recipient" | "creator",
-  acc: Address,
+export async function getUserIndexSaltedCodeHash(
+  indexFactory: Address,
+  indexCode: string,
+  indexName: "recipient" | "creator",
   contractType: "Vesting" | "NativeVesting",
+  user: Address,
 ): Promise<string> {
-  const accPacked = await locklift.provider.packIntoCell({
+  const saltValuePacked = await locklift.provider.packIntoCell({
     abiVersion: "2.1",
-    structure: [{ name: "value", type: "address" }] as const,
+    structure: [
+      { name: "contractType", type: "string" },
+      { name: "user", type: "address" },
+    ] as const,
     data: {
-      value: acc,
-    },
-  });
-  const contractTypePacked = await locklift.provider.packIntoCell({
-    abiVersion: "2.1",
-    structure: [{ name: "value", type: "string" }] as const,
-    data: {
-      value: contractType,
+      contractType: contractType,
+      user: user,
     },
   });
   const { hash: saltedCodeHash } = await locklift.provider.setCodeSalt({
-    code: tvcCode,
+    code: indexCode,
     salt: {
-      structure: [
-        {
-          components: [
-            { name: "key", type: "string" },
-            { name: "valueType", type: "string" },
-            { name: "value", type: "cell" },
-          ],
-          name: "saltParams",
-          type: "tuple[]",
-        },
-      ] as const,
       abiVersion: "2.1",
+      structure: [
+        { name: "indexFactory", type: "address" },
+        { name: "saltKey", type: "string" },
+        { name: "saltValue", type: "cell" },
+      ] as const,
       data: {
-        saltParams: [
-          { key: accType, valueType: "address", value: accPacked.boc },
-          { key: "contractType", valueType: "string", value: contractTypePacked.boc },
-        ],
+        indexFactory: indexFactory,
+        saltKey: indexName,
+        saltValue: saltValuePacked.boc,
       },
     },
   });
 
   return "0x" + saltedCodeHash;
 }
-export async function calculateTokenIndexCodeHash(tvcCode: string, token: Address): Promise<string> {
-  const tokenPacked = await locklift.provider.packIntoCell({
+
+export async function getTokenIndexSaltedCodeHash(
+  indexFactory: Address,
+  indexCode: string,
+  token: Address,
+): Promise<string> {
+  const saltValuePacked = await locklift.provider.packIntoCell({
     abiVersion: "2.1",
-    structure: [{ name: "value", type: "address" }] as const,
+    structure: [{ name: "token", type: "address" }] as const,
     data: {
-      value: token,
+      token: token,
     },
   });
-
   const { hash: saltedCodeHash } = await locklift.provider.setCodeSalt({
-    code: tvcCode,
+    code: indexCode,
     salt: {
-      structure: [
-        {
-          components: [
-            { name: "key", type: "string" },
-            { name: "valueType", type: "string" },
-            { name: "value", type: "cell" },
-          ],
-          name: "saltParams",
-          type: "tuple[]",
-        },
-      ] as const,
       abiVersion: "2.1",
+      structure: [
+        { name: "indexFactory", type: "address" },
+        { name: "saltKey", type: "string" },
+        { name: "saltValue", type: "cell" },
+      ] as const,
       data: {
-        saltParams: [{ key: "token", valueType: "address", value: tokenPacked.boc }],
+        indexFactory: indexFactory,
+        saltKey: "token",
+        saltValue: saltValuePacked.boc,
       },
     },
   });

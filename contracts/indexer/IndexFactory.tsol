@@ -1,0 +1,119 @@
+pragma ever-solidity >=0.62.0;
+
+pragma AbiHeader expire;
+pragma AbiHeader pubkey;
+
+import "Index.tsol";
+
+abstract contract IndexFactory {
+  // Parameters to deploy/destroy Index contract
+  uint128 _indexDeployValue;
+  uint128 _indexDestroyValue;
+
+  // variables
+  TvmCell _indexCode;
+
+  /**
+   * @notice This event emits when Index is deployed
+   * @param index Index address
+   * @param indexedContract Indexed contract address
+   * @param indexCodeHash Hash of the Index code, that can be used to find Indexes with the same parameters
+   * @param saltKey The name of the salt parameters
+   * @param saltValue Parameters of the salt packed into cell
+   */
+  event IndexDeployed(address index, address indexedContract, uint256 indexCodeHash, string saltKey, TvmCell saltValue);
+
+  constructor(TvmCell indexCode, uint128 indexDeployValue, uint128 indexDestroyValue) public {
+    tvm.accept();
+    _indexCode = indexCode;
+    _indexDeployValue = indexDeployValue;
+    _indexDestroyValue = indexDestroyValue;
+  }
+
+  /**
+   * @notice Returns the code of the Index contract
+   * @return TvmCell representing the index code of the contract
+   */
+  function getIndexCode() public view responsible returns (TvmCell) {
+    return { value: 0, flag: 64, bounce: false } _indexCode;
+  }
+
+  /**
+   * @notice Calculates and returns the code hash of the Index contract based on the provided salt parameters
+   * @param saltKey The name of the salt parameters
+   * @param saltValue Parameters of the salt packed into cell
+   * @return The calculated code hash for the Index contract
+   */
+  function resolveIndexCodeHash(string saltKey, TvmCell saltValue) public view responsible returns (uint256) {
+    TvmCell salt = _buildSalt(saltKey, saltValue);
+    TvmCell code = _buildIndexCode(salt);
+    return { value: 0, flag: 64, bounce: false } tvm.hash(code);
+  }
+
+  /**
+   * @notice Destroys a specified Index contract and sends its remaining gas to a specified address
+   * @param index The address of the Index contract to be destroyed
+   * @param sendGasTo The address to which the remaining gas of the Index contract will be sent
+   */
+  function destructIndex(address index, address sendGasTo) internal view virtual {
+    Index(index).destruct{ value: _indexDestroyValue }(sendGasTo);
+  }
+
+  /**
+   * @notice Deploys a new Index contract with given indexedContract address and salt parameters
+   * @param indexedContract Indexed contract address
+   * @param saltKey The name of the salt parameters
+   * @param saltValue Parameters of the salt packed into cell
+   */
+  function deployIndex(address indexedContract, string saltKey, TvmCell saltValue) internal view {
+    TvmCell salt = _buildSalt(saltKey, saltValue);
+    TvmCell indexCode = _buildIndexCode(salt);
+    TvmCell indexState = _buildIndexState(indexCode, tvm.hash(salt), indexedContract);
+
+    new Index{ stateInit: indexState, value: _indexDeployValue, flag: 1 }();
+    emit IndexDeployed(address(tvm.hash(indexState)), indexedContract, tvm.hash(indexCode), saltKey, saltValue);
+  }
+
+  /**
+   * @notice Builds a TvmCell using the provided salt parameters.
+   * @param saltKey The name of the salt parameters
+   * @param saltValue Parameters of the salt packed into cell
+   * @return TvmCell built using the provided salt parameters.
+   */
+  function _buildSalt(string saltKey, TvmCell saltValue) internal pure returns (TvmCell) {
+    TvmBuilder salt;
+    // salt with index factory address
+    salt.store(address(this));
+    // salt with salt key
+    salt.store(saltKey);
+    // salt with salt value
+    salt.store(saltValue);
+
+    return salt.toCell();
+  }
+
+  /**
+   * @notice Builds the Index contract code using the provided salt.
+   * @param salt TvmCell salt used to build the Index contract code.
+   * @return TvmCell representing the Index contract code.
+   */
+  function _buildIndexCode(TvmCell salt) internal view returns (TvmCell) {
+    return tvm.setCodeSalt(_indexCode, salt);
+  }
+
+  /**
+   * @notice Builds the state for the Index contract using the provided code and salt parameters.
+   * @param code TvmCell representing the Index contract code.
+   * @param saltHash uint256 Salt hash to uniqalize the Index contract state (and address).
+   * @param indexedContract Address of the indexed contract.
+   * @return TvmCell representing the Index contract state.
+   */
+  function _buildIndexState(TvmCell code, uint256 saltHash, address indexedContract) internal pure returns (TvmCell) {
+    return
+      tvm.buildStateInit({
+        contr: Index,
+        varInit: { _saltHash: saltHash, _indexedContract: indexedContract },
+        code: code
+      });
+  }
+}
