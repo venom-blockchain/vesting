@@ -8,6 +8,7 @@
 			"inputs": [
 				{"name":"_user","type":"address"},
 				{"name":"_creator","type":"address"},
+				{"name":"_remainingGasTo","type":"address"},
 				{"name":"_token","type":"address"},
 				{"name":"_vestingAmount","type":"uint128"},
 				{"name":"_vestingStart","type":"uint32"},

@@ -17,6 +17,7 @@
 			"name": "deployNativeVesting",
 			"inputs": [
 				{"name":"user","type":"address"},
+				{"name":"remainingGasTo","type":"address"},
 				{"name":"vesting_amount","type":"uint128"},
 				{"name":"vesting_start","type":"uint32"},
 				{"name":"vesting_end","type":"uint32"}
@@ -28,6 +29,7 @@
 			"name": "deployVesting",
 			"inputs": [
 				{"name":"user","type":"address"},
+				{"name":"remainingGasTo","type":"address"},
 				{"name":"token","type":"address"},
 				{"name":"vesting_amount","type":"uint128"},
 				{"name":"vesting_start","type":"uint32"},
@@ -42,6 +44,7 @@
 				{"name":"nonce","type":"uint128"},
 				{"name":"user","type":"address"},
 				{"name":"creator","type":"address"},
+				{"name":"remainingGasTo","type":"address"},
 				{"name":"token","type":"address"},
 				{"name":"vesting_amount","type":"uint128"},
 				{"name":"vesting_start","type":"uint32"},

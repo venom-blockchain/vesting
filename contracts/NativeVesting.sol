@@ -1,10 +1,8 @@
 pragma ever-solidity ^0.62.0;
 pragma AbiHeader expire;
 
-
 import "@broxus/contracts/contracts/libraries/MsgFlag.tsol";
 import "interfaces/IFactory.sol";
-
 
 contract NativeVesting {
     event Deposit(address sender, uint128 amount);
@@ -35,17 +33,18 @@ contract NativeVesting {
     uint16 constant LOW_VALUE = 1007;
 
     uint128 constant CONTRACT_MIN_BALANCE = 1 ton;
-    uint128 constant MIN_MSG_VALUE = 2 ton;
-    uint128 constant FACTORY_DEPLOY_CALLBACK_VALUE = 1 ton;
+    uint128 constant MIN_MSG_VALUE = 1 ton;
 
     constructor(
         address _user,
         address _creator,
+        address _remainingGasTo,
         uint128 _vestingAmount,
         uint32 _vestingStart,
         uint32 _vestingEnd
     ) public {
-        require (msg.sender == factory, NOT_FACTORY);
+        require(msg.sender == factory, NOT_FACTORY);
+        tvm.rawReserve(CONTRACT_MIN_BALANCE, 0);
 
         user = _user;
         creator = _creator;
@@ -54,33 +53,56 @@ contract NativeVesting {
         vestingEnd = _vestingEnd;
         lastClaimTime = vestingStart;
 
-        IFactory(factory).onVestingDeployed{value: FACTORY_DEPLOY_CALLBACK_VALUE}(
-            nonce, user, creator, address.makeAddrNone(), vestingAmount, vestingStart, vestingEnd
+        IFactory(factory).onVestingDeployed{
+            value: 0,
+            flag: MsgFlag.ALL_NOT_RESERVED
+        }(
+            nonce,
+            user,
+            creator,
+            _remainingGasTo,
+            address.makeAddrNone(),
+            vestingAmount,
+            vestingStart,
+            vestingEnd
         );
     }
 
-    function getDetails() external view returns (
-        address _user,
-        address _creator,
-        uint128 _vestingAmount,
-        uint32 _vestingStart,
-        uint32 _vestingEnd,
-        uint32 _lastClaimTime,
-        uint128 _balance,
-        bool _filled,
-        bool _vested,
-        uint128 _nonce,
-        address _factory
-    ) {
+    function getDetails()
+        external
+        view
+        returns (
+            address _user,
+            address _creator,
+            uint128 _vestingAmount,
+            uint32 _vestingStart,
+            uint32 _vestingEnd,
+            uint32 _lastClaimTime,
+            uint128 _balance,
+            bool _filled,
+            bool _vested,
+            uint128 _nonce,
+            address _factory
+        )
+    {
         return (
-            user, creator, vestingAmount, vestingStart, vestingEnd, lastClaimTime,
-            balance, filled, vested, nonce, factory
+            user,
+            creator,
+            vestingAmount,
+            vestingStart,
+            vestingEnd,
+            lastClaimTime,
+            balance,
+            filled,
+            vested,
+            nonce,
+            factory
         );
     }
 
     function deposit(address send_gas_to) external {
-        require (msg.value >= vestingAmount + MIN_MSG_VALUE, LOW_VALUE);
-        require (filled == false, FILLED_ALREDY);
+        require(msg.value >= vestingAmount + MIN_MSG_VALUE, LOW_VALUE);
+        require(filled == false, FILLED_ALREDY);
 
         balance = vestingAmount;
         filled = true;
@@ -104,11 +126,11 @@ contract NativeVesting {
     }
 
     function claim() external {
-        require (msg.sender == user, NOT_USER);
-        require (now >= vestingStart, NOT_STARTED);
-        require (filled == true, NOT_FILLED);
-        require (vested == false, VESTED_ALREADY);
-        require (msg.value >= MIN_MSG_VALUE, LOW_VALUE);
+        require(msg.sender == user, NOT_USER);
+        require(now >= vestingStart, NOT_STARTED);
+        require(filled == true, NOT_FILLED);
+        require(vested == false, VESTED_ALREADY);
+        require(msg.value >= MIN_MSG_VALUE, LOW_VALUE);
 
         uint128 value_to_claim;
         if (now >= vestingEnd) {
@@ -131,5 +153,4 @@ contract NativeVesting {
         tvm.rawReserve(balance + CONTRACT_MIN_BALANCE, 0);
         msg.sender.transfer(0, false, MsgFlag.ALL_NOT_RESERVED);
     }
-
 }
