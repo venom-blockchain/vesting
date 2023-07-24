@@ -40,7 +40,6 @@ export class Token {
         });
 
         const addr = await this.walletAddr(user.address);
-        logger.log(`User token wallet: ${addr.toString()}`);
         return await TokenWallet.from_addr(addr, user);
     }
 
@@ -70,7 +69,6 @@ export class Token {
         }));
 
         const walletAddr = await this.walletAddr(user.address);
-        logger.log(`User token wallet: ${walletAddr.toString()}`);
         return await TokenWallet.from_addr(walletAddr, user);
     }
 }
