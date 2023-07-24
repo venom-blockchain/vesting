@@ -1,17 +1,12 @@
 async function main() {
-  console.log(`Deploying Indexer and Vesting Factory`);
+  console.log(`Deploying VestingFactory...`);
   const signer = (await locklift.keystore.getSigner("0"))!;
 
-  const vestingFactoryContract =
-    locklift.factory.getContractArtifacts("VestingFactory");
-  const indexContract = locklift.factory.getContractArtifacts("Index");
-  const vestingContract = locklift.factory.getContractArtifacts("Vesting");
-  const nativeVestingContract =
+  const indexArtifacts = locklift.factory.getContractArtifacts("Index");
+  const vestingArtifacts = locklift.factory.getContractArtifacts("Vesting");
+  const nativeVestingArtifacts =
     locklift.factory.getContractArtifacts("NativeVesting");
 
-  const deployNonce = locklift.utils.getRandomNonce();
-
-  console.log("Deploying VestingFactory");
   const { contract: vestingFactory } =
     await locklift.deployArtifacts.deployContract(
       "VestingFactory",
@@ -20,12 +15,12 @@ async function main() {
         contract: "VestingFactory",
         publicKey: signer?.publicKey as string,
         initParams: {
-          deploy_nonce: deployNonce,
-          nativeVestingCode: nativeVestingContract.code,
-          vestingCode: vestingContract.code,
+          deploy_nonce: locklift.utils.getRandomNonce(),
+          nativeVestingCode: nativeVestingArtifacts.code,
+          vestingCode: vestingArtifacts.code,
         },
         constructorParams: {
-          indexCode: indexContract.code,
+          indexCode: indexArtifacts.code,
           indexDeployValue: locklift.utils.toNano(0.2),
           indexDestroyValue: locklift.utils.toNano(0.2),
         },

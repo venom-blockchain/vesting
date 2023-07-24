@@ -224,20 +224,20 @@ export async function getUserIndexSaltedCodeHash(
   user: Address,
 ): Promise<string> {
   const saltValuePacked = await locklift.provider.packIntoCell({
-    abiVersion: "2.1",
+    abiVersion: "2.2",
     structure: [
-      { name: "contractType", type: "string" },
       { name: "user", type: "address" },
+      { name: "contractType", type: "string" },
     ] as const,
     data: {
-      contractType: contractType,
       user: user,
+      contractType: contractType,
     },
   });
   const { hash: saltedCodeHash } = await locklift.provider.setCodeSalt({
     code: indexCode,
     salt: {
-      abiVersion: "2.1",
+      abiVersion: "2.2",
       structure: [
         { name: "indexFactory", type: "address" },
         { name: "saltKey", type: "string" },
@@ -260,7 +260,7 @@ export async function getTokenIndexSaltedCodeHash(
   token: Address,
 ): Promise<string> {
   const saltValuePacked = await locklift.provider.packIntoCell({
-    abiVersion: "2.1",
+    abiVersion: "2.2",
     structure: [{ name: "token", type: "address" }] as const,
     data: {
       token: token,
@@ -269,7 +269,7 @@ export async function getTokenIndexSaltedCodeHash(
   const { hash: saltedCodeHash } = await locklift.provider.setCodeSalt({
     code: indexCode,
     salt: {
-      abiVersion: "2.1",
+      abiVersion: "2.2",
       structure: [
         { name: "indexFactory", type: "address" },
         { name: "saltKey", type: "string" },
