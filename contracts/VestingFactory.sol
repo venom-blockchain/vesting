@@ -30,7 +30,6 @@ contract VestingFactory is IndexFactory {
 
     uint128 constant CONTRACT_MIN_BALANCE = 1 ton;
     uint128 constant VESTING_DEPLOY_VALUE = 2 ton;
-    uint128 constant INDEX_DEPLOY_VALUE = 0.25 ton;
 
     constructor(
         TvmCell indexCode,
@@ -58,7 +57,10 @@ contract VestingFactory is IndexFactory {
         require(vesting_start > now, BAD_PARAMS);
         require(vesting_end > vesting_start, BAD_PARAMS);
         require(vesting_amount > 0, BAD_PARAMS);
-        require(msg.value >= VESTING_DEPLOY_VALUE, LOW_VALUE);
+        require(
+			msg.value >= VESTING_DEPLOY_VALUE + _indexDeployValue * 2,
+			LOW_VALUE
+		);
 
         TvmCell stateInit = tvm.buildStateInit({
             contr: NativeVesting,
@@ -95,7 +97,10 @@ contract VestingFactory is IndexFactory {
         require(vesting_start > now, BAD_PARAMS);
         require(vesting_end > vesting_start, BAD_PARAMS);
         require(vesting_amount > 0, BAD_PARAMS);
-        require(msg.value >= VESTING_DEPLOY_VALUE, LOW_VALUE);
+        require(
+			msg.value >= VESTING_DEPLOY_VALUE + _indexDeployValue * 3,
+			LOW_VALUE
+		);
 
         TvmCell stateInit = tvm.buildStateInit({
             contr: Vesting,

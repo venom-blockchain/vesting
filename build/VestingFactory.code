@@ -33,10 +33,10 @@ SWAP
 SETGLOB 10
 .loc ../contracts/indexer/IndexFactory.tsol, 30
 SETGLOB 11
-.loc ../contracts/VestingFactory.sol, 40
+.loc ../contracts/VestingFactory.sol, 39
 GETGLOB 2
 THROWIFNOT 1001
-.loc ../contracts/VestingFactory.sol, 41
+.loc ../contracts/VestingFactory.sol, 40
 GETGLOB 2
 GETGLOB 5
 DUP
@@ -48,7 +48,7 @@ PUSHCONT {
 IF
 EQUAL
 THROWIFNOT 1001
-.loc ../contracts/VestingFactory.sol, 42
+.loc ../contracts/VestingFactory.sol, 41
 ACCEPT
 .loc ../contracts/VestingFactory.sol, 0
 CALLREF {
@@ -61,7 +61,7 @@ THROW 0
 CALL $_reserve_413ab4a8_internal_macro$
 
 .macro _reserve_413ab4a8_internal_macro
-.loc ../contracts/VestingFactory.sol, 47
+.loc ../contracts/VestingFactory.sol, 46
 GETPARAM 7
 FIRST
 DEPTH
@@ -82,7 +82,7 @@ ISNULL
 IFREF {
 	CALL $c4_to_c7$
 }
-.loc ../contracts/VestingFactory.sol, 50
+.loc ../contracts/VestingFactory.sol, 49
 OVER
 PUSHCONT {
 	LDREF
@@ -110,33 +110,38 @@ CALLREF {
 THROW 0
 
 .macro deployNativeVesting_36e14920_internal_macro
-.loc ../contracts/VestingFactory.sol, 57
+.loc ../contracts/VestingFactory.sol, 56
 CALLREF {
 	CALL $_reserve_413ab4a8_internal_macro$
 }
 PUSHINT 0
 RAWRESERVE
-.loc ../contracts/VestingFactory.sol, 58
+.loc ../contracts/VestingFactory.sol, 57
 OVER
 NOW
 GREATER
 THROWIFNOT 1002
-.loc ../contracts/VestingFactory.sol, 59
+.loc ../contracts/VestingFactory.sol, 58
 PUSH2 S0, S1
 GREATER
 THROWIFNOT 1002
-.loc ../contracts/VestingFactory.sol, 60
+.loc ../contracts/VestingFactory.sol, 59
 PUSH S2
 GTINT 0
 THROWIFNOT 1002
-.loc ../contracts/VestingFactory.sol, 61
+.loc ../contracts/VestingFactory.sol, 60
 DEPTH
 ADDCONST -2
 PICK
 PUSHINT 2000000000
+GETGLOB 10
+MULCONST 2
+UFITS 128
+ADD
+UFITS 128
 GEQ
 THROWIFNOT 1003
-.loc ../contracts/VestingFactory.sol, 63
+.loc ../contracts/VestingFactory.sol, 65
 GETGLOB 2
 NEWC
 STU 256
@@ -166,12 +171,12 @@ STOPTREF
 STOPTREF
 STZERO
 ENDC
-.loc ../contracts/VestingFactory.sol, 69
+.loc ../contracts/VestingFactory.sol, 71
 GETGLOB 16
 INC
 UFITS 128
 SETGLOB 16
-.loc ../contracts/VestingFactory.sol, 71
+.loc ../contracts/VestingFactory.sol, 73
 REVERSE 5, 0
 GETGLOB 9
 BLKSWAP 2, 5
@@ -244,7 +249,7 @@ ISNULL
 IFREF {
 	CALL $c4_to_c7$
 }
-.loc ../contracts/VestingFactory.sol, 86
+.loc ../contracts/VestingFactory.sol, 88
 OVER
 PUSHCONT {
 	LDREF
@@ -276,33 +281,38 @@ CALLREF {
 THROW 0
 
 .macro deployVesting_af3d55be_internal_macro
-.loc ../contracts/VestingFactory.sol, 94
+.loc ../contracts/VestingFactory.sol, 96
 CALLREF {
 	CALL $_reserve_413ab4a8_internal_macro$
 }
 PUSHINT 0
 RAWRESERVE
-.loc ../contracts/VestingFactory.sol, 95
+.loc ../contracts/VestingFactory.sol, 97
 OVER
 NOW
 GREATER
 THROWIFNOT 1002
-.loc ../contracts/VestingFactory.sol, 96
+.loc ../contracts/VestingFactory.sol, 98
 PUSH2 S0, S1
 GREATER
 THROWIFNOT 1002
-.loc ../contracts/VestingFactory.sol, 97
+.loc ../contracts/VestingFactory.sol, 99
 PUSH S2
 GTINT 0
 THROWIFNOT 1002
-.loc ../contracts/VestingFactory.sol, 98
+.loc ../contracts/VestingFactory.sol, 100
 DEPTH
 ADDCONST -2
 PICK
 PUSHINT 2000000000
+GETGLOB 10
+MULCONST 3
+UFITS 128
+ADD
+UFITS 128
 GEQ
 THROWIFNOT 1003
-.loc ../contracts/VestingFactory.sol, 100
+.loc ../contracts/VestingFactory.sol, 105
 GETGLOB 2
 NEWC
 STU 256
@@ -332,12 +342,12 @@ STOPTREF
 STOPTREF
 STZERO
 ENDC
-.loc ../contracts/VestingFactory.sol, 106
+.loc ../contracts/VestingFactory.sol, 111
 GETGLOB 16
 INC
 UFITS 128
 SETGLOB 16
-.loc ../contracts/VestingFactory.sol, 108
+.loc ../contracts/VestingFactory.sol, 113
 REVERSE 6, 0
 GETGLOB 9
 BLKSWAP 2, 6
@@ -414,7 +424,7 @@ ISNULL
 IFREF {
 	CALL $c4_to_c7$
 }
-.loc ../contracts/VestingFactory.sol, 124
+.loc ../contracts/VestingFactory.sol, 129
 OVER
 PUSHCONT {
 	LDREF
@@ -450,30 +460,30 @@ IFREF {
 THROW 0
 
 .macro onVestingDeployed_704f7ec7_internal_macro
-.loc ../contracts/VestingFactory.sol, 134
+.loc ../contracts/VestingFactory.sol, 139
 CALLREF {
 	CALL $_reserve_413ab4a8_internal_macro$
 }
 PUSHINT 0
 RAWRESERVE
-.loc ../contracts/VestingFactory.sol, 135
+.loc ../contracts/VestingFactory.sol, 140
 PUSHREF {
 }
-.loc ../contracts/VestingFactory.sol, 136
+.loc ../contracts/VestingFactory.sol, 141
 PUSHREF {
 	.blob x56657374696e67
 }
-.loc ../contracts/VestingFactory.sol, 137
+.loc ../contracts/VestingFactory.sol, 142
 PUSH S5
 PUSHSLICE x2_
 SDEQ
 PUSHCONT {
-	.loc ../contracts/VestingFactory.sol, 138
+	.loc ../contracts/VestingFactory.sol, 143
 	DROP
 	PUSHREF {
 		.blob x4e617469766556657374696e67
 	}
-	.loc ../contracts/VestingFactory.sol, 139
+	.loc ../contracts/VestingFactory.sol, 144
 	GETGLOB 2
 	NEWC
 	STU 256
@@ -499,7 +509,7 @@ PUSHCONT {
 	GETGLOB 15
 }
 PUSHCONT {
-	.loc ../contracts/VestingFactory.sol, 146
+	.loc ../contracts/VestingFactory.sol, 151
 	GETGLOB 2
 	NEWC
 	STU 256
@@ -532,7 +542,7 @@ STOPTREF
 STZERO
 ENDC
 POP S2
-.loc ../contracts/VestingFactory.sol, 154
+.loc ../contracts/VestingFactory.sol, 159
 SWAP
 HASHCU
 NEWC
@@ -540,12 +550,12 @@ STSLICECONST x801_
 STU 256
 ENDC
 CTOS
-.loc ../contracts/VestingFactory.sol, 155
+.loc ../contracts/VestingFactory.sol, 160
 GETGLOB 9
 OVER
 SDEQ
 THROWIFNOT 1004
-.loc ../contracts/VestingFactory.sol, 157
+.loc ../contracts/VestingFactory.sol, 162
 BLKSWAP 3, 2
 XCHG S2
 PUSH3 S5, S7, S8
@@ -576,7 +586,7 @@ STBREFR
 ENDC
 PUSHINT 0
 SENDRAWMSG
-.loc ../contracts/VestingFactory.sol, 167
+.loc ../contracts/VestingFactory.sol, 172
 DUP
 PUSHREF {
 	.blob x726563697069656e74
@@ -586,7 +596,7 @@ PUSH S4
 CALLREF {
 	CALL $deployUserIndex_b8d79a67_internal_macro$
 }
-.loc ../contracts/VestingFactory.sol, 174
+.loc ../contracts/VestingFactory.sol, 179
 DUP
 PUSHREF {
 	.blob x63726561746f72
@@ -596,7 +606,7 @@ PUSH S4
 CALLREF {
 	CALL $deployUserIndex_b8d79a67_internal_macro$
 }
-.loc ../contracts/VestingFactory.sol, 180
+.loc ../contracts/VestingFactory.sol, 185
 SWAP
 HASHCU
 PUSHREF {
@@ -605,7 +615,7 @@ PUSHREF {
 HASHCU
 EQUAL
 PUSHCONT {
-	.loc ../contracts/VestingFactory.sol, 181
+	.loc ../contracts/VestingFactory.sol, 186
 	DUP
 	PUSHREF {
 		.blob x746f6b656e
@@ -617,7 +627,7 @@ PUSHCONT {
 	.loc ../contracts/VestingFactory.sol, 0
 }
 IF
-.loc ../contracts/VestingFactory.sol, 184
+.loc ../contracts/VestingFactory.sol, 189
 DROP2
 NEWC
 STSLICECONST x62_
@@ -635,13 +645,13 @@ DROP
 CALL $deployUserIndex_b8d79a67_internal_macro$
 
 .macro deployUserIndex_b8d79a67_internal_macro
-.loc ../contracts/VestingFactory.sol, 194
+.loc ../contracts/VestingFactory.sol, 199
 SWAP
 NEWC
 STSLICE
-.loc ../contracts/VestingFactory.sol, 195
+.loc ../contracts/VestingFactory.sol, 200
 STREF
-.loc ../contracts/VestingFactory.sol, 196
+.loc ../contracts/VestingFactory.sol, 201
 ENDC
 CALLREF {
 	CALL $deployIndex_6ae2a6ae_internal_macro$
@@ -653,10 +663,10 @@ CALLREF {
 CALL $deployTokenIndex_ff24172c_internal_macro$
 
 .macro deployTokenIndex_ff24172c_internal_macro
-.loc ../contracts/VestingFactory.sol, 205
+.loc ../contracts/VestingFactory.sol, 210
 NEWC
 STSLICE
-.loc ../contracts/VestingFactory.sol, 206
+.loc ../contracts/VestingFactory.sol, 211
 ENDC
 CALLREF {
 	CALL $deployIndex_6ae2a6ae_internal_macro$

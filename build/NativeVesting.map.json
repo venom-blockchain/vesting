@@ -1,0 +1,2494 @@
+{
+  "map": {
+    "1835746383de225dd516b520f52d62b59557231133f2591a39c5814c8093cd20": {
+      "0": {
+        "filename": "NativeVesting.code",
+        "line": 529
+      },
+      "8": {
+        "filename": "NativeVesting.code",
+        "line": 530
+      },
+      "24": {
+        "filename": "NativeVesting.code",
+        "line": 531
+      },
+      "32": {
+        "filename": "NativeVesting.code",
+        "line": 532
+      },
+      "48": {
+        "filename": "NativeVesting.code",
+        "line": 533
+      },
+      "56": {
+        "filename": "NativeVesting.code",
+        "line": 534
+      },
+      "64": {
+        "filename": "NativeVesting.code",
+        "line": 535
+      },
+      "80": {
+        "filename": "NativeVesting.code",
+        "line": 536
+      },
+      "96": {
+        "filename": "NativeVesting.code",
+        "line": 537
+      },
+      "112": {
+        "filename": "NativeVesting.code",
+        "line": 538
+      },
+      "120": {
+        "filename": "NativeVesting.code",
+        "line": 539
+      },
+      "144": {
+        "filename": "NativeVesting.code",
+        "line": 541
+      },
+      "152": {
+        "filename": "NativeVesting.code",
+        "line": 542
+      },
+      "160": {
+        "filename": "NativeVesting.code",
+        "line": 543
+      },
+      "168": {
+        "filename": "NativeVesting.code",
+        "line": 544
+      },
+      "184": {
+        "filename": "NativeVesting.code",
+        "line": 545
+      },
+      "200": {
+        "filename": "NativeVesting.code",
+        "line": 546
+      },
+      "216": {
+        "filename": "NativeVesting.code",
+        "line": 551
+      },
+      "224": {
+        "filename": "NativeVesting.code",
+        "line": 552
+      },
+      "232": {
+        "filename": "NativeVesting.code",
+        "line": 555
+      },
+      "240": {
+        "filename": "NativeVesting.code",
+        "line": 556
+      },
+      "248": {
+        "filename": "NativeVesting.code",
+        "line": 557
+      },
+      "264": {
+        "filename": "NativeVesting.code",
+        "line": 558
+      },
+      "280": {
+        "filename": "NativeVesting.code",
+        "line": 559
+      },
+      "296": {
+        "filename": "NativeVesting.code",
+        "line": 560
+      },
+      "312": {
+        "filename": "NativeVesting.code",
+        "line": 561
+      },
+      "328": {
+        "filename": "NativeVesting.code",
+        "line": 562
+      },
+      "344": {
+        "filename": "NativeVesting.code",
+        "line": 563
+      },
+      "360": {
+        "filename": "NativeVesting.code",
+        "line": 564
+      },
+      "376": {
+        "filename": "NativeVesting.code",
+        "line": 565
+      },
+      "392": {
+        "filename": "NativeVesting.code",
+        "line": 566
+      },
+      "408": {
+        "filename": "NativeVesting.code",
+        "line": 567
+      },
+      "424": {
+        "filename": "NativeVesting.code",
+        "line": 568
+      },
+      "440": {
+        "filename": "NativeVesting.code",
+        "line": 569
+      },
+      "456": {
+        "filename": "NativeVesting.code",
+        "line": 570
+      },
+      "472": {
+        "filename": "NativeVesting.code",
+        "line": 571
+      },
+      "488": {
+        "filename": "NativeVesting.code",
+        "line": 572
+      },
+      "512": {
+        "filename": "NativeVesting.code",
+        "line": 573
+      },
+      "528": {
+        "filename": "NativeVesting.code",
+        "line": 574
+      },
+      "536": {
+        "filename": "NativeVesting.code",
+        "line": 575
+      }
+    },
+    "1e36eae7c140a2f77b88c4840c5d958f25a1785edcf90ff16b3d7d225a931a21": {
+      "0": {
+        "filename": "NativeVesting.code",
+        "line": 261
+      },
+      "8": {
+        "filename": "NativeVesting.code",
+        "line": 262
+      },
+      "24": {
+        "filename": "NativeVesting.code",
+        "line": 263
+      },
+      "48": {
+        "filename": "NativeVesting.code",
+        "line": 264
+      },
+      "64": {
+        "filename": "NativeVesting.code",
+        "line": 265
+      },
+      "72": {
+        "filename": "NativeVesting.code",
+        "line": 266
+      },
+      "88": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 116
+      },
+      "96": {
+        "filename": "NativeVesting.code",
+        "line": 272
+      },
+      "112": {
+        "filename": "NativeVesting.code",
+        "line": 275
+      },
+      "120": {
+        "filename": "NativeVesting.code",
+        "line": 276
+      },
+      "136": {
+        "filename": "NativeVesting.code",
+        "line": 277
+      },
+      "144": {
+        "filename": "NativeVesting.code",
+        "line": 278
+      },
+      "152": {
+        "filename": "NativeVesting.code",
+        "line": 279
+      },
+      "168": {
+        "filename": "NativeVesting.code",
+        "line": 280
+      },
+      "184": {
+        "filename": "NativeVesting.code",
+        "line": 281
+      },
+      "192": {
+        "filename": "NativeVesting.code",
+        "line": 282
+      },
+      "200": {
+        "filename": "NativeVesting.code",
+        "line": 283
+      },
+      "208": {
+        "filename": "NativeVesting.code",
+        "line": 284
+      },
+      "232": {
+        "filename": "NativeVesting.code",
+        "line": 285
+      },
+      "240": {
+        "filename": "NativeVesting.code",
+        "line": 286
+      },
+      "288": {
+        "filename": "NativeVesting.code",
+        "line": 287
+      },
+      "312": {
+        "filename": "NativeVesting.code",
+        "line": 288
+      },
+      "328": {
+        "filename": "NativeVesting.code",
+        "line": 289
+      },
+      "336": {
+        "filename": "NativeVesting.code",
+        "line": 290
+      },
+      "344": {
+        "filename": "NativeVesting.code",
+        "line": 291
+      },
+      "360": {
+        "filename": "NativeVesting.code",
+        "line": 293
+      },
+      "368": {
+        "filename": "NativeVesting.code",
+        "line": 294
+      },
+      "376": {
+        "filename": "NativeVesting.code",
+        "line": 296
+      },
+      "384": {
+        "filename": "NativeVesting.code",
+        "line": 297
+      },
+      "400": {
+        "filename": "NativeVesting.code",
+        "line": 300
+      }
+    },
+    "3a0c9d6e3ec1fd918da3af80de19d345e3793cbe7130397167d18b25f965d637": {
+      "0": {
+        "filename": "NativeVesting.code",
+        "line": 716
+      },
+      "8": {
+        "filename": "NativeVesting.code",
+        "line": 717
+      },
+      "56": {
+        "filename": "NativeVesting.code",
+        "line": 718
+      },
+      "64": {
+        "filename": "NativeVesting.code",
+        "line": 719
+      },
+      "80": {
+        "filename": "NativeVesting.code",
+        "line": 745
+      },
+      "88": {
+        "filename": "NativeVesting.code",
+        "line": 746
+      },
+      "136": {
+        "filename": "NativeVesting.code",
+        "line": 747
+      },
+      "144": {
+        "filename": "NativeVesting.code",
+        "line": 748
+      }
+    },
+    "4a7b855394a0c6a05cc3708aa2e5bfa04c1fd4812ec4bf92cd293e37a3f2786f": {
+      "0": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 129
+      },
+      "16": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 129
+      },
+      "32": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 129
+      },
+      "48": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 129
+      },
+      "72": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 130
+      },
+      "88": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 130
+      },
+      "104": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 130
+      },
+      "112": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 130
+      },
+      "136": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 131
+      },
+      "152": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 131
+      },
+      "160": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 131
+      },
+      "168": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 131
+      },
+      "192": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 132
+      },
+      "208": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 132
+      },
+      "216": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 132
+      },
+      "224": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 132
+      },
+      "248": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 133
+      },
+      "256": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 133
+      },
+      "272": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 133
+      },
+      "280": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 133
+      },
+      "328": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 133
+      },
+      "336": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 133
+      },
+      "360": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 135
+      },
+      "368": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 136
+      },
+      "384": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 136
+      },
+      "400": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 136
+      },
+      "408": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 136
+      },
+      "416": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 137
+      },
+      "424": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 137
+      },
+      "440": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 137
+      },
+      "456": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 139
+      },
+      "472": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 139
+      },
+      "488": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 139
+      },
+      "496": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 139
+      },
+      "512": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 140
+      },
+      "528": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 140
+      },
+      "544": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 140
+      },
+      "552": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 140
+      },
+      "568": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 141
+      },
+      "584": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 141
+      },
+      "592": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 141
+      },
+      "608": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 141
+      },
+      "616": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 141
+      },
+      "632": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 141
+      },
+      "640": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 141
+      },
+      "648": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 144
+      },
+      "664": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 144
+      },
+      "672": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 144
+      },
+      "680": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 144
+      },
+      "696": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 144
+      },
+      "712": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 145
+      },
+      "728": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 145
+      },
+      "744": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 147
+      },
+      "760": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 147
+      },
+      "768": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 147
+      },
+      "928": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 147
+      },
+      "936": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 147
+      },
+      "944": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 147
+      },
+      "960": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 147
+      },
+      "976": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 147
+      },
+      "984": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 147
+      },
+      "992": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 147
+      }
+    },
+    "4f380ddc31a36538497ed18fc348ef9c6c2ed8da65d7462d66cdf2d67de79063": {
+      "0": {
+        "filename": "<entry-selector>",
+        "line": 1
+      },
+      "8": {
+        "filename": "<entry-selector>",
+        "line": 2
+      },
+      "24": {
+        "filename": "<entry-selector>",
+        "line": 3
+      },
+      "32": {
+        "filename": "<entry-selector>",
+        "line": 4
+      },
+      "48": {
+        "filename": "<entry-selector>",
+        "line": 5
+      },
+      "56": {
+        "filename": "<entry-selector>",
+        "line": 6
+      },
+      "72": {
+        "filename": "<entry-selector>",
+        "line": 7
+      },
+      "88": {
+        "filename": "<entry-selector>",
+        "line": 8
+      },
+      "96": {
+        "filename": "<entry-selector>",
+        "line": 9
+      },
+      "112": {
+        "filename": "<entry-selector>",
+        "line": 10
+      },
+      "128": {
+        "filename": "<entry-selector>",
+        "line": 11
+      }
+    },
+    "61ab4641fa30d9310391025086eec65d200d79268e1b7cd402565e01ba64be3c": {
+      "0": {
+        "filename": "NativeVesting.code",
+        "line": 548
+      }
+    },
+    "66ca84f47c73b071a4b7b0dc5140db497981a454d0c0b7c22a92a5b3e4a6472d": {
+      "0": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 149
+      },
+      "8": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 149
+      },
+      "24": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 150
+      },
+      "32": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 150
+      },
+      "40": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 150
+      }
+    },
+    "6a68170a185e8dfbc2c3317661539822a886086c0733492b98e481bb35b8817d": {
+      "0": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 104
+      },
+      "8": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 104
+      },
+      "24": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 104
+      },
+      "32": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 104
+      },
+      "48": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 104
+      },
+      "96": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 104
+      },
+      "104": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 104
+      },
+      "120": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 104
+      },
+      "128": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 104
+      },
+      "152": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 105
+      },
+      "168": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 105
+      },
+      "176": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 105
+      },
+      "184": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 105
+      },
+      "208": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 107
+      },
+      "224": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 107
+      },
+      "240": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 108
+      },
+      "248": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 108
+      },
+      "264": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 110
+      },
+      "280": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 110
+      },
+      "296": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 110
+      },
+      "456": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 110
+      },
+      "464": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 110
+      },
+      "472": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 110
+      },
+      "480": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 110
+      },
+      "496": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 110
+      },
+      "504": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 110
+      },
+      "512": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 110
+      },
+      "528": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 111
+      },
+      "544": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 111
+      },
+      "592": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 111
+      },
+      "600": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 111
+      },
+      "616": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 111
+      },
+      "624": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 111
+      },
+      "640": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 113
+      },
+      "648": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 113
+      },
+      "672": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 113
+      },
+      "680": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 113
+      },
+      "696": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 113
+      },
+      "712": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 113
+      },
+      "720": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 113
+      },
+      "736": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 113
+      }
+    },
+    "70d9a79cd36a0a2c6590bad7ee80d474a9e64aeb1acdf2bcc03978a8f501d741": {
+      "0": {
+        "filename": "NativeVesting.code",
+        "line": 104
+      },
+      "8": {
+        "filename": "NativeVesting.code",
+        "line": 105
+      },
+      "24": {
+        "filename": "NativeVesting.code",
+        "line": 106
+      },
+      "48": {
+        "filename": "NativeVesting.code",
+        "line": 107
+      },
+      "64": {
+        "filename": "NativeVesting.code",
+        "line": 108
+      },
+      "72": {
+        "filename": "NativeVesting.code",
+        "line": 109
+      },
+      "88": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 71
+      },
+      "96": {
+        "filename": "NativeVesting.code",
+        "line": 115
+      },
+      "112": {
+        "filename": "NativeVesting.code",
+        "line": 118
+      },
+      "120": {
+        "filename": "NativeVesting.code",
+        "line": 119
+      },
+      "136": {
+        "filename": "NativeVesting.code",
+        "line": 120
+      },
+      "144": {
+        "filename": "NativeVesting.code",
+        "line": 121
+      },
+      "152": {
+        "filename": "NativeVesting.code",
+        "line": 122
+      },
+      "168": {
+        "filename": "NativeVesting.code",
+        "line": 123
+      },
+      "184": {
+        "filename": "NativeVesting.code",
+        "line": 124
+      },
+      "192": {
+        "filename": "NativeVesting.code",
+        "line": 125
+      },
+      "200": {
+        "filename": "NativeVesting.code",
+        "line": 126
+      },
+      "208": {
+        "filename": "NativeVesting.code",
+        "line": 127
+      },
+      "232": {
+        "filename": "NativeVesting.code",
+        "line": 128
+      },
+      "240": {
+        "filename": "NativeVesting.code",
+        "line": 129
+      },
+      "248": {
+        "filename": "NativeVesting.code",
+        "line": 130
+      },
+      "272": {
+        "filename": "NativeVesting.code",
+        "line": 131
+      },
+      "288": {
+        "filename": "NativeVesting.code",
+        "line": 132
+      },
+      "296": {
+        "filename": "NativeVesting.code",
+        "line": 133
+      },
+      "344": {
+        "filename": "NativeVesting.code",
+        "line": 134
+      },
+      "352": {
+        "filename": "NativeVesting.code",
+        "line": 135
+      },
+      "368": {
+        "filename": "NativeVesting.code",
+        "line": 136
+      },
+      "376": {
+        "filename": "NativeVesting.code",
+        "line": 137
+      },
+      "384": {
+        "filename": "NativeVesting.code",
+        "line": 138
+      },
+      "400": {
+        "filename": "NativeVesting.code",
+        "line": 139
+      },
+      "416": {
+        "filename": "NativeVesting.code",
+        "line": 140
+      },
+      "432": {
+        "filename": "NativeVesting.code",
+        "line": 141
+      },
+      "448": {
+        "filename": "NativeVesting.code",
+        "line": 142
+      },
+      "464": {
+        "filename": "NativeVesting.code",
+        "line": 143
+      },
+      "480": {
+        "filename": "NativeVesting.code",
+        "line": 144
+      },
+      "496": {
+        "filename": "NativeVesting.code",
+        "line": 145
+      },
+      "504": {
+        "filename": "NativeVesting.code",
+        "line": 146
+      },
+      "512": {
+        "filename": "NativeVesting.code",
+        "line": 147
+      },
+      "528": {
+        "filename": "NativeVesting.code",
+        "line": 148
+      },
+      "536": {
+        "filename": "NativeVesting.code",
+        "line": 149
+      },
+      "544": {
+        "filename": "NativeVesting.code",
+        "line": 150
+      },
+      "552": {
+        "filename": "NativeVesting.code",
+        "line": 151
+      },
+      "560": {
+        "filename": "NativeVesting.code",
+        "line": 152
+      },
+      "568": {
+        "filename": "NativeVesting.code",
+        "line": 153
+      },
+      "576": {
+        "filename": "NativeVesting.code",
+        "line": 154
+      },
+      "592": {
+        "filename": "NativeVesting.code",
+        "line": 156
+      },
+      "600": {
+        "filename": "NativeVesting.code",
+        "line": 157
+      },
+      "616": {
+        "filename": "NativeVesting.code",
+        "line": 159
+      },
+      "624": {
+        "filename": "NativeVesting.code",
+        "line": 160
+      },
+      "640": {
+        "filename": "NativeVesting.code",
+        "line": 163
+      }
+    },
+    "712e29ce973fd52b89ae50b32730a9b9f23f768839eb2e276b06e7ae36d686fd": {
+      "0": {
+        "filename": "NativeVesting.code",
+        "line": 720
+      },
+      "8": {
+        "filename": "NativeVesting.code",
+        "line": 721
+      },
+      "56": {
+        "filename": "NativeVesting.code",
+        "line": 722
+      },
+      "64": {
+        "filename": "NativeVesting.code",
+        "line": 723
+      },
+      "80": {
+        "filename": "NativeVesting.code",
+        "line": 726
+      },
+      "88": {
+        "filename": "NativeVesting.code",
+        "line": 727
+      },
+      "136": {
+        "filename": "NativeVesting.code",
+        "line": 728
+      },
+      "144": {
+        "filename": "NativeVesting.code",
+        "line": 729
+      },
+      "160": {
+        "filename": "NativeVesting.code",
+        "line": 732
+      },
+      "168": {
+        "filename": "NativeVesting.code",
+        "line": 733
+      },
+      "216": {
+        "filename": "NativeVesting.code",
+        "line": 734
+      },
+      "224": {
+        "filename": "NativeVesting.code",
+        "line": 735
+      },
+      "240": {
+        "filename": "NativeVesting.code",
+        "line": 738
+      },
+      "248": {
+        "filename": "NativeVesting.code",
+        "line": 739
+      },
+      "296": {
+        "filename": "NativeVesting.code",
+        "line": 740
+      },
+      "304": {
+        "filename": "NativeVesting.code",
+        "line": 741
+      }
+    },
+    "72a994bfe4e2310cd4f0c9e1b9182c58dc58bbb58d03422a6b47162b9029bddb": {
+      "0": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 88
+      },
+      "16": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 88
+      },
+      "32": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 88
+      },
+      "48": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 88
+      },
+      "64": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 88
+      },
+      "80": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 88
+      },
+      "96": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 88
+      },
+      "112": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 88
+      },
+      "128": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 88
+      },
+      "144": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 88
+      },
+      "160": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 88
+      }
+    },
+    "73867e37ec1ffb9ecb087a37d71892215b0b805a73c127da219a28729084e2e0": {
+      "0": {
+        "filename": "<internal-selector>",
+        "line": 1
+      },
+      "24": {
+        "filename": "<internal-selector>",
+        "line": 2
+      }
+    },
+    "7bb1eb7a64fa740adc4de3f0161da1fce1775c5687cc90b59b4262d4ae200459": {
+      "0": {
+        "filename": "NativeVesting.code",
+        "line": 524
+      },
+      "16": {
+        "filename": "NativeVesting.code",
+        "line": 525
+      },
+      "24": {
+        "filename": "NativeVesting.code",
+        "line": 526
+      },
+      "40": {
+        "filename": "NativeVesting.code",
+        "line": 527
+      },
+      "56": {
+        "filename": "NativeVesting.code",
+        "line": 528
+      },
+      "72": {
+        "filename": "NativeVesting.code",
+        "line": 577
+      }
+    },
+    "8a09cc60e0821df8b169066a45440f3af9103b8d20cb01f20f303ebd7048add0": {
+      "0": {
+        "filename": "NativeVesting.code",
+        "line": 482
+      },
+      "16": {
+        "filename": "NativeVesting.code",
+        "line": 483
+      },
+      "24": {
+        "filename": "NativeVesting.code",
+        "line": 484
+      },
+      "40": {
+        "filename": "NativeVesting.code",
+        "line": 485
+      },
+      "56": {
+        "filename": "NativeVesting.code",
+        "line": 486
+      },
+      "72": {
+        "filename": "NativeVesting.code",
+        "line": 487
+      },
+      "80": {
+        "filename": "NativeVesting.code",
+        "line": 488
+      },
+      "96": {
+        "filename": "NativeVesting.code",
+        "line": 489
+      },
+      "104": {
+        "filename": "NativeVesting.code",
+        "line": 490
+      },
+      "112": {
+        "filename": "NativeVesting.code",
+        "line": 491
+      },
+      "120": {
+        "filename": "NativeVesting.code",
+        "line": 492
+      },
+      "136": {
+        "filename": "NativeVesting.code",
+        "line": 493
+      },
+      "144": {
+        "filename": "NativeVesting.code",
+        "line": 494
+      },
+      "152": {
+        "filename": "NativeVesting.code",
+        "line": 495
+      },
+      "160": {
+        "filename": "NativeVesting.code",
+        "line": 496
+      },
+      "176": {
+        "filename": "NativeVesting.code",
+        "line": 497
+      },
+      "184": {
+        "filename": "NativeVesting.code",
+        "line": 498
+      },
+      "192": {
+        "filename": "NativeVesting.code",
+        "line": 499
+      },
+      "200": {
+        "filename": "NativeVesting.code",
+        "line": 500
+      },
+      "216": {
+        "filename": "NativeVesting.code",
+        "line": 501
+      },
+      "232": {
+        "filename": "NativeVesting.code",
+        "line": 502
+      },
+      "248": {
+        "filename": "NativeVesting.code",
+        "line": 503
+      },
+      "264": {
+        "filename": "NativeVesting.code",
+        "line": 504
+      },
+      "280": {
+        "filename": "NativeVesting.code",
+        "line": 505
+      },
+      "296": {
+        "filename": "NativeVesting.code",
+        "line": 506
+      },
+      "312": {
+        "filename": "NativeVesting.code",
+        "line": 507
+      },
+      "328": {
+        "filename": "NativeVesting.code",
+        "line": 508
+      },
+      "336": {
+        "filename": "NativeVesting.code",
+        "line": 509
+      },
+      "352": {
+        "filename": "NativeVesting.code",
+        "line": 510
+      },
+      "368": {
+        "filename": "NativeVesting.code",
+        "line": 511
+      },
+      "384": {
+        "filename": "NativeVesting.code",
+        "line": 512
+      },
+      "400": {
+        "filename": "NativeVesting.code",
+        "line": 513
+      },
+      "416": {
+        "filename": "NativeVesting.code",
+        "line": 514
+      },
+      "432": {
+        "filename": "NativeVesting.code",
+        "line": 515
+      },
+      "448": {
+        "filename": "NativeVesting.code",
+        "line": 516
+      },
+      "464": {
+        "filename": "NativeVesting.code",
+        "line": 517
+      },
+      "480": {
+        "filename": "NativeVesting.code",
+        "line": 518
+      },
+      "496": {
+        "filename": "NativeVesting.code",
+        "line": 519
+      },
+      "512": {
+        "filename": "NativeVesting.code",
+        "line": 520
+      },
+      "528": {
+        "filename": "NativeVesting.code",
+        "line": 521
+      }
+    },
+    "9fa9750d63757b5727fcf0e8184046fa0395202e5e2f40f81115da533829c8a1": {
+      "0": {
+        "filename": "NativeVesting.code",
+        "line": 674
+      },
+      "16": {
+        "filename": "NativeVesting.code",
+        "line": 675
+      },
+      "24": {
+        "filename": "NativeVesting.code",
+        "line": 676
+      },
+      "40": {
+        "filename": "NativeVesting.code",
+        "line": 677
+      },
+      "56": {
+        "filename": "NativeVesting.code",
+        "line": 678
+      },
+      "72": {
+        "filename": "NativeVesting.code",
+        "line": 679
+      },
+      "80": {
+        "filename": "NativeVesting.code",
+        "line": 682
+      },
+      "96": {
+        "filename": "NativeVesting.code",
+        "line": 683
+      },
+      "104": {
+        "filename": "NativeVesting.code",
+        "line": 684
+      },
+      "120": {
+        "filename": "NativeVesting.code",
+        "line": 687
+      },
+      "136": {
+        "filename": "NativeVesting.code",
+        "line": 688
+      },
+      "144": {
+        "filename": "NativeVesting.code",
+        "line": 689
+      },
+      "152": {
+        "filename": "NativeVesting.code",
+        "line": 690
+      },
+      "168": {
+        "filename": "NativeVesting.code",
+        "line": 691
+      },
+      "184": {
+        "filename": "NativeVesting.code",
+        "line": 692
+      },
+      "192": {
+        "filename": "NativeVesting.code",
+        "line": 693
+      },
+      "208": {
+        "filename": "NativeVesting.code",
+        "line": 694
+      },
+      "216": {
+        "filename": "NativeVesting.code",
+        "line": 695
+      },
+      "232": {
+        "filename": "NativeVesting.code",
+        "line": 696
+      },
+      "248": {
+        "filename": "NativeVesting.code",
+        "line": 697
+      },
+      "264": {
+        "filename": "NativeVesting.code",
+        "line": 699
+      },
+      "272": {
+        "filename": "NativeVesting.code",
+        "line": 700
+      },
+      "288": {
+        "filename": "NativeVesting.code",
+        "line": 701
+      },
+      "296": {
+        "filename": "stdlib.sol",
+        "line": 61
+      },
+      "312": {
+        "filename": "stdlib.sol",
+        "line": 61
+      },
+      "320": {
+        "filename": "stdlib.sol",
+        "line": 61
+      },
+      "328": {
+        "filename": "stdlib.sol",
+        "line": 61
+      },
+      "344": {
+        "filename": "stdlib.sol",
+        "line": 62
+      },
+      "352": {
+        "filename": "stdlib.sol",
+        "line": 62
+      },
+      "368": {
+        "filename": "stdlib.sol",
+        "line": 62
+      },
+      "392": {
+        "filename": "stdlib.sol",
+        "line": 62
+      },
+      "400": {
+        "filename": "stdlib.sol",
+        "line": 62
+      },
+      "440": {
+        "filename": "stdlib.sol",
+        "line": 62
+      },
+      "448": {
+        "filename": "stdlib.sol",
+        "line": 62
+      },
+      "456": {
+        "filename": "stdlib.sol",
+        "line": 62
+      },
+      "472": {
+        "filename": "stdlib.sol",
+        "line": 63
+      },
+      "488": {
+        "filename": "NativeVesting.code",
+        "line": 703
+      },
+      "504": {
+        "filename": "NativeVesting.code",
+        "line": 704
+      },
+      "512": {
+        "filename": "NativeVesting.code",
+        "line": 705
+      },
+      "528": {
+        "filename": "NativeVesting.code",
+        "line": 706
+      },
+      "536": {
+        "filename": "NativeVesting.code",
+        "line": 707
+      },
+      "552": {
+        "filename": "NativeVesting.code",
+        "line": 708
+      },
+      "568": {
+        "filename": "NativeVesting.code",
+        "line": 709
+      },
+      "576": {
+        "filename": "NativeVesting.code",
+        "line": 710
+      },
+      "592": {
+        "filename": "NativeVesting.code",
+        "line": 713
+      }
+    },
+    "af71a58585c5661c01aa5528291622d76dc8134558d20a24e9f2e3366c5b9f57": {
+      "0": {
+        "filename": "NativeVesting.code",
+        "line": 582
+      },
+      "16": {
+        "filename": "NativeVesting.code",
+        "line": 583
+      },
+      "32": {
+        "filename": "NativeVesting.code",
+        "line": 584
+      },
+      "48": {
+        "filename": "NativeVesting.code",
+        "line": 585
+      },
+      "64": {
+        "filename": "NativeVesting.code",
+        "line": 586
+      },
+      "80": {
+        "filename": "NativeVesting.code",
+        "line": 587
+      },
+      "96": {
+        "filename": "NativeVesting.code",
+        "line": 588
+      },
+      "112": {
+        "filename": "NativeVesting.code",
+        "line": 589
+      },
+      "128": {
+        "filename": "NativeVesting.code",
+        "line": 590
+      },
+      "144": {
+        "filename": "NativeVesting.code",
+        "line": 591
+      },
+      "160": {
+        "filename": "NativeVesting.code",
+        "line": 592
+      },
+      "176": {
+        "filename": "NativeVesting.code",
+        "line": 593
+      },
+      "192": {
+        "filename": "NativeVesting.code",
+        "line": 594
+      },
+      "208": {
+        "filename": "NativeVesting.code",
+        "line": 595
+      },
+      "216": {
+        "filename": "NativeVesting.code",
+        "line": 596
+      },
+      "232": {
+        "filename": "NativeVesting.code",
+        "line": 597
+      },
+      "248": {
+        "filename": "NativeVesting.code",
+        "line": 598
+      },
+      "264": {
+        "filename": "NativeVesting.code",
+        "line": 599
+      },
+      "280": {
+        "filename": "NativeVesting.code",
+        "line": 600
+      },
+      "296": {
+        "filename": "NativeVesting.code",
+        "line": 601
+      },
+      "304": {
+        "filename": "NativeVesting.code",
+        "line": 602
+      },
+      "312": {
+        "filename": "NativeVesting.code",
+        "line": 603
+      },
+      "328": {
+        "filename": "NativeVesting.code",
+        "line": 604
+      },
+      "336": {
+        "filename": "NativeVesting.code",
+        "line": 605
+      },
+      "344": {
+        "filename": "NativeVesting.code",
+        "line": 606
+      },
+      "360": {
+        "filename": "NativeVesting.code",
+        "line": 607
+      },
+      "368": {
+        "filename": "NativeVesting.code",
+        "line": 608
+      },
+      "376": {
+        "filename": "NativeVesting.code",
+        "line": 609
+      },
+      "392": {
+        "filename": "NativeVesting.code",
+        "line": 610
+      },
+      "408": {
+        "filename": "NativeVesting.code",
+        "line": 611
+      },
+      "424": {
+        "filename": "NativeVesting.code",
+        "line": 612
+      },
+      "440": {
+        "filename": "NativeVesting.code",
+        "line": 613
+      },
+      "456": {
+        "filename": "NativeVesting.code",
+        "line": 614
+      },
+      "472": {
+        "filename": "NativeVesting.code",
+        "line": 615
+      },
+      "488": {
+        "filename": "NativeVesting.code",
+        "line": 616
+      },
+      "496": {
+        "filename": "NativeVesting.code",
+        "line": 617
+      },
+      "504": {
+        "filename": "NativeVesting.code",
+        "line": 618
+      },
+      "512": {
+        "filename": "NativeVesting.code",
+        "line": 619
+      },
+      "520": {
+        "filename": "NativeVesting.code",
+        "line": 620
+      }
+    },
+    "b34166f0ee3e69cb8157c7d13dafadea42c476a0f0b8b19763d39b0842027f59": {
+      "0": {
+        "filename": "NativeVesting.code",
+        "line": 4
+      },
+      "8": {
+        "filename": "NativeVesting.code",
+        "line": 5
+      },
+      "24": {
+        "filename": "NativeVesting.code",
+        "line": 6
+      },
+      "32": {
+        "filename": "NativeVesting.code",
+        "line": 7
+      },
+      "48": {
+        "filename": "NativeVesting.code",
+        "line": 10
+      },
+      "64": {
+        "filename": "NativeVesting.code",
+        "line": 11
+      },
+      "80": {
+        "filename": "NativeVesting.code",
+        "line": 12
+      },
+      "88": {
+        "filename": "NativeVesting.code",
+        "line": 13
+      },
+      "96": {
+        "filename": "NativeVesting.code",
+        "line": 14
+      },
+      "104": {
+        "filename": "NativeVesting.code",
+        "line": 15
+      },
+      "112": {
+        "filename": "NativeVesting.code",
+        "line": 16
+      },
+      "120": {
+        "filename": "NativeVesting.code",
+        "line": 18
+      },
+      "128": {
+        "filename": "NativeVesting.code",
+        "line": 19
+      },
+      "144": {
+        "filename": "NativeVesting.code",
+        "line": 20
+      },
+      "152": {
+        "filename": "NativeVesting.code",
+        "line": 21
+      },
+      "160": {
+        "filename": "NativeVesting.code",
+        "line": 22
+      },
+      "168": {
+        "filename": "NativeVesting.code",
+        "line": 23
+      },
+      "184": {
+        "filename": "NativeVesting.code",
+        "line": 24
+      },
+      "192": {
+        "filename": "NativeVesting.code",
+        "line": 25
+      },
+      "200": {
+        "filename": "NativeVesting.code",
+        "line": 26
+      },
+      "208": {
+        "filename": "NativeVesting.code",
+        "line": 27
+      },
+      "224": {
+        "filename": "NativeVesting.code",
+        "line": 28
+      },
+      "240": {
+        "filename": "NativeVesting.code",
+        "line": 29
+      },
+      "256": {
+        "filename": "NativeVesting.code",
+        "line": 30
+      },
+      "272": {
+        "filename": "NativeVesting.code",
+        "line": 31
+      },
+      "280": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 46
+      },
+      "296": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 46
+      },
+      "312": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 46
+      },
+      "328": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 46
+      },
+      "352": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 47
+      },
+      "400": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 47
+      },
+      "408": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 47
+      },
+      "424": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 49
+      },
+      "440": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 49
+      },
+      "456": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 50
+      },
+      "472": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 50
+      },
+      "488": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 51
+      },
+      "496": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 51
+      },
+      "512": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 52
+      },
+      "520": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 52
+      },
+      "536": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 53
+      },
+      "552": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 54
+      },
+      "568": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 54
+      },
+      "584": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 56
+      },
+      "600": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 56
+      },
+      "616": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 56
+      },
+      "632": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 56
+      },
+      "648": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 56
+      },
+      "664": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 56
+      },
+      "680": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 56
+      },
+      "696": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 56
+      },
+      "712": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 56
+      },
+      "728": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 56
+      },
+      "736": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 56
+      },
+      "760": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 56
+      },
+      "768": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 56
+      },
+      "776": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 56
+      },
+      "800": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 56
+      },
+      "816": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 56
+      },
+      "824": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 56
+      },
+      "872": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 56
+      },
+      "888": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 56
+      },
+      "896": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 56
+      },
+      "912": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 56
+      },
+      "920": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 56
+      },
+      "928": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 56
+      },
+      "944": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 56
+      },
+      "952": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 56
+      },
+      "960": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 56
+      },
+      "976": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 56
+      },
+      "984": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 56
+      },
+      "992": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 56
+      }
+    },
+    "b4026ac6b92e320d14b01ca2e5b9ba386a7fabc55ac0eb711ab4072bee50bb8b": {
+      "0": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 148
+      },
+      "16": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 148
+      },
+      "32": {
+        "filename": "NativeVesting.code",
+        "line": 461
+      },
+      "40": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 153
+      },
+      "56": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 153
+      },
+      "104": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 153
+      },
+      "112": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 153
+      },
+      "128": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 153
+      },
+      "136": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 153
+      },
+      "152": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 154
+      },
+      "168": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 154
+      },
+      "176": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 154
+      },
+      "200": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 154
+      },
+      "208": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 154
+      },
+      "224": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 154
+      },
+      "240": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 154
+      },
+      "248": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 154
+      },
+      "264": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 154
+      }
+    },
+    "b43c5acb6a5d3a7413813b79326dbbe752b014cb7e8c75a4fc07a0a2d95e637d": {
+      "0": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 150
+      }
+    },
+    "cdff1bf3875d5f67bbca4530a77acebee898925f95f089a0f6a483e3a4ffa832": {
+      "0": {
+        "filename": "NativeVesting.code",
+        "line": 348
+      },
+      "8": {
+        "filename": "NativeVesting.code",
+        "line": 349
+      },
+      "24": {
+        "filename": "NativeVesting.code",
+        "line": 350
+      },
+      "48": {
+        "filename": "NativeVesting.code",
+        "line": 351
+      },
+      "64": {
+        "filename": "NativeVesting.code",
+        "line": 352
+      },
+      "72": {
+        "filename": "NativeVesting.code",
+        "line": 353
+      },
+      "88": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 128
+      },
+      "96": {
+        "filename": "NativeVesting.code",
+        "line": 359
+      },
+      "112": {
+        "filename": "NativeVesting.code",
+        "line": 362
+      },
+      "120": {
+        "filename": "NativeVesting.code",
+        "line": 363
+      },
+      "136": {
+        "filename": "NativeVesting.code",
+        "line": 366
+      }
+    },
+    "d1db54ccd16fff1d6c33d189e4618545bfff25d55bfee69a322b8e4f19ae3bea": {
+      "0": {
+        "filename": "NativeVesting.code",
+        "line": 639
+      },
+      "16": {
+        "filename": "NativeVesting.code",
+        "line": 640
+      },
+      "24": {
+        "filename": "NativeVesting.code",
+        "line": 641
+      },
+      "40": {
+        "filename": "NativeVesting.code",
+        "line": 642
+      },
+      "56": {
+        "filename": "NativeVesting.code",
+        "line": 643
+      },
+      "72": {
+        "filename": "NativeVesting.code",
+        "line": 644
+      },
+      "80": {
+        "filename": "NativeVesting.code",
+        "line": 645
+      },
+      "88": {
+        "filename": "NativeVesting.code",
+        "line": 646
+      },
+      "104": {
+        "filename": "NativeVesting.code",
+        "line": 647
+      },
+      "120": {
+        "filename": "NativeVesting.code",
+        "line": 648
+      },
+      "128": {
+        "filename": "NativeVesting.code",
+        "line": 649
+      },
+      "144": {
+        "filename": "NativeVesting.code",
+        "line": 650
+      },
+      "168": {
+        "filename": "NativeVesting.code",
+        "line": 651
+      },
+      "176": {
+        "filename": "NativeVesting.code",
+        "line": 652
+      },
+      "184": {
+        "filename": "NativeVesting.code",
+        "line": 653
+      },
+      "200": {
+        "filename": "NativeVesting.code",
+        "line": 654
+      },
+      "216": {
+        "filename": "NativeVesting.code",
+        "line": 658
+      },
+      "224": {
+        "filename": "NativeVesting.code",
+        "line": 659
+      },
+      "248": {
+        "filename": "NativeVesting.code",
+        "line": 660
+      },
+      "264": {
+        "filename": "NativeVesting.code",
+        "line": 661
+      },
+      "272": {
+        "filename": "NativeVesting.code",
+        "line": 662
+      },
+      "288": {
+        "filename": "NativeVesting.code",
+        "line": 666
+      },
+      "296": {
+        "filename": "NativeVesting.code",
+        "line": 667
+      },
+      "312": {
+        "filename": "NativeVesting.code",
+        "line": 670
+      }
+    },
+    "d558e53bf690afc8a76b8887a99a49a52db1bd24bec5da84780ea0e7bc0aad3f": {
+      "0": {
+        "filename": "NativeVesting.code",
+        "line": 547
+      }
+    },
+    "e6936e8f0e7b8fe98c2ca66eee9d4e9dafcfc747defef9cb795288fabb1b7ef3": {
+      "0": {
+        "filename": "NativeVesting.code",
+        "line": 623
+      },
+      "16": {
+        "filename": "NativeVesting.code",
+        "line": 624
+      },
+      "24": {
+        "filename": "NativeVesting.code",
+        "line": 625
+      },
+      "40": {
+        "filename": "NativeVesting.code",
+        "line": 626
+      },
+      "56": {
+        "filename": "NativeVesting.code",
+        "line": 627
+      },
+      "64": {
+        "filename": "NativeVesting.code",
+        "line": 628
+      },
+      "80": {
+        "filename": "NativeVesting.code",
+        "line": 629
+      },
+      "88": {
+        "filename": "NativeVesting.code",
+        "line": 630
+      },
+      "96": {
+        "filename": "NativeVesting.code",
+        "line": 631
+      },
+      "112": {
+        "filename": "NativeVesting.code",
+        "line": 632
+      },
+      "128": {
+        "filename": "NativeVesting.code",
+        "line": 633
+      },
+      "136": {
+        "filename": "NativeVesting.code",
+        "line": 634
+      },
+      "144": {
+        "filename": "NativeVesting.code",
+        "line": 635
+      }
+    },
+    "f24e1e7aa04d89aad2945816b6e9b921f2b3892da9ba53e2383c148351b96d0c": {
+      "0": {
+        "filename": "NativeVesting.code",
+        "line": 655
+      },
+      "16": {
+        "filename": "NativeVesting.code",
+        "line": 656
+      }
+    },
+    "f83f353a67475524403399e502075c40ccfe50c843e72efcf2ec99d03a3269da": {
+      "0": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 116
+      },
+      "8": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 117
+      },
+      "24": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 117
+      },
+      "40": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 117
+      },
+      "48": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 117
+      },
+      "56": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 118
+      },
+      "64": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 118
+      },
+      "80": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 118
+      },
+      "96": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 118
+      },
+      "112": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 118
+      },
+      "128": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 118
+      },
+      "136": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 118
+      },
+      "152": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 120
+      },
+      "168": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 120
+      },
+      "184": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 120
+      },
+      "192": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 120
+      },
+      "208": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 121
+      },
+      "224": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 121
+      },
+      "240": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 121
+      },
+      "248": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 121
+      },
+      "264": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 122
+      },
+      "280": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 122
+      },
+      "288": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 122
+      },
+      "304": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 122
+      },
+      "312": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 122
+      },
+      "328": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 122
+      },
+      "336": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 122
+      },
+      "344": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 124
+      },
+      "352": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 124
+      },
+      "360": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 124
+      },
+      "368": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 124
+      }
+    },
+    "f929d6bddb38427a21904b21226d257e6703e40b9a1b0d816c2cfd017db8867a": {
+      "0": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 56
+      },
+      "16": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 56
+      },
+      "32": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 56
+      },
+      "40": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 56
+      },
+      "48": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 56
+      },
+      "56": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 56
+      },
+      "64": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 56
+      },
+      "72": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 56
+      },
+      "88": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 56
+      },
+      "104": {
+        "filename": "NativeVesting.code",
+        "line": 98
+      },
+      "120": {
+        "filename": "NativeVesting.code",
+        "line": 101
+      }
+    },
+    "fb3b0d96467a5272ba03270dd312664fe43f1953f4382cb4724da2abd7604b7c": {
+      "0": {
+        "filename": "NativeVesting.code",
+        "line": 181
+      },
+      "8": {
+        "filename": "NativeVesting.code",
+        "line": 182
+      },
+      "24": {
+        "filename": "NativeVesting.code",
+        "line": 183
+      },
+      "48": {
+        "filename": "NativeVesting.code",
+        "line": 184
+      },
+      "64": {
+        "filename": "NativeVesting.code",
+        "line": 185
+      },
+      "72": {
+        "filename": "NativeVesting.code",
+        "line": 186
+      },
+      "88": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 103
+      },
+      "96": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 103
+      },
+      "104": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 103
+      },
+      "112": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 103
+      },
+      "120": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 103
+      },
+      "128": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 103
+      },
+      "136": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 103
+      },
+      "152": {
+        "filename": "../contracts/NativeVesting.sol",
+        "line": 103
+      },
+      "160": {
+        "filename": "NativeVesting.code",
+        "line": 200
+      },
+      "176": {
+        "filename": "NativeVesting.code",
+        "line": 203
+      },
+      "184": {
+        "filename": "NativeVesting.code",
+        "line": 204
+      },
+      "200": {
+        "filename": "NativeVesting.code",
+        "line": 207
+      }
+    }
+  }
+}

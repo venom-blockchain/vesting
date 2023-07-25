@@ -73,7 +73,7 @@ export async function getTokenIndexSaltedCodeHash(
 async function main() {
   // Contracts addresses
   const vestingFactoryAddress = new Address(
-    "0:16de797dbc2618379cd769fc1e9f17ef482810c6f7b203e37401a111184a2e16",
+    "0:942f86b81a81788d5757016c9cc8bff86e5b622cabaf450f7e74cceaa705d0b4",
   );
 
   const creator = new Address(
@@ -106,7 +106,7 @@ async function main() {
       vesting_start: start,
       vesting_end: end,
     })
-    .send({ from: creator, amount: locklift.utils.toNano(2.5) });
+    .send({ from: creator, amount: locklift.utils.toNano(3) });
 
   // wait for tx finalization
   await locklift.transactions.waitFinalized(tx);
