@@ -70,10 +70,32 @@ export async function getTokenIndexSaltedCodeHash(
   return "0x" + saltedCodeHash;
 }
 
+async function getVestingDetails(
+  index: Address,
+  vestingType: "NativeVesting" | "Vesting",
+) {
+  // Create instance of the Index contract
+  const indexContract = locklift.factory.getDeployedContract("Index", index);
+
+  // Get native vesting contract address
+  const { value0: indexedContract } = await indexContract.methods
+    .getIndexedContract({ answerId: 0 })
+    .call();
+
+  const vesting = locklift.factory.getDeployedContract(
+    vestingType,
+    indexedContract,
+  );
+
+  const vestingDetails = await vesting.methods.getDetails().call();
+  return { vesting: indexedContract, ...vestingDetails };
+}
+
+
 async function main() {
   // Contracts addresses
   const vestingFactoryAddress = new Address(
-    "0:107406d4e9d52fefc50d9c82ea7500f27454f321c8c5deef2ebce469fca20ea7",
+    "0:add637c8bc32f0f5b9662288538a35b9d9fa25b3201c3b439264f6bd0b8b9a46",
   );
 
   const creator = new Address(
@@ -132,27 +154,11 @@ async function main() {
   const { accounts: indexes } = await locklift.provider.getAccountsByCodeHash({
     codeHash,
   });
-  console.log("indexes", indexes);
-
-  // Create instance of the Index contract
-  const indexContract = locklift.factory.getDeployedContract(
-    "Index",
-    indexes[indexes.length - 1],
-  );
-
-  // Get native vesting contract address
-  const { value0: indexedContract } = await indexContract.methods
-    .getIndexedContract({ answerId: 0 })
-    .call();
-  console.log("indexedContract", indexedContract);
-
-  const vesting = locklift.factory.getDeployedContract(
-    "NativeVesting",
-    indexedContract,
-  );
-
-  const vestingDetails = await vesting.methods.getDetails().call();
-  console.log("vestingDetails", vestingDetails);
+  console.log(`find indexes: ${indexes.length}`);
+  for (const index of indexes) {
+    const vestingDetails = await getVestingDetails(index, "NativeVesting");
+    console.log(vestingDetails);
+  }
 }
 
 main()
