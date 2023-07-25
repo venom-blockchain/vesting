@@ -111,25 +111,19 @@ THROW 0
 
 .macro deployNativeVesting_36e14920_internal_macro
 .loc ../contracts/VestingFactory.sol, 56
-CALLREF {
-	CALL $_reserve_413ab4a8_internal_macro$
-}
-PUSHINT 0
-RAWRESERVE
-.loc ../contracts/VestingFactory.sol, 57
 OVER
 NOW
 GREATER
 THROWIFNOT 1002
-.loc ../contracts/VestingFactory.sol, 58
+.loc ../contracts/VestingFactory.sol, 57
 PUSH2 S0, S1
 GREATER
 THROWIFNOT 1002
-.loc ../contracts/VestingFactory.sol, 59
+.loc ../contracts/VestingFactory.sol, 58
 PUSH S2
 GTINT 0
 THROWIFNOT 1002
-.loc ../contracts/VestingFactory.sol, 60
+.loc ../contracts/VestingFactory.sol, 59
 DEPTH
 ADDCONST -2
 PICK
@@ -141,6 +135,12 @@ ADD
 UFITS 128
 GEQ
 THROWIFNOT 1003
+.loc ../contracts/VestingFactory.sol, 63
+CALLREF {
+	CALL $_reserve_413ab4a8_internal_macro$
+}
+PUSHINT 0
+RAWRESERVE
 .loc ../contracts/VestingFactory.sol, 65
 GETGLOB 2
 NEWC
@@ -282,25 +282,19 @@ THROW 0
 
 .macro deployVesting_af3d55be_internal_macro
 .loc ../contracts/VestingFactory.sol, 96
-CALLREF {
-	CALL $_reserve_413ab4a8_internal_macro$
-}
-PUSHINT 0
-RAWRESERVE
-.loc ../contracts/VestingFactory.sol, 97
 OVER
 NOW
 GREATER
 THROWIFNOT 1002
-.loc ../contracts/VestingFactory.sol, 98
+.loc ../contracts/VestingFactory.sol, 97
 PUSH2 S0, S1
 GREATER
 THROWIFNOT 1002
-.loc ../contracts/VestingFactory.sol, 99
+.loc ../contracts/VestingFactory.sol, 98
 PUSH S2
 GTINT 0
 THROWIFNOT 1002
-.loc ../contracts/VestingFactory.sol, 100
+.loc ../contracts/VestingFactory.sol, 99
 DEPTH
 ADDCONST -2
 PICK
@@ -312,6 +306,12 @@ ADD
 UFITS 128
 GEQ
 THROWIFNOT 1003
+.loc ../contracts/VestingFactory.sol, 103
+CALLREF {
+	CALL $_reserve_413ab4a8_internal_macro$
+}
+PUSHINT 0
+RAWRESERVE
 .loc ../contracts/VestingFactory.sol, 105
 GETGLOB 2
 NEWC

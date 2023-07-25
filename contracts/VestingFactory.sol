@@ -53,14 +53,14 @@ contract VestingFactory is IndexFactory {
         uint32 vesting_start,
         uint32 vesting_end
     ) external {
-        tvm.rawReserve(_reserve(), 0);
         require(vesting_start > now, BAD_PARAMS);
         require(vesting_end > vesting_start, BAD_PARAMS);
         require(vesting_amount > 0, BAD_PARAMS);
         require(
-			msg.value >= VESTING_DEPLOY_VALUE + _indexDeployValue * 2,
-			LOW_VALUE
-		);
+            msg.value >= VESTING_DEPLOY_VALUE + _indexDeployValue * 2,
+            LOW_VALUE
+        );
+        tvm.rawReserve(_reserve(), 0);
 
         TvmCell stateInit = tvm.buildStateInit({
             contr: NativeVesting,
@@ -93,14 +93,14 @@ contract VestingFactory is IndexFactory {
         uint32 vesting_start,
         uint32 vesting_end
     ) external {
-        tvm.rawReserve(_reserve(), 0);
         require(vesting_start > now, BAD_PARAMS);
         require(vesting_end > vesting_start, BAD_PARAMS);
         require(vesting_amount > 0, BAD_PARAMS);
         require(
-			msg.value >= VESTING_DEPLOY_VALUE + _indexDeployValue * 3,
-			LOW_VALUE
-		);
+            msg.value >= VESTING_DEPLOY_VALUE + _indexDeployValue * 3,
+            LOW_VALUE
+        );
+        tvm.rawReserve(_reserve(), 0);
 
         TvmCell stateInit = tvm.buildStateInit({
             contr: Vesting,

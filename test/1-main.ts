@@ -53,8 +53,8 @@ describe("Test linear vesting contract", async function () {
           contract: "VestingFactory",
           constructorParams: {
             indexCode: Index.code,
-            indexDeployValue: toNano(0.2),
-            indexDestroyValue: toNano(0.2),
+            indexDeployValue: toNano(0.1),
+            indexDestroyValue: toNano(0.1),
           },
           initParams: {
             nativeVestingCode: NativeVesting.code,

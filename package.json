@@ -19,7 +19,7 @@
     "@types/mocha": "^9.1.1",
     "@types/node": "^18.7.6",
     "chai": "^4.3.6",
-    "locklift": "^2.5.5",
+    "locklift": "~2.5.5",
     "locklift-deploy-artifacts": "^1.1.1",
     "locklift-private-deploy": "^1.0.6",
     "prettier": "^2.7.1",

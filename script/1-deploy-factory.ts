@@ -21,8 +21,8 @@ async function main() {
         },
         constructorParams: {
           indexCode: indexArtifacts.code,
-          indexDeployValue: locklift.utils.toNano(0.2),
-          indexDestroyValue: locklift.utils.toNano(0.2),
+          indexDeployValue: locklift.utils.toNano(0.1),
+          indexDestroyValue: locklift.utils.toNano(0.1),
         },
         value: locklift.utils.toNano(5),
       },

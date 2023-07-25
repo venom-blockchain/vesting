@@ -5,7 +5,7 @@ interface IFactory {
         uint128 nonce,
         address user,
         address creator,
-        address sendRemainingGasTo,
+        address remainingGasTo,
         address token,
         uint128 vesting_amount,
         uint32 vesting_start,

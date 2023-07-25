@@ -73,7 +73,7 @@ export async function getTokenIndexSaltedCodeHash(
 async function main() {
   // Contracts addresses
   const vestingFactoryAddress = new Address(
-    "0:942f86b81a81788d5757016c9cc8bff86e5b622cabaf450f7e74cceaa705d0b4",
+    "0:107406d4e9d52fefc50d9c82ea7500f27454f321c8c5deef2ebce469fca20ea7",
   );
 
   const creator = new Address(
