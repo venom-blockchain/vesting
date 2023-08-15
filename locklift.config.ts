@@ -39,6 +39,7 @@ const config: LockliftConfig = {
         "TokenWalletUpgradeable",
         "TokenWalletPlatform",
       ],
+      "test/contracts/build": ["Wallet"],
     },
   },
   linker: {
