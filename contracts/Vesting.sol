@@ -83,6 +83,7 @@ contract Vesting {
 
     function _setupTokenWallets() internal view {
         ITokenRoot(token).deployWallet{
+            flag: 0,
             value: TOKEN_WALLET_DEPLOY_VALUE,
             callback: Vesting.receiveTokenWalletAddress
         }(
@@ -91,6 +92,7 @@ contract Vesting {
         );
 
         ITokenRoot(token).deployWallet{
+            flag: 0,
             value: TOKEN_WALLET_DEPLOY_VALUE,
             callback: Vesting.dummy
         }(
@@ -187,8 +189,6 @@ contract Vesting {
             uint32 period_left = vestingEnd - lastClaimTime;
             uint32 period_passed = now - lastClaimTime;
             tokens_to_claim = (tokenBalance * period_passed) / period_left;
-        } else {
-            tokens_to_claim = 0;
         }
     }
 

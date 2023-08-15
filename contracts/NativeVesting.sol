@@ -120,8 +120,6 @@ contract NativeVesting {
             uint32 period_left = vestingEnd - lastClaimTime;
             uint32 period_passed = now - lastClaimTime;
             value_to_claim = (balance * period_passed) / period_left;
-        } else {
-            value_to_claim = 0;
         }
     }
 

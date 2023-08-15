@@ -56,7 +56,7 @@ abstract contract IndexFactory {
    * @param sendGasTo The address to which the remaining gas of the Index contract will be sent
    */
   function destructIndex(address index, address sendGasTo) internal view virtual {
-    Index(index).destruct{ value: _indexDestroyValue }(sendGasTo);
+    Index(index).destruct{ value: _indexDestroyValue, flag: 0 }(sendGasTo);
   }
 
   /**
