@@ -60,6 +60,69 @@ describe("Test native linear vesting contract", async function () {
   });
 
   describe("Test native vesting", async function () {
+    it("Deploy vesting with past start date", async function () {
+      start = Math.floor(locklift.testing.getCurrentTime() / 1000) - 1000;
+      end = start + 2000;
+
+      locklift.tracing.setAllowedCodes({ compute: [1002] });
+      const { traceTree } = await locklift.tracing.trace(
+        factory.methods
+          .deployNativeVesting({
+            user: user.address,
+            remainingGasTo: user.address,
+            vesting_amount: vesting_amount,
+            vesting_start: start,
+            vesting_end: end,
+          })
+          .send({ from: user.address, amount: toNano(3) }),
+      );
+      locklift.tracing.removeAllowedCodes({ compute: [1002] });
+
+      expect(traceTree).to.error(1002);
+    });
+    it("Deploy vesting with end date earlier than start", async function () {
+      start = Math.floor(locklift.testing.getCurrentTime() / 1000) + 20;
+      end = start - 10;
+
+      locklift.tracing.setAllowedCodes({ compute: [1002] });
+      const { traceTree } = await locklift.tracing.trace(
+        factory.methods
+          .deployNativeVesting({
+            user: user.address,
+            remainingGasTo: user.address,
+            vesting_amount: vesting_amount,
+            vesting_start: start,
+            vesting_end: end,
+          })
+          .send({ from: user.address, amount: toNano(3) }),
+      );
+      locklift.tracing.removeAllowedCodes({ compute: [1002] });
+
+      expect(traceTree).to.error(1002);
+    });
+
+    it("Deploy vesting with insufficient value", async function () {
+      start = Math.floor(locklift.testing.getCurrentTime() / 1000) + 15;
+      end = start + 20;
+      period = end - start;
+      locklift.tracing.setAllowedCodes({ compute: [1003] });
+
+      const { traceTree } = await locklift.tracing.trace(
+        factory.methods
+          .deployNativeVesting({
+            user: user.address,
+            remainingGasTo: user.address,
+            vesting_amount: vesting_amount,
+            vesting_start: start,
+            vesting_end: end,
+          })
+          .send({ from: user.address, amount: toNano(1) }),
+      );
+
+      locklift.tracing.removeAllowedCodes({ compute: [1003] });
+      expect(traceTree).to.error(1003);
+    });
+
     it("Deploy vesting", async function () {
       start = Math.floor(locklift.testing.getCurrentTime() / 1000) + 15;
       end = start + 20;
@@ -109,6 +172,17 @@ describe("Test native linear vesting contract", async function () {
         vesting_amount.toString(),
         "Bad token balance",
       );
+    });
+
+    it("User claims before vesting starts", async function () {
+      locklift.tracing.setAllowedCodes({ compute: [1004] });
+      const { traceTree } = await locklift.tracing.trace(
+        vesting.methods
+          .claim({})
+          .send({ from: user.address, amount: toNano(2) }),
+      );
+      locklift.tracing.removeAllowedCodes({ compute: [1004] });
+      expect(traceTree).to.error(1004);
     });
 
     it("User claims", async function () {
