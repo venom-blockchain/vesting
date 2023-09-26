@@ -166,3 +166,5 @@ npx everscan-verify --api-url https://verify.venomscan.com verify -i ./ --licens
 ## Audits
 
 Security Assessment by [Certik](https://github.com/venom-blockchain/vesting/blob/main/audits/certik/audit.pdf)
+
+Security Assessment by [Hacken](https://github.com/venom-blockchain/vesting/blob/main/audits/hacken/audit.pdf)
