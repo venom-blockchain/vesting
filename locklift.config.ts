@@ -1,26 +1,46 @@
 import { LockliftConfig } from "locklift";
 
 import { FactorySource } from "./build/factorySource";
-import { SimpleGiver, GiverWalletV3 } from "./giverSettings";
 
+import { DeployArtifactsExtension } from "locklift-deploy-artifacts";
+import { LockliftConfigExtension, PrivateDeployerExtension } from "locklift-private-deploy";
+import "locklift-deploy-artifacts";
+import "locklift-private-deploy";
+
+declare module "locklift" {
+  export interface Locklift<FactorySource>
+    extends DeployArtifactsExtension<FactorySource>,
+      PrivateDeployerExtension<FactorySource> {}
+  export interface LockliftConfig extends LockliftConfigExtension {}
+}
 declare global {
   const locklift: import("locklift").Locklift<FactorySource>;
 }
 
 const LOCAL_NETWORK_ENDPOINT = "http://localhost/graphql";
 
+const VENOM_TESTNET_ENDPOINT = process.env.VENOM_TESTNET_ENDPOINT || "https://jrpc-testnet.venom.foundation/rpc";
+const VENOM_TESTNET_TRACE_ENDPOINT =
+  process.env.VENOM_TESTNET_TRACE_ENDPOINT || "https://gql-testnet.venom.foundation/graphql";
+
 const config: LockliftConfig = {
+  pivateRPC: "",
   compiler: {
     // Specify path to your TON-Solidity-Compiler
     // path: "/mnt/o/projects/broxus/TON-Solidity-Compiler/build/solc/solc",
 
     // Or specify version of compiler
-    version: "0.57.1",
+    version: "0.62.0",
 
     // Specify config for extarnal contracts as in exapmple
-    // externalContracts: {
-    //   "node_modules/broxus-ton-tokens-contracts/build": ['TokenRoot', 'TokenWallet']
-    // }
+    externalContracts: {
+      "node_modules/broxus-token-contracts/build": [
+        "TokenRootUpgradeable",
+        "TokenWalletUpgradeable",
+        "TokenWalletPlatform",
+      ],
+      "test/contracts/build": ["Wallet"],
+    },
   },
   linker: {
     // Specify path to your stdlib
@@ -29,12 +49,13 @@ const config: LockliftConfig = {
     // path: "/mnt/o/projects/broxus/TVM-linker/target/release/tvm_linker",
 
     // Or specify version of linker
-    version: "0.15.35",
+    version: "0.15.48",
   },
   networks: {
     local: {
       // Specify connection settings for https://github.com/broxus/everscale-standalone-client/
       connection: {
+        id: 1,
         group: "localnet",
         type: "graphql",
         data: {
@@ -46,10 +67,7 @@ const config: LockliftConfig = {
       // This giver is default local-node giverV2
       giver: {
         // Check if you need provide custom giver
-        giverFactory: (ever, keyPair, address) =>
-          new SimpleGiver(ever, keyPair, address),
-        address:
-          "0:ece57bcc6c530283becbbd8a3b24d3c5987cdddc3c8b7b33be6e4a6312490415",
+        address: "0:ece57bcc6c530283becbbd8a3b24d3c5987cdddc3c8b7b33be6e4a6312490415",
         key: "172af540e43a524763dd53b26a066d472a97c4de37d5498170564510608250c3",
       },
       tracing: {
@@ -62,46 +80,29 @@ const config: LockliftConfig = {
         amount: 20,
       },
     },
-    testnet: {
-      connection: {
-        group: "testnet",
-        type: "jrpc",
-        data: {
-          endpoint: "https://jrpc-testnet.venom.foundation/rpc",
-        },
-      },
-      giver: {
-        giverFactory: (ever, keyPair, address) =>
-          new GiverWalletV3(ever, keyPair, address),
-        address: "", // TODO: set walletV3 address
-        key: "", // TODO: set walletV3 private key
-      },
-      keys: {
-        // !!! Never commit it in your repos !!!
-        phrase: "", //TODO: set walletV3 seed phrase
-        amount: 20,
-      },
-    },
-    mainnet: {
-      connection: {
-        group: "mainnet",
-        type: "jrpc",
-        data: {
-          endpoint: "https://jrpc.venom.foundation/rpc",
-        },
-      },
-      giver: {
-        giverFactory: (ever, keyPair, address) =>
-          new GiverWalletV3(ever, keyPair, address),
-        address: "", // TODO: set walletV3 address
-        key: "", // TODO: set walletV3 private key
-      },
-      keys: {
-        // !!! Never commit it in your repos !!!
-        phrase: "", //TODO: set walletV3 seed phrase
-        amount: 20,
-      },
-    },
+    // test: {
+    //   connection: {
+    //     id: 1000,
+    //     type: "jrpc",
+    //     group: "dev",
+    //     data: {
+    //       endpoint: VENOM_TESTNET_ENDPOINT,
+    //     },
+    //   },
+    //   giver: {
+    //     address: "",
+    //     key: "",
+    //   },
+    //   tracing: {
+    //     endpoint: VENOM_TESTNET_TRACE_ENDPOINT,
+    //   },
+    //   keys: {
+    //     // Use everdev to generate your phrase
+    //     // !!! Never commit it in your repos !!!
+    //     phrase: "",
+    //     amount: 20,
+    //   },
+    // },
   },
   mocha: {
     timeout: 2000000,

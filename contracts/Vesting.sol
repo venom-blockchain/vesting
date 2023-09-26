@@ -1,13 +1,11 @@
-pragma ton-solidity ^0.57.1;
+pragma ever-solidity ^0.62.0;
 pragma AbiHeader expire;
 
-
-import "broxus-ton-tokens-contracts/contracts/interfaces/ITokenRoot.sol";
-import "broxus-ton-tokens-contracts/contracts/interfaces/ITokenWallet.sol";
-import "broxus-ton-tokens-contracts/contracts/interfaces/IAcceptTokensTransferCallback.sol";
-import "@broxus/contracts/contracts/libraries/MsgFlag.sol";
+import "broxus-token-contracts/contracts/interfaces/ITokenRoot.tsol";
+import "broxus-token-contracts/contracts/interfaces/ITokenWallet.tsol";
+import "broxus-token-contracts/contracts/interfaces/IAcceptTokensTransferCallback.tsol";
+import "@broxus/contracts/contracts/libraries/MsgFlag.tsol";
 import "interfaces/IFactory.sol";
-
 
 contract Vesting {
     event ReceivedTokenWalletAddress(address wallet);
@@ -45,17 +43,18 @@ contract Vesting {
     uint128 constant TOKEN_WALLET_DEPLOY_VALUE = 0.5 ton;
     uint128 constant CONTRACT_MIN_BALANCE = 1 ton;
     uint128 constant MIN_MSG_VALUE = 1 ton;
-    uint128 constant FACTORY_DEPLOY_CALLBACK_VALUE = 0.1 ton;
 
     constructor(
         address _user,
         address _creator,
+        address _remainingGasTo,
         address _token,
         uint128 _vestingAmount,
         uint32 _vestingStart,
         uint32 _vestingEnd
     ) public {
-        require (msg.sender == factory, NOT_FACTORY);
+        require(msg.sender == factory, NOT_FACTORY);
+        tvm.rawReserve(_reserve(), 0);
 
         user = _user;
         creator = _creator;
@@ -66,54 +65,91 @@ contract Vesting {
         lastClaimTime = vestingStart;
 
         _setupTokenWallets();
-        IFactory(factory).onVestingDeployed{value: FACTORY_DEPLOY_CALLBACK_VALUE}(
-            nonce, user, creator, token, vestingAmount, vestingStart, vestingEnd
+
+        IFactory(factory).onVestingDeployed{
+            value: 0,
+            flag: MsgFlag.ALL_NOT_RESERVED
+        }(
+            nonce,
+            user,
+            creator,
+            _remainingGasTo,
+            token,
+            vestingAmount,
+            vestingStart,
+            vestingEnd
         );
     }
 
     function _setupTokenWallets() internal view {
-        ITokenRoot(token).deployWallet{value: TOKEN_WALLET_DEPLOY_VALUE, callback: Vesting.receiveTokenWalletAddress }(
+        ITokenRoot(token).deployWallet{
+            flag: 0,
+            value: TOKEN_WALLET_DEPLOY_VALUE,
+            callback: Vesting.receiveTokenWalletAddress
+        }(
             address(this), // owner
             TOKEN_WALLET_DEPLOY_VALUE / 2 // deploy grams
         );
 
-        ITokenRoot(token).deployWallet{value: TOKEN_WALLET_DEPLOY_VALUE, callback: Vesting.dummy }(
+        ITokenRoot(token).deployWallet{
+            flag: 0,
+            value: TOKEN_WALLET_DEPLOY_VALUE,
+            callback: Vesting.dummy
+        }(
             user, // owner
             TOKEN_WALLET_DEPLOY_VALUE / 2 // deploy grams
         );
     }
 
     function receiveTokenWalletAddress(address wallet) external {
-        require (msg.sender == token, NOT_TOKEN);
+        require(msg.sender == token, NOT_TOKEN);
         tokenWallet = wallet;
         emit ReceivedTokenWalletAddress(wallet);
     }
 
-    function dummy(address) external view { require (msg.sender == token, NOT_TOKEN); }
+    function dummy(address) external view {
+        require(msg.sender == token, NOT_TOKEN);
+    }
 
-    function getDetails() external view returns (
-        address _user,
-        address _creator,
-        address _token,
-        uint128 _vestingAmount,
-        uint32 _vestingStart,
-        uint32 _vestingEnd,
-        uint32 _lastClaimTime,
-        uint128 _tokenBalance,
-        address _tokenWallet,
-        bool _filled,
-        bool _vested,
-        uint128 _nonce,
-        address _factory
-    ) {
+    function getDetails()
+        external
+        view
+        returns (
+            address _user,
+            address _creator,
+            address _token,
+            uint128 _vestingAmount,
+            uint32 _vestingStart,
+            uint32 _vestingEnd,
+            uint32 _lastClaimTime,
+            uint128 _tokenBalance,
+            address _tokenWallet,
+            bool _filled,
+            bool _vested,
+            uint128 _nonce,
+            address _factory
+        )
+    {
         return (
-            user, creator, token, vestingAmount, vestingStart, vestingEnd, lastClaimTime,
-            tokenBalance, tokenWallet, filled, vested, nonce, factory
+            user,
+            creator,
+            token,
+            vestingAmount,
+            vestingStart,
+            vestingEnd,
+            lastClaimTime,
+            tokenBalance,
+            tokenWallet,
+            filled,
+            vested,
+            nonce,
+            factory
         );
     }
 
-    function _reserve() internal virtual pure returns (uint128) {
-        return math.max(address(this).balance - msg.value, CONTRACT_MIN_BALANCE);
+    function _reserve() internal pure virtual returns (uint128) {
+        return
+            math.max(address(this).balance - msg.value, CONTRACT_MIN_BALANCE);
     }
 
     // deposit occurs here
@@ -124,17 +160,18 @@ contract Vesting {
         address,
         address remainingGasTo,
         TvmCell
-    ) external  {
-        require (msg.sender == tokenWallet, NOT_WALLET);
+    ) external {
+        require(msg.sender == tokenWallet, NOT_WALLET);
 
         tvm.rawReserve(_reserve(), 0);
 
         if (amount != vestingAmount || filled == true) {
             emit BadDeposit(sender, amount);
             TvmCell empty;
-            ITokenWallet(tokenWallet).transfer{value: 0, flag: MsgFlag.ALL_NOT_RESERVED}(
-                amount, sender, 0, sender, false, empty
-            );
+            ITokenWallet(tokenWallet).transfer{
+                value: 0,
+                flag: MsgFlag.ALL_NOT_RESERVED
+            }(amount, sender, 0, sender, false, empty);
             return;
         }
 
@@ -152,17 +189,15 @@ contract Vesting {
             uint32 period_left = vestingEnd - lastClaimTime;
             uint32 period_passed = now - lastClaimTime;
             tokens_to_claim = (tokenBalance * period_passed) / period_left;
-        } else {
-            tokens_to_claim = 0;
         }
     }
 
     function claim() external {
-        require (msg.sender == user, NOT_USER);
-        require (now >= vestingStart, NOT_STARTED);
-        require (filled == true, NOT_FILLED);
-        require (vested == false, VESTED_ALREADY);
-        require (msg.value >= MIN_MSG_VALUE, LOW_VALUE);
+        require(msg.sender == user, NOT_USER);
+        require(now >= vestingStart, NOT_STARTED);
+        require(filled == true, NOT_FILLED);
+        require(vested == false, VESTED_ALREADY);
+        require(msg.value >= MIN_MSG_VALUE, LOW_VALUE);
 
         tvm.rawReserve(_reserve(), 0);
 
@@ -185,9 +220,9 @@ contract Vesting {
         }
 
         TvmCell empty;
-        ITokenWallet(tokenWallet).transfer{value: 0, flag: MsgFlag.ALL_NOT_RESERVED}(
-            tokens_to_claim, user, 0, user, false, empty
-        );
+        ITokenWallet(tokenWallet).transfer{
+            value: 0,
+            flag: MsgFlag.ALL_NOT_RESERVED
+        }(tokens_to_claim, user, 0, user, false, empty);
     }
-
 }
